@@ -1,16 +1,32 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using Microsoft.EntityFrameworkCore;
 
 namespace Reflection;
 
 public class DbContextReflector
 {
+    /// <summary>
+    /// Gets a list of all entity types, i.e. models, defined in a given DbContext.
+    /// </summary>
+    /// <param name="dbContextType">Type that defines a DbContext to read entity types from.</param>
+    /// <remarks>
+    /// Gets all entity types used to define DbSet properties in type <paramref name="dbContextType"/>.
+    /// </remarks>
+    public IEnumerable<Type> GetDbSetEntities(Type dbContextType)
+    {
+        var dbSets = dbContextType.GetProperties()
+            .Where(p => p.PropertyType.IsGenericType &&
+                        p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
+            .Select(p => p.PropertyType.GetGenericArguments().First());
+
+        return dbSets;
+    }
+    
+    /// <summary>
+    /// Returns a Type that defines a DbContext given an assembly path and DbContext name.
+    /// </summary>
+    /// <param name="assemblyPath">Path to an assembly that contains the DbContext.</param>
+    /// <param name="dbContextName">Type name of the DbContext</param>
     public Type GetDbContextType(string assemblyPath, string dbContextName)
     {
         // TASKT: Replace exceptions with a Result pattern.
@@ -29,28 +45,5 @@ public class DbContextReflector
 
         return dbContextType;
     }
-    
-    /// <summary>
-    /// Gets a list of all entity types used to define DbSet properties in a given DbContext type.
-    /// </summary>
-    /// <param name="assemblyPath"></param>
-    /// <param name="dbContextName"></param>
-    /// <returns></returns>
-    /// <exception cref="FileNotFoundException"></exception>
-    /// <exception cref="ArgumentException"></exception>
-    public List<string> GetDbSetEntities(Type dbContextType)
-    {
- 
-
-        var entitySets = dbContextType.GetProperties()
-            .Where(p => p.PropertyType.IsGenericType &&
-                        p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
-            .Select(p => p.Name)
-            .ToList();
-
-        return entitySets;
-    }
-    
-    
 }
 
