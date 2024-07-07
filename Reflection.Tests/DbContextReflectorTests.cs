@@ -16,7 +16,7 @@ public class DbContextReflectorTests
 
         var actual = _reflector.GetDbContextType(dbContextAsmPath, expected.Name);
         
-        Assert.Equal(expected, actual);
+        actual.ShouldBe(expected);
     }
     
     [Fact]
