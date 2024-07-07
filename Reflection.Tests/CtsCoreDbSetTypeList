@@ -105,7 +105,7 @@ Sysdiagram
 SystemConfiguration
 TaskItem
 Title
-CTSCore.Models.Training
+Training
 TrainingChannel
 TrainingCourse
 TrainingCourseCategory
@@ -132,4 +132,4 @@ VwLicensesAll
 WfworkItem
 WfworkType
 WfworkitemIndex
-Workplace Workplaces
+Workplace

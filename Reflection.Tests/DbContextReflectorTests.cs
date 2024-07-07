@@ -22,9 +22,12 @@ public class DbContextReflectorTests
     [Fact]
     public void GetDbSetEntitiesReturnsAllDbSetsInList()
     {
-        // var knownEntityTypes = File.ReadAllLines("CtsCoreDbSetList");
-        // var dbct = _reflector.GetDbContextType("Reflection/library/CTSCore.dll", "CTSDBContext");
-        //
-        // var actualTypes = _reflector.
+        var expectedNames = File.ReadAllLines("CtsCoreDbSetTypeList");
+        var dbct = _reflector.GetDbContextType(dbContextAsmPath, "CTSDBContext");
+        
+        var actualTypes = _reflector.GetDbSetTypes(dbct);
+        
+        var actualNames = actualTypes.Select(t => t.Name);
+        actualNames.ShouldBe(expectedNames, ignoreOrder:true);
     }
 }
