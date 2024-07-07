@@ -12,7 +12,7 @@ public class DbContextReflector
     /// <remarks>
     /// Gets all entity types used to define DbSet properties in type <paramref name="dbContextType"/>.
     /// </remarks>
-    public IEnumerable<Type> GetDbSetEntities(Type dbContextType)
+    public IEnumerable<Type> GetDbSetTypes(Type dbContextType)
     {
         var dbSets = dbContextType.GetProperties()
             .Where(p => p.PropertyType.IsGenericType &&

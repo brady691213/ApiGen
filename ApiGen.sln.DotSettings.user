@@ -1,4 +1,20 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=C_003A_005CUsers_005Cbrady_005Cprojects_005CApiGen_005CLibrary_005CCTSCore_002Edll/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\brady\projects\ApiGen\Reflection\library\CTSCore.dll" /&gt;&#xD;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9159a17b_002Dbb16_002D41a9_002D992b_002D3b79f4379121/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetDbContextTypeReturnsCorrectType #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::B0788E30-C9A1-4B5B-9C9E-C4E2195A1DCB::net8.0::Reflection.Tests.DbContextReflectorTests.GetDbContextTypeReturnsCorrectType&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=e8ba3785_002D8ab6_002D4e28_002D9b73_002Dc51f47b7b65b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetDbContextTypeReturnsCorrectType #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::B0788E30-C9A1-4B5B-9C9E-C4E2195A1DCB::net8.0::Reflection.Tests.DbContextReflectorTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f57921de_002De3ce_002D484b_002Dbd29_002D2667a6c198dc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetDbContextTypeReturnsCorrectType" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::B0788E30-C9A1-4B5B-9C9E-C4E2195A1DCB::net8.0::Reflection.Tests.DbContextReflectorTests.GetDbContextTypeReturnsCorrectType&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
