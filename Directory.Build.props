@@ -1,0 +1,9 @@
+<Project>
+
+    <ItemGroup>
+        <Reference Include="CTSCore">
+            <HintPath>$(MSBuildThisFileDirectory)Library\CTSCore.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+</Project>

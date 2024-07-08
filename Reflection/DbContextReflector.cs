@@ -6,7 +6,7 @@ namespace Reflection;
 public class DbContextReflector
 {
     /// <summary>
-    /// Gets a list of all entity types, i.e. models, defined in a given DbContext.
+    /// Gets a collection of all entity types, i.e. models, defined in a given DbContext.
     /// </summary>
     /// <param name="dbContextType">Type that defines a DbContext to read entity types from.</param>
     /// <remarks>
@@ -44,6 +44,18 @@ public class DbContextReflector
         }
 
         return dbContextType;
+    }
+    
+    /// <summary>
+    /// Gets all public properties for a given entity.
+    /// </summary>
+    /// <param name="entityType">Entity type to get properties for.</param>
+    /// <returns>A collection of <see cref="PropertyInfo"/> objects representing the public properties of <paramref name="entityType"/>.</returns>
+    public IEnumerable<PropertyInfo> GetEntityProperties(Type entityType)
+    {
+        var baseFlags = BindingFlags.Public | BindingFlags.Instance;
+
+        return entityType.GetProperties(baseFlags | BindingFlags.DeclaredOnly);
     }
 }
 

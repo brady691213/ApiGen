@@ -29,12 +29,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="CTSCore">
-        <HintPath>..\Library\CTSCore.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="CtsCoreDbSetTypeList" />
       <Content Include="CtsCoreDbSetTypeList">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
