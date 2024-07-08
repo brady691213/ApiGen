@@ -1,5 +1,5 @@
 using System.Collections.Immutable;
-using System.Linq;
+using System;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -12,7 +12,7 @@ namespace HelloWorld;
 /// A sample source generator that creates a custom report based on class properties. The target class should be annotated with the 'Generators.ReportAttribute' attribute.
 /// When using the source code as a baseline, an incremental source generator is preferable because it reduces the performance overhead.
 /// </summary>
-[Generator]
+//[Generator]
 public class SampleIncrementalSourceGenerator : IIncrementalGenerator
 {
     private const string Namespace = "Generators";
