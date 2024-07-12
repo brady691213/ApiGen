@@ -1,10 +1,9 @@
 ﻿using System.Text.RegularExpressions;
 using CTSCore.Models;
 using Reflection;
-using Shouldly;
 using Xunit;
 
-namespace ModelBuilder.Tests;
+namespace SourceBuilder.Tests;
 
 public class DtoBuilderTests
 {

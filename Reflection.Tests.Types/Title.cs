@@ -1,4 +1,4 @@
-﻿namespace Reflection.Tests;
+﻿namespace Reflection.Tests.Types;
 
 public class Title
 {

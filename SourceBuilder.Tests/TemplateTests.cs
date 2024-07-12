@@ -2,7 +2,7 @@
 using Shouldly;
 using Xunit;
 
-namespace ModelBuilder.Tests;
+namespace SourceBuilder.Tests;
 
 public class TemplateTests
 {

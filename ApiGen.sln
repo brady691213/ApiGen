@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection", "Reflection\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection.Tests", "Reflection.Tests\Reflection.Tests.csproj", "{B0788E30-C9A1-4B5B-9C9E-C4E2195A1DCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelBuilder", "ModelBuilder\ModelBuilder.csproj", "{DE62E6DF-823A-4F15-B2CC-308216CD546C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceBuilder", "SourceBuilder\SourceBuilder.csproj", "{DE62E6DF-823A-4F15-B2CC-308216CD546C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelBuilder.Tests", "ModelBuilder.Tests\ModelBuilder.Tests.csproj", "{6A44425E-9944-4080-A1C9-ECA132A552C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceBuilder.Tests", "SourceBuilder.Tests\SourceBuilder.Tests.csproj", "{6A44425E-9944-4080-A1C9-ECA132A552C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection.Tests.Types", "Reflection.Tests.Types\Reflection.Tests.Types.csproj", "{276CE917-C2E0-425D-BB4C-04C54EE1FB08}"
 EndProject

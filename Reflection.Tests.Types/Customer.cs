@@ -1,4 +1,4 @@
-﻿namespace Reflection.Tests.SampleTypes;
+﻿namespace Reflection.Tests.Types;
 
 public class Customer(Guid id) : Person(id)
 {

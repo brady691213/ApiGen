@@ -1,4 +1,4 @@
-﻿using Reflection.Tests.SampleTypes;
+﻿using Reflection.Tests.Types;
 using Shouldly;
 
 namespace Reflection.Tests.Unit;

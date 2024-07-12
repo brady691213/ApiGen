@@ -1,6 +1,6 @@
 ﻿using Reflection;
 
-namespace ModelBuilder;
+namespace SourceBuilder;
 
 /// <summary>
 /// This class uses text templates to generate models for a web API such as Request and Response DTOs.
