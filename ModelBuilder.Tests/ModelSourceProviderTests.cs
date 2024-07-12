@@ -1,6 +1,5 @@
 ﻿using CTSCore.Models;
 using Reflection;
-using Reflection.Tests.SampleTypes;
 using Shouldly;
 using Xunit;
 
@@ -19,23 +18,23 @@ public class ModelSourceProviderTests
         var reflector = new DbContextReflector();
         
         var expectedDecs = reflector.GetEntityProperties(entityType)
-            .Select(p => new PropertyDeclaration(p.PropertyType.Name, p.Name))
+            .Select(p => new PropertyModel(p.PropertyType.Name, p.Name))
             .ToList();
 
-        var actualCode = sourceProvider.BuildEntityDto(entityType);
+        var actualCode = sourceProvider.BuildDtoForEntity(entityType);
         
         var actualDecs = GetActualDeclarations(actualCode);
         actualDecs.ShouldBe(expectedDecs, ignoreOrder: true);
     }
 
-    private List<PropertyDeclaration> GetActualDeclarations(string actual)
+    private List<PropertyModel> GetActualDeclarations(string actual)
     {
         var lines = actual.Split('\n');
-        var actualDecs = new List<PropertyDeclaration>();
+        var actualDecs = new List<PropertyModel>();
         for (var i = 1; i < lines.Length - 2; i++)
         {
             var parts = lines[i].Split(' ');
-            actualDecs.Add(new PropertyDeclaration(parts[1], parts[2]));
+            actualDecs.Add(new PropertyModel(parts[1], parts[2]));
         }
         return actualDecs;
     }

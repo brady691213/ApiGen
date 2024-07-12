@@ -2,22 +2,30 @@
 
 namespace ModelBuilder;
 
+/// <summary>
+/// This class uses text templates to generate models for a web API such as Request and Response DTOs.
+/// </summary>
 public class ModelSourceProvider
 {
-    public string BuildEntityDto(Type entityType)
+    /// <summary>
+    /// Builds source code for a request or response DTO that can eb mapped to an EF entity.
+    /// </summary>
+    /// <param name="entityType">EF entity type to base the DTO on.</param>
+    /// <returns></returns>
+    public string BuildDtoForEntity(Type entityType)
     {
-        var _reflector = new DbContextReflector();
-        var entityProps = _reflector.GetEntityProperties(entityType);
+        var reflector = new DbContextReflector();
+        var entityProps = reflector.GetEntityProperties(entityType);
 
-        var propDecls = entityProps
+        var dtoProps = entityProps
             .Select(p => new PropertyModel(p.PropertyType.Name, p.Name))
             .ToList();
+        var model = new EntityModel(entityType.Name, dtoProps);
 
-        var model = new EntityModel(entityType.Name, propDecls);
+        var builder = new TemplateLoader();
+        var template = builder.LoadDtoTemplate();
 
-        var builder = new TemplateBuilder();
-        var template = builder.ParseDtoTemplate();
-
+        // TASKT: Pass an object with only one property.
         var dtoClass = template.Render(new {entityName = model.EntityName, entityProps = model.Properties});
 
         return dtoClass;

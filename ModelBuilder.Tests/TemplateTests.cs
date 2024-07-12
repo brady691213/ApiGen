@@ -1,5 +1,4 @@
-﻿using Scriban;
-using Scriban.Parsing;
+﻿using Scriban.Parsing;
 using Shouldly;
 using Xunit;
 
@@ -14,8 +13,8 @@ public class TemplateTests
     {
         var expectedMessages = new List<string>();
         
-        var builder = new TemplateBuilder();
-        var template = builder.ParseDtoTemplate();
+        var builder = new TemplateLoader();
+        var template = builder.LoadDtoTemplate();
 
         var actualMsgs = template.Messages
             .Where(m => m.Type == ParserMessageType.Error)
