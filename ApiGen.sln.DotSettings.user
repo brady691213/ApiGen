@@ -15,8 +15,7 @@
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=680afbdc_002D2399_002D446c_002Dbb54_002D473ea07e0163/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ShortFormNullableGenericDeclarationIsValid" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::B0788E30-C9A1-4B5B-9C9E-C4E2195A1DCB::net8.0::Reflection.Tests.Unit.PropertyModelTests.ShortFormNullableGenericDeclarationIsValid&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::B0788E30-C9A1-4B5B-9C9E-C4E2195A1DCB::net8.0::Reflection.Tests.Unit.PropertyModelTests.ExplicitNullableGenericDeclarationIsValid&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::B0788E30-C9A1-4B5B-9C9E-C4E2195A1DCB::net8.0::Reflection.Tests.Unit.PropertyModelTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=893d23ae_002D22e8_002D4e4b_002D9149_002D2b7cdfc39e64/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ShortFormNullableGenericDeclarationIsValid #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
