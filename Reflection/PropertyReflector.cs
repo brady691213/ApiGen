@@ -37,6 +37,7 @@ public class PropertyReflector
     bool IsMarkedAsNullable(PropertyInfo p)
     {
         // https://stackoverflow.com/a/72586919/8741
+        // Comment adds to check ReadState not WriteState, for get only. Maybe check for each method.
         return new NullabilityInfoContext().Create(p).WriteState is NullabilityState.Nullable;
     }
 }

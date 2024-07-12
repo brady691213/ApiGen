@@ -12,5 +12,6 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::6A44425E-9944-4080-A1C9-ECA132A552C2::net8.0::ModelBuilder.Tests.ModelSourceProviderTests.PropertTypeDeclarationsAreCorrect&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::B0788E30-C9A1-4B5B-9C9E-C4E2195A1DCB::net8.0::Reflection.Tests.Unit.PropertyModelTests.GenericDeclarationIsValid&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::B0788E30-C9A1-4B5B-9C9E-C4E2195A1DCB::net8.0::Reflection.Tests.Unit.PropertyModelTests.ExplicitNullableGenericDeclarationIsValid&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
