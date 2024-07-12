@@ -7,6 +7,7 @@ public class PropertyReflector
     public PropertyModel GetPropertyModel(PropertyInfo info)
     {
         // TASKT: Map typename to keyword.
+        // TASKT: Map Nullable<T> to T?
 
         var model = new PropertyModel(info.PropertyType.Name, info.Name);
         model.TypeDeclaration = BuildTypeDeclaration(info.PropertyType);

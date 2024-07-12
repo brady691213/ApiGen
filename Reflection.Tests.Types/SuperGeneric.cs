@@ -1,11 +1,11 @@
 ﻿namespace Reflection.Tests.SampleTypes;
 
-public class SuperGeneric
+public class SuperGenericNoAlias
 {
     public Nullable<Guid> Anullable { get; set; }
     
-    public List<int?>? ShortFormNullables { get; set; }
+    public List<Int32?>? ShortFormNullables { get; set; }
     
     // ReSharper disable once ConvertNullableToShortForm
-    public List<Nullable<int>>? ExplicitNullables { get; set; }
+    public List<Nullable<Int32>>? ExplicitNullables { get; set; }
 }
