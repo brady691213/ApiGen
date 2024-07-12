@@ -41,4 +41,23 @@ public class PropertyReflector
         // Comment adds to check ReadState not WriteState, for get only. Maybe check for each method.
         return new NullabilityInfoContext().Create(p).WriteState is NullabilityState.Nullable;
     }
+
+    private string GetTypeAlias(Type type)
+    {
+        var alias = _typeAliasLookup.SingleOrDefault(p => p.Value == type).Key;
+        return alias ?? type.Name;
+    }
+
+    private string? GetFullTypeName(string alias)
+    {
+        _typeAliasLookup.TryGetValue(alias, out Type? type);
+        return type?.Name;
+    }
+
+    private string GetAliasForNullable(string nullableTypeName)
+    {
+        var groups = nullableTypeRx.Match(nullableTypeName).Groups;
+        return groups["0"].Captures[0].Value;
+
+    }
 }
