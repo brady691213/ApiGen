@@ -1,16 +1,41 @@
 ﻿using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Reflection;
 
 public class PropertyReflector
 {
-    public PropertyModel GetPropertyModel(PropertyInfo info)
+    private Regex nullableTypeRx = new Regex("Nullable<(?'type'\\w+)>");
+    private Dictionary<string, Type> _typeAliasLookup;
+
+    public PropertyReflector()
     {
-        // TASKT: Map typename to keyword.
+        _typeAliasLookup = new Dictionary<string, Type>
+        {
+            { "bool", typeof(Boolean) },
+            { "byte", typeof(Byte) },
+            { "sbyte", typeof(SByte) },
+            { "char", typeof(Char) },
+            { "decimal", typeof(Decimal) },
+            { "double", typeof(Double) },
+            { "float", typeof(Single) },
+            { "int", typeof(Int32) },
+            { "uint", typeof(UInt32) },
+            { "long", typeof(Int64) },
+            { "ulong", typeof(UInt64) },
+            { "object", typeof(Object) },
+            { "short", typeof(Int16) },
+            { "ushort", typeof(UInt16) },
+            { "string", typeof(String) }
+        };
+    }
+
+    public PropertyModel GetPropertyModel(PropertyInfo info, bool skipAliases = false)
+    {
         // TASKT: Map Nullable<T> to T?
 
         var model = new PropertyModel(info.PropertyType.Name, info.Name);
-        model.TypeDeclaration = BuildTypeDeclaration(info.PropertyType);
+        model.TypeDeclaration = BuildTypeDeclaration(info.PropertyType, skipAliases);
         if (IsMarkedAsNullable(info))
         {
             model.TypeDeclaration += "?";
@@ -19,17 +44,17 @@ public class PropertyReflector
         return model;
     }
 
-    private string BuildTypeDeclaration(Type propType)
+    private string BuildTypeDeclaration(Type propType, bool skipAlias = false)
     {
         if (!propType.IsGenericType)
         {
-            return propType.Name;
+            return skipAlias ? propType.Name : GetTypeAlias(propType);
         }
 
         var names = new List<string>();
         foreach (var genericTypeArgument in propType.GenericTypeArguments)
         {
-            names.Add(BuildTypeDeclaration(genericTypeArgument));
+            names.Add(BuildTypeDeclaration(genericTypeArgument, skipAlias));
         }
 
         return $"{propType.Name.Split('`')[0]}<{string.Join(",", names)}>";

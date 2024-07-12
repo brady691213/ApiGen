@@ -6,15 +6,15 @@ using Xunit;
 
 namespace ModelBuilder.Tests;
 
-public class ModelSourceProviderTests
+public class DtoBuilderTests
 {
     // This should be defined here in the tests because the actual refelctor should never have a fixed asm path.
     private const string DbContextAsmPath = @"C:\Users\brady\projects\ApiGen\Library\CTSCore.dll";
 
     [Fact]
-    public void PropertTypeDeclarationsAreCorrect()
+    public void PropertyTypeDeclarationsAreCorrect()
     {
-        var sourceProvider = new ModelSourceProvider();
+        var sourceProvider = new DtoBuilder();
         var entityType = typeof(CourseTemplate);
         var dbRef = new DbContextReflector();
         var pRef = new PropertyReflector();
@@ -22,7 +22,7 @@ public class ModelSourceProviderTests
         var expectedModels = dbRef.GetEntityProperties(entityType)
             .Select(p => pRef.GetPropertyModel(p))
             .ToList();
-        var expectedDecs = expectedModels.Select(m => $"public {m.BuildPropertyDeclaration()}").ToList();
+        var expectedDecs = expectedModels.Select(m => $"public {m.TypeDeclaration}").ToList();
         
         var actualCode = sourceProvider.BuildDtoForEntity(entityType);
 

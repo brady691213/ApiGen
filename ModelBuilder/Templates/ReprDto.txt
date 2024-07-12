@@ -1,9 +1,9 @@
 ﻿{{ ## Scriban template for HTTP Request and Response DTOs ala FastEndpoints }}
 
-{{ $"public class {entity_name}" }}
+{{ $"public class {model.entity_name}" }}
 {
-{{- for prop in entity_props }}
-{{ $"    public {prop.get_type_declaration_text} {prop.property_name}" }} {%{ { }%} get;set; {%{ } }%} 
+{{- for prop in model.properties }}
+{{ $"    public {prop.type_declaration} {prop.property_name}" }} {%{ { }%} get;set; {%{ } }%} 
 {{- end }}
 }
 
