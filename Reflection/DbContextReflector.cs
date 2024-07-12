@@ -5,6 +5,8 @@ namespace Reflection;
 
 public class DbContextReflector
 {
+    private AssemblyLoader _asmLoader = new();
+    
     /// <summary>
     /// Gets a collection of all entity types, i.e. models, defined in a given DbContext.
     /// </summary>
@@ -14,7 +16,22 @@ public class DbContextReflector
     /// </remarks>
     public IEnumerable<Type> GetDbSetTypes(Type dbContextType)
     {
+        var props = dbContextType.GetProperties();
+        var dbsetTypeName = typeof(DbSet<>).Name;
+        
         var dbSets = dbContextType.GetProperties()
+            .Where(p => p.PropertyType.IsGenericType &&
+                        p.PropertyType.GetGenericTypeDefinition().Name == dbsetTypeName)
+            .Select(p => p.PropertyType.GetGenericArguments().First());
+
+        return dbSets;
+    }
+    
+    public IEnumerable<Type> GetDbSetTypesFromAssembly(string assemblyPath, Type dbContextType)
+    {
+        var asm = _asmLoader.LoadAssembly(assemblyPath);
+        var dbct = GetDbContextType(assemblyPath, "CTSDBContext");
+        var dbSets = dbct.GetProperties()
             .Where(p => p.PropertyType.IsGenericType &&
                         p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
             .Select(p => p.PropertyType.GetGenericArguments().First());
@@ -38,7 +55,9 @@ public class DbContextReflector
         var loader = new AssemblyLoader();
         var assembly = loader.LoadAssembly(assemblyPath);
         
-        var dbContextType = assembly.GetTypes().FirstOrDefault(t => t.Name == dbContextName && typeof(DbContext).IsAssignableFrom(t));
+        // TASKQ: Why isn't this working with `&& typeof(DbContext).IsAssignableFrom(t)`?
+        //var dbContextType = assembly.GetTypes().FirstOrDefault(t => t.Name == dbContextName && typeof(DbContext).IsAssignableFrom(t));
+        var dbContextType = assembly.GetTypes().FirstOrDefault(t => t.Name == dbContextName);
         
         if (dbContextType == null)
         {

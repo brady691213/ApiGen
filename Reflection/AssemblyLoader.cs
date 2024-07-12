@@ -13,6 +13,10 @@ public class AssemblyLoader
         var paths = new List<string>(runtimeAssemblies);
         paths.Add(assemblyPath);
         
+        // Getting exeption that Microsoft.EntityFrameworkCore asm not found. So this:
+        var efcPath = typeof(Microsoft.EntityFrameworkCore.ModelBuilder).Assembly.Location;
+        paths.Add(efcPath);
+        
         var resolver = new PathAssemblyResolver(paths);
         var mlc = new MetadataLoadContext(resolver);
 
