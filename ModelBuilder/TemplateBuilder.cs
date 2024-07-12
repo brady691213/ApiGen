@@ -1,6 +1,6 @@
 ﻿using Scriban;
 
-namespace EntityDecompiler;
+namespace ModelBuilder;
 
 public class TemplateBuilder
 {

@@ -1,5 +1,4 @@
 ﻿using CTSCore.Models;
-using EntityDecompiler;
 using Reflection;
 using Reflection.Tests.SampleTypes;
 using Shouldly;
@@ -9,6 +8,7 @@ namespace ModelBuilder.Tests;
 
 public class ModelSourceProviderTests
 {
+    // This should be defined here in the tests because the actual refelctor should never have a fixed asm path.
     private const string DbContextAsmPath = @"C:\Users\brady\projects\ApiGen\Library\CTSCore.dll";
 
     [Fact]

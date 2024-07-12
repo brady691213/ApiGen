@@ -1,8 +1,6 @@
-﻿using System.Reflection;
-using Reflection;
-using Scriban;
+﻿using Reflection;
 
-namespace EntityDecompiler;
+namespace ModelBuilder;
 
 public class ModelSourceProvider
 {
@@ -12,7 +10,7 @@ public class ModelSourceProvider
         var entityProps = _reflector.GetEntityProperties(entityType);
 
         var propDecls = entityProps
-            .Select(p => new PropertyDeclaration(p.PropertyType.Name, p.Name))
+            .Select(p => new PropertyModel(p.PropertyType.Name, p.Name))
             .ToList();
 
         var model = new EntityModel(entityType.Name, propDecls);
