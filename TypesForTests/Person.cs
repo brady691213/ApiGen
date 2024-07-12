@@ -1,6 +1,6 @@
 ﻿namespace Reflection.Tests.SampleTypes;
 
-public class Person
+public class Person(Guid id) : BaseEntity<Guid>(id)
 {
     public virtual string Surname { get; set; }
     

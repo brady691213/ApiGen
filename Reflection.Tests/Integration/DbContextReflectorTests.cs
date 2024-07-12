@@ -1,7 +1,7 @@
 using CTSCore.Models;
 using Shouldly;
 
-namespace Reflection.Tests;
+namespace Reflection.Tests.Integration;
 
 public class DbContextReflectorTests
 {

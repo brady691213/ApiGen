@@ -9,7 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection.Tests", "Reflect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureGenerator", "FeatureGenerator\FeatureGenerator.csproj", "{DFD82891-6B9A-49B9-A204-8DF57B2772D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityDecompiler", "EntityDecompiler\EntityDecompiler.csproj", "{DE62E6DF-823A-4F15-B2CC-308216CD546C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelBuilder", "ModelBuilder\ModelBuilder.csproj", "{DE62E6DF-823A-4F15-B2CC-308216CD546C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelBuilder.Tests", "ModelBuilder.Tests\ModelBuilder.Tests.csproj", "{6A44425E-9944-4080-A1C9-ECA132A552C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypesForTests", "TypesForTests\TypesForTests.csproj", "{276CE917-C2E0-425D-BB4C-04C54EE1FB08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +40,13 @@ Global
 		{DE62E6DF-823A-4F15-B2CC-308216CD546C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE62E6DF-823A-4F15-B2CC-308216CD546C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE62E6DF-823A-4F15-B2CC-308216CD546C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A44425E-9944-4080-A1C9-ECA132A552C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A44425E-9944-4080-A1C9-ECA132A552C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A44425E-9944-4080-A1C9-ECA132A552C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A44425E-9944-4080-A1C9-ECA132A552C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{276CE917-C2E0-425D-BB4C-04C54EE1FB08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{276CE917-C2E0-425D-BB4C-04C54EE1FB08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{276CE917-C2E0-425D-BB4C-04C54EE1FB08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{276CE917-C2E0-425D-BB4C-04C54EE1FB08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

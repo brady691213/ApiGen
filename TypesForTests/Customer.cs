@@ -1,6 +1,6 @@
 ﻿namespace Reflection.Tests.SampleTypes;
 
-public class Customer: Person
+public class Customer(Guid id) : Person(id)
 {
     public string Email { get; set; }
     
