@@ -10,6 +10,10 @@ public class PropertyReflector
 
         var model = new PropertyModel(info.PropertyType.Name, info.Name);
         model.TypeDeclaration = BuildTypeDeclaration(info.PropertyType);
+        if (IsMarkedAsNullable(info))
+        {
+            model.TypeDeclaration += "?";
+        }
 
         return model;
     }
@@ -22,13 +26,17 @@ public class PropertyReflector
         }
 
         var names = new List<string>();
-        var parts = propType.Name.Split('`');
         foreach (var genericTypeArgument in propType.GenericTypeArguments)
         {
             names.Add(BuildTypeDeclaration(genericTypeArgument));
         }
 
-
         return $"{propType.Name.Split('`')[0]}<{string.Join(",", names)}>";
+    }
+    
+    bool IsMarkedAsNullable(PropertyInfo p)
+    {
+        // https://stackoverflow.com/a/72586919/8741
+        return new NullabilityInfoContext().Create(p).WriteState is NullabilityState.Nullable;
     }
 }
