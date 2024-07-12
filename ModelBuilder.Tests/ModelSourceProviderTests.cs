@@ -11,18 +11,14 @@ public class ModelSourceProviderTests
 {
     private const string DbContextAsmPath = @"C:\Users\brady\projects\ApiGen\Library\CTSCore.dll";
 
-    private DbContextReflector _reflector = new DbContextReflector();
-    private ModelSourceProvider _sourceProvider;
-
-    public ModelSourceProviderTests()
-    {
-        _sourceProvider = new ModelSourceProvider(_reflector);
-    }
-    
     [Fact]
     public void BuildEntityDtoRendersCorrectProps()
     {
+        var _sourceProvider = new ModelSourceProvider();
+        
         var entityType = typeof(CourseTemplate);
+
+        var _reflector = new DbContextReflector();
         var expectedProps = _reflector.GetEntityProperties(entityType)
             .Select(p => new PropertyDeclaration(p.PropertyType.Name, p.Name))
             .ToList();

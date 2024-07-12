@@ -4,12 +4,11 @@ using Scriban;
 
 namespace EntityDecompiler;
 
-public class ModelSourceProvider(DbContextReflector reflector)
+public class ModelSourceProvider
 {
-    private DbContextReflector _reflector = reflector;
-
     public string BuildEntityDto(Type entityType)
     {
+        var _reflector = new DbContextReflector();
         var entityProps = _reflector.GetEntityProperties(entityType);
 
         var propDecls = entityProps
@@ -18,11 +17,11 @@ public class ModelSourceProvider(DbContextReflector reflector)
 
         var model = new EntityModel(entityType.Name, propDecls);
 
-        var templateText = File.ReadAllText(@"Templates\dto.txt");
-        var template = Template.Parse(templateText);
+        var builder = new TemplateBuilder();
+        var template = builder.ParseDtoTemplate();
 
-        var modelClass = template.Render(model);
+        var dtoClass = template.Render(new {model = model});
 
-        return modelClass;
+        return dtoClass;
     }
 }

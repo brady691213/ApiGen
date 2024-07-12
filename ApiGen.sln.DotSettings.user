@@ -2,9 +2,14 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\brady\projects\ApiGen\Library\CTSCore.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5c8aeef1_002Dc485_002D4a6f_002Db47d_002D0e33c192a167/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="BuildEntityDtoRendersCorrectProps" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5c8aeef1_002Dc485_002D4a6f_002Db47d_002D0e33c192a167/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="BuildEntityDtoRendersCorrectProps" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::6A44425E-9944-4080-A1C9-ECA132A552C2::net8.0::ModelBuilder.Tests.ModelSourceProviderTests.BuildEntityDtoRendersCorrectProps&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::6A44425E-9944-4080-A1C9-ECA132A552C2::net8.0::ModelBuilder.Tests.TemplateTests.ParseDtoTemplateHasNoErrors&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b351e308_002Dd46a_002D427d_002Db263_002D6dbc6f11d138/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="BuildEntityDtoRendersCorrectProps #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::6A44425E-9944-4080-A1C9-ECA132A552C2::net8.0::ModelBuilder.Tests.ModelSourceProviderTests.BuildEntityDtoRendersCorrectProps&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -35,7 +35,9 @@ public class DbContextReflector
             throw new FileNotFoundException($"Assembly not found at path: {assemblyPath}");
         }
 
-        var assembly = Assembly.LoadFrom(assemblyPath);
+        var loader = new AssemblyLoader();
+        var assembly = loader.LoadAssembly(assemblyPath);
+        
         var dbContextType = assembly.GetTypes().FirstOrDefault(t => t.Name == dbContextName && typeof(DbContext).IsAssignableFrom(t));
         
         if (dbContextType == null)
