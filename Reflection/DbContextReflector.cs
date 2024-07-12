@@ -27,13 +27,13 @@ public class DbContextReflector
         return dbSets;
     }
     
-    public IEnumerable<Type> GetDbSetTypesFromAssembly(string assemblyPath, Type dbContextType)
+    public IEnumerable<Type> GetDbSetTypesFromAssembly(string assemblyPath, string dbContextName)
     {
-        var asm = _asmLoader.LoadAssembly(assemblyPath);
-        var dbct = GetDbContextType(assemblyPath, "CTSDBContext");
+        var dbsetTypeName = typeof(DbSet<>).Name;
+        var dbct = GetDbContextType(assemblyPath, dbContextName);
         var dbSets = dbct.GetProperties()
             .Where(p => p.PropertyType.IsGenericType &&
-                        p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>))
+                        p.PropertyType.GetGenericTypeDefinition().Name == dbsetTypeName)
             .Select(p => p.PropertyType.GetGenericArguments().First());
 
         return dbSets;
