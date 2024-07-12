@@ -22,11 +22,13 @@ public class PropertyReflector
         }
 
         var names = new List<string>();
+        var parts = propType.Name.Split('`');
         foreach (var genericTypeArgument in propType.GenericTypeArguments)
         {
             names.Add(BuildTypeDeclaration(genericTypeArgument));
         }
 
-        return $"<{string.Join(",", names)}>";
+
+        return $"{propType.Name.Split('`')[0]}<{string.Join(",", names)}>";
     }
 }

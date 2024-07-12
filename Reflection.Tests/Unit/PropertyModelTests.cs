@@ -12,7 +12,7 @@ public class PropertyModelTests
         var genericType = typeof(SuperGeneric);
         var nullableProp = genericType.GetProperty("ListOfNullables");
 
-        var model = pRef.GetPropertyModel(nullableProp!);
+        var model = pRef.GetPropertyModel(nullableProp);
 
         var dec = model.TypeDeclaration;
         
