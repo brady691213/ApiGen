@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Reflection;
 
@@ -6,7 +7,13 @@ public class AssemblyLoader
 {
     public Assembly LoadAssembly(string assemblyPath)
     {
-        var resolver = new PathAssemblyResolver(new string[] { "ExampleAssembly.dll", typeof(object).Assembly.Location });
+        // Following docs at: https://learn.microsoft.com/en-us/dotnet/standard/assembly/inspect-contents-using-metadataloadcontext
+        
+        string[] runtimeAssemblies = Directory.GetFiles(RuntimeEnvironment.GetRuntimeDirectory(), "*.dll");
+        var paths = new List<string>(runtimeAssemblies);
+        paths.Add(assemblyPath);
+        
+        var resolver = new PathAssemblyResolver(paths);
         var mlc = new MetadataLoadContext(resolver);
 
         var asm = mlc.LoadFromAssemblyPath(assemblyPath);
