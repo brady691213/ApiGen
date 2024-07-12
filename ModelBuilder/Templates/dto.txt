@@ -1,7 +1,6 @@
-﻿public class {{ model.EntityName }}
-{
-{{~ for prop in model.Properties ~}}
-{{ prop.Name }}
-{{ end }}
-}
+﻿{{ $"public class {entity_name}" }}
+{{- for prop in entity_props }}
+{{ prop.property_name }}
+{{- end }}
+
 

@@ -4,7 +4,7 @@ namespace EntityDecompiler;
 
 public class TemplateBuilder
 {
-    private const string DtoTemplatePath = @"Templates\dto.txt";
+    private const string DtoTemplatePath = @"C:\Users\brady\projects\ApiGen\ModelBuilder\Templates\dto.txt";
     
     public Template ParseDtoTemplate()
     {

@@ -20,7 +20,7 @@ public class ModelSourceProvider
         var builder = new TemplateBuilder();
         var template = builder.ParseDtoTemplate();
 
-        var dtoClass = template.Render(new {model = model});
+        var dtoClass = template.Render(new {entityName = model.EntityName, entityProps = model.Properties});
 
         return dtoClass;
     }
