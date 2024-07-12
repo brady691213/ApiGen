@@ -12,6 +12,10 @@
     </ItemGroup>
     
     <ItemGroup>
+        <PackageReference Include="Vogen" Version="4.0.12" />
+    </ItemGroup>
+    
+    <ItemGroup>
         <Reference Include="CTSCore">
             <HintPath>$(MSBuildThisFileDirectory)Library\CTSCore.dll</HintPath>
         </Reference>

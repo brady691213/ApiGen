@@ -11,19 +11,21 @@ public class DtoBuilderTests
     private const string DbContextAsmPath = @"C:\Users\brady\projects\ApiGen\Library\CTSCore.dll";
 
     [Fact]
-    public void PropertyTypeDeclarationsAreCorrect()
+    public void PropertiesForRequestDtoAreCorrect()
     {
-        var sourceProvider = new DtoBuilder();
+        var dtoBuilder = new DtoBuilder();
         var entityType = typeof(CourseTemplate);
         var dbRef = new DbContextReflector();
         var pRef = new PropertyReflector();
         
         var expectedModels = dbRef.GetEntityProperties(entityType)
-            .Select(p => pRef.GetPropertyModel(p))
+            .Select(p => dtoBuilder.PropertyModelFromInfo(p))
             .ToList();
-        var expectedDecs = expectedModels.Select(m => $"public {m.TypeDeclaration}").ToList();
+        var expectedDecs = expectedModels
+            .Select(m => $"public {m.TypeDeclaration}")
+            .ToList();
         
-        var actualCode = sourceProvider.BuildDtoForEntity(entityType);
+        var actualCode = dtoBuilder.BuildDtoForEntity(DtoRequestResponse.Request, entityType);
 
         var actualDecs = GetPropertyDecsFromType(actualCode).ToList();
         //actualDecs.ShouldBe(expectedDecs, ignoreOrder: true);

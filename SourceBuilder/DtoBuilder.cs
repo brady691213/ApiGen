@@ -1,4 +1,5 @@
-﻿using Reflection;
+﻿using System.Reflection;
+using Reflection;
 
 namespace SourceBuilder;
 
@@ -7,35 +8,70 @@ namespace SourceBuilder;
 /// </summary>
 public class DtoBuilder
 {
+    // TASKT: Male this part of an IOptions read from config.
+    public bool skipTypeAliasing = false;
+    
+    private PropertyReflector _propertyReflector = new();
+
+
     /// <summary>
     /// Builds source code for a request or response DTO that can eb mapped to an EF entity.
     /// </summary>
+    /// <param name="dtoType">A ValueObject that specifies if the DTO will be used as a Request or a Response.</param>
     /// <param name="entityType">EF entity type to base the DTO on.</param>
     /// <returns></returns>
-    public string BuildDtoForEntity(Type entityType)
+    public string BuildDtoForEntity(DtoRequestResponse dtoType, Type entityType)
     {
-        // TASKT: Maybe name this BuildDtoForFeature?
+        // TASKT: Move props work to prop reflector.
         
         var dbReflector = new DbContextReflector();
         var entityProps = dbReflector.GetEntityProperties(entityType);
-        var propertyReflector = new PropertyReflector();
 
         var dtoProps = entityProps
-            .Select(p => propertyReflector.GetPropertyModel(p))
+            .Select(PropertyModelFromInfo)
             .ToList();
-        var dtoModel = new EntityModel(entityType.Name, dtoProps);
-
-        foreach (var prop in dtoProps)
-        {
-            var dec = prop.TypeDeclaration;
-        }
+        var dtoModel = new DtoModel( entityType.Name, dtoProps);
         
-        var builder = new TemplateLoader();
-        var template = builder.LoadDtoTemplate();
+        var loader = new TemplateLoader();
+        var template = loader.LoadDtoTemplate();
 
-        // TASKT: Pass an object with only one property.
-        var dtoClass = template.Render(new {model = dtoModel});
+        var dtoSource = template.Render(new {model = dtoModel});
 
-        return dtoClass;
+        return dtoSource;
+    }
+
+    public PropertyModel PropertyModelFromInfo(PropertyInfo info)
+    {
+        // TASKT: Map Nullable<T> to T?
+
+        var model = new PropertyModel(info.PropertyType.Name, info.Name);
+        model.TypeDeclaration =  BuildTypeDeclaration(info.PropertyType);
+        if (_propertyReflector.IsMarkedAsNullable(info))
+        {
+            model.TypeDeclaration += "?";
+        }
+
+        return model;
+    }
+    
+    public string BuildTypeDeclaration(Type propType)
+    {
+        if (!propType.IsGenericType)
+        {
+            return skipTypeAliasing ? propType.Name : _propertyReflector.GetTypeAlias(propType);
+        }
+
+        var names = new List<string>();
+        foreach (var genericTypeArgument in propType.GenericTypeArguments)
+        {
+            names.Add(BuildTypeDeclaration(genericTypeArgument));
+        }
+
+        return $"{propType.Name.Split('`')[0]}<{string.Join(",", names)}>";
+    }
+
+    private string BuildDtoName(DtoRequestResponse dtoType, Type entityType)
+    {
+        return $"{entityType.Name}{dtoType}";
     }
 }

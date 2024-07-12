@@ -1,5 +1,11 @@
 ﻿# API Generation Project
 
+## Tasks
+
+- Access modifiers. Everything is public but we should really be using internal more.
+- Use ClassFixture for tests
+- Alternate, runtime config and DI for tests.
+
 This project arose when someone asked me if a web API could be "scaffolded" like an [Entity Framework Core (EF)](https://github.com/dotnet/efcore) 
 [DbContext](https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext?view=efcore-8.0) class 
 can be scaffolded from a database in [EF database first](https://learn.microsoft.com/en-us/ef/ef6/modeling/designer/workflows/database-first) scenarios.

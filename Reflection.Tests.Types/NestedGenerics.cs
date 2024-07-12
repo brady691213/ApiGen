@@ -1,6 +1,6 @@
 ﻿namespace Reflection.Tests.Types;
 
-public class SuperGenericNoAlias
+public class NestedGenerics
 {
     public Nullable<Guid> Anullable { get; set; }
     

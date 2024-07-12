@@ -1,4 +1,7 @@
-﻿namespace Reflection;
+﻿using System.Reflection;
+using Reflection;
+
+namespace SourceBuilder;
 
 /// <summary>
 /// Models information required to generate a property declaration.
@@ -13,7 +16,11 @@
 /// </remarks>
 public class PropertyModel(string typeName, string propertyName)
 {
+    private PropertyReflector _propertyReflector = new();
+    
     public string TypeDeclaration { get; set; } 
 
     public string PropertyName { get; set; } = propertyName;
+    
+
 }
