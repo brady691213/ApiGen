@@ -19,9 +19,6 @@
 
     <ItemGroup>
       <None Remove="Templates\dto.txt" />
-      <Content Include="Templates\dto.txt">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
     </ItemGroup>
 
 </Project>
