@@ -1,4 +1,4 @@
-﻿# Scriban template for HTTP Request and Response DTOs ala FastEndpoints
+﻿{{ ## Scriban template for HTTP Request and Response DTOs ala FastEndpoints }}
 
 {{ $"public class {entity_name}" }}
 {

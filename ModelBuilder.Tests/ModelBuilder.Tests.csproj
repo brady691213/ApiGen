@@ -9,7 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ModelBuilder\ModelBuilder.csproj" />
-      <ProjectReference Include="..\TypesForTests\TypesForTests.csproj" />
+      <ProjectReference Include="..\Reflection.Tests.Types\Reflection.Tests.Types.csproj" />
     </ItemGroup>
 
 </Project>

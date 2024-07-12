@@ -8,7 +8,7 @@ namespace ModelBuilder;
 public class TemplateLoader
 {
     // TASKT: Make this path a variable that points to a lcoal soure text file for debugging and to the build output for runtime use.
-    private const string DtoTemplatePath = @"C:\Users\brady\projects\ApiGen\ModelBuilder\Templates\dto.txt";
+    private const string DtoTemplatePath = @"C:\Users\brady\projects\ApiGen\ModelBuilder\Templates\ReprDto.txt";
     
     /// <summary>
     /// Loads a Scriban template object for a Request or Response DTO from a text file.

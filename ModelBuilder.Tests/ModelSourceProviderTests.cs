@@ -29,12 +29,18 @@ public class ModelSourceProviderTests
 
     private List<PropertyModel> GetActualDeclarations(string actual)
     {
-        var lines = actual.Split('\n');
+        // TASKT: Get fancy and use RegEx to pull the properties.
+        
+        var lines = actual
+            .Split('\n', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+            .Where(l => !l.StartsWith("public class"))
+            .ToList();
         var actualDecs = new List<PropertyModel>();
-        for (var i = 1; i < lines.Length - 2; i++)
+        for (var i = 1; i < lines.Count - 2; i++)
         {
             var parts = lines[i].Split(' ');
-            actualDecs.Add(new PropertyModel(parts[1], parts[2]));
+            if (parts.Length > 2)
+                actualDecs.Add(new PropertyModel(parts[1], parts[2]));
         }
         return actualDecs;
     }
