@@ -1,6 +1,7 @@
-﻿{{ $"public class {entity.Name}Dto }}
+﻿public class {{ entity.EntityName }}
 {
 {{~ for prop in entity.Props ~}}
-{{ $"    public {prop.Type} {prop.Name} }} { get; set; }
-{{~ end ~}}
+{{ prop.Name }}
+{{ end }}
 }
+
