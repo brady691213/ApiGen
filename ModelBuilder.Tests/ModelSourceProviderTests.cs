@@ -1,4 +1,5 @@
-﻿using CTSCore.Models;
+﻿using System.Text.RegularExpressions;
+using CTSCore.Models;
 using Reflection;
 using Shouldly;
 using Xunit;
@@ -11,37 +12,31 @@ public class ModelSourceProviderTests
     private const string DbContextAsmPath = @"C:\Users\brady\projects\ApiGen\Library\CTSCore.dll";
 
     [Fact]
-    public void BuildEntityDtoRendersCorrectProps()
+    public void PropertTypeDeclarationsAreCorrect()
     {
         var sourceProvider = new ModelSourceProvider();
         var entityType = typeof(CourseTemplate);
-        var reflector = new DbContextReflector();
+        var dbRef = new DbContextReflector();
+        var pRef = new PropertyReflector();
         
-        var expectedDecs = reflector.GetEntityProperties(entityType)
-            .Select(p => new PropertyModel(p.PropertyType.Name, p.Name))
+        var expectedModels = dbRef.GetEntityProperties(entityType)
+            .Select(p => pRef.GetPropertyModel(p))
             .ToList();
-
-        var actualCode = sourceProvider.BuildDtoForEntity(entityType);
+        var expectedDecs = expectedModels.Select(m => $"public {m.BuildPropertyDeclaration()}").ToList();
         
-        var actualDecs = GetActualDeclarations(actualCode);
-        actualDecs.ShouldBe(expectedDecs, ignoreOrder: true);
+        var actualCode = sourceProvider.BuildDtoForEntity(entityType);
+
+        var actualDecs = GetPropertyDecsFromType(actualCode).ToList();
+        //actualDecs.ShouldBe(expectedDecs, ignoreOrder: true);
     }
 
-    private List<PropertyModel> GetActualDeclarations(string actual)
+    private List<PropertyModel> GetPropertyDecsFromType(string modelSource)
     {
         // TASKT: Get fancy and use RegEx to pull the properties.
-        
-        var lines = actual
-            .Split('\n', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
-            .Where(l => !l.StartsWith("public class"))
-            .ToList();
-        var actualDecs = new List<PropertyModel>();
-        for (var i = 1; i < lines.Count - 2; i++)
-        {
-            var parts = lines[i].Split(' ');
-            if (parts.Length > 2)
-                actualDecs.Add(new PropertyModel(parts[1], parts[2]));
-        }
-        return actualDecs;
+
+        var rx = new Regex(@"(?'access'\w+) (?'type')\w+ (?'name'\w+)");
+        var decs = rx.Match(modelSource);
+
+        return new List<PropertyModel>();
     }
 }

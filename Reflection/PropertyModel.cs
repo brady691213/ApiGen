@@ -1,4 +1,4 @@
-﻿namespace ModelBuilder;
+﻿namespace Reflection;
 
 /// <summary>
 /// Models information required to generate a property declaration.
@@ -16,4 +16,26 @@ public class PropertyModel(string typeName, string propertyName)
     public string TypeName { get; set; } = typeName;
 
     public string PropertyName { get; set; } = propertyName;
+    
+    public List<Type> TypeParameters { get; set; } = [];
+    
+    public string BuildPropertyDeclaration()
+    {
+        if (TypeParameters.Count == 0)
+        {
+            return typeName;
+        }
+        
+        var typeParts = TypeName.Split('`');
+        var gtps = string.Join(",", TypeParameters);
+        return $"{typeParts[0]}<{gtps}>";
+    }
+
+    // private string GetGenericDec(Type type)
+    // {
+    //     var typeParts = type.Name.Split('`');
+    //     var tpNames = type.GenericTypeArguments.Select(t => t.Name);
+    //
+    //
+    // }
 }

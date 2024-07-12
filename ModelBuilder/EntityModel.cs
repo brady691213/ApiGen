@@ -1,4 +1,6 @@
-﻿namespace ModelBuilder;
+﻿using Reflection;
+
+namespace ModelBuilder;
 
 /// <summary>
 /// Models information required to generate a class declaration for a DTO.

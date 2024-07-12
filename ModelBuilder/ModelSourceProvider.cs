@@ -14,14 +14,22 @@ public class ModelSourceProvider
     /// <returns></returns>
     public string BuildDtoForEntity(Type entityType)
     {
-        var reflector = new DbContextReflector();
-        var entityProps = reflector.GetEntityProperties(entityType);
+        // TASKT: Maybe name this BuildDtoForFeature?
+        
+        var dbReflector = new DbContextReflector();
+        var entityProps = dbReflector.GetEntityProperties(entityType);
+        var propertyReflector = new PropertyReflector();
 
         var dtoProps = entityProps
-            .Select(p => new PropertyModel(p.PropertyType.Name, p.Name))
+            .Select(p => propertyReflector.GetPropertyModel(p))
             .ToList();
         var model = new EntityModel(entityType.Name, dtoProps);
 
+        foreach (var prop in dtoProps)
+        {
+            var dec = prop.BuildPropertyDeclaration();
+        }
+        
         var builder = new TemplateLoader();
         var template = builder.LoadDtoTemplate();
 

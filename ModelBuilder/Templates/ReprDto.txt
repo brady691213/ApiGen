@@ -3,7 +3,7 @@
 {{ $"public class {entity_name}" }}
 {
 {{- for prop in entity_props }}
-{{ $"    public {prop.type_name} {prop.property_name}" }} {%{ { }%} get;set; {%{ } }%} 
+{{ $"    public {prop.get_type_declaration_text} {prop.property_name}" }} {%{ { }%} get;set; {%{ } }%} 
 {{- end }}
 }
 
