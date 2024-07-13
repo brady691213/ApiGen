@@ -31,6 +31,8 @@ public class TypeAliasing
 
         TypeLookup = new Dictionary<Type, string>
         {
+            { typeof(Guid), "Guid"},
+            
             { typeof(Boolean), "bool" },
             { typeof(Byte), "byte" },
             { typeof(SByte), "sbyte" },
@@ -51,7 +53,11 @@ public class TypeAliasing
     
     public static string? GetAliasForType(Type type)
     {
-        return TypeLookup.GetValueOrDefault(type);
+        var kvp = TypeLookup.SingleOrDefault(p => p.Key.Name == type.Name);
+        if (kvp.Value is { } alias)
+            return alias;
+
+        return null;
     }
 
     public static Type? GetTypeForAlias(string alias)

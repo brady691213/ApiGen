@@ -1,4 +1,4 @@
-﻿namespace Decompiler;
+﻿namespace SourceAnalyser;
 
 public class PropertySourceDec(string declaringFile, string matchedDec)
 {

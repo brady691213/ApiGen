@@ -1,18 +1,15 @@
-﻿using System.Net;
-using System.Text.RegularExpressions;
-using ICSharpCode.Decompiler;
-using ICSharpCode.Decompiler.CSharp;
+﻿using System.Text.RegularExpressions;
 using Reflection;
 using SourceBuilder;
 
-namespace Decompiler;
+namespace SourceAnalyser;
 
 public class SourceParser
 {
     private Regex propRegex = new Regex(@"public (?:virtual\s+)?\w+(?:<[\w<>]+>)?\??\s+\w+\??");
     private PropertyBuilder _propertyBuilder = new PropertyBuilder();
     
-    public List<PropertySourceDec> GetEntityProperties()
+    public List<PropertySourceDec> GetDecsFromAssembly()
     {
         var files = Directory.GetFiles(@"C:\Users\brady\projects\ApiGen\CTSCoreDecomp", "*.cs", SearchOption.AllDirectories);
         var decs = new List<PropertySourceDec>();
@@ -31,7 +28,7 @@ public class SourceParser
         return decs;
     }
 
-    public List<PropertyModel> GetUniqueProps()
+    public List<PropertyModel> GetModelsFromAssembly()
     {
         var loader = new AssemblyLoader();
         
@@ -45,14 +42,17 @@ public class SourceParser
         {
             var parts = line.Replace("{ get; set; }", "").Split(new char[] {' ', '\t', ':'}, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
             var tname = parts[0];
-            var decType = allTypes.SingleOrDefault(t => t.Name == tname);
+            var decType = allTypes.Where(t => t.Name == tname);
 
-            var props = decType?.GetProperties();
-
-            foreach (var prop in props)
+            foreach (var type in decType)
             {
-                var m = _propertyBuilder.PropertyModelFromInfo(prop);
-                models.Add(m);
+                var props = type.GetProperties();
+
+                foreach (var prop in props)
+                {
+                    var m = _propertyBuilder.PropertyModelFromInfo(prop);
+                    models.Add(m);
+                }
             }
         }
 

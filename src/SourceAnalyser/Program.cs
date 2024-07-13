@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using CTSCore.Models;
-using Decompiler;
 using Reflection;
+using SourceAnalyser;
 using SourceBuilder;
 
 // var al = new AssemblyLoader();
@@ -25,7 +25,7 @@ var parser = new SourceParser();
 //
 // File.WriteAllText("properties.txt", lines);
 
-var uniq = parser.GetUniqueProps();
+var uniq = parser.GetModelsFromAssembly();
 
 var x = uniq.Count;
 

@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection.Tests", "test\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceBuilder.Tests", "test\SourceBuilder.Tests\SourceBuilder.Tests.csproj", "{B39333D2-6D7D-41BC-A5AC-391109197DAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decompiler", "src\Decompiler\Decompiler.csproj", "{7C17D57B-BF95-4D8C-829E-046580F4100F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceAnalyser", "src\SourceAnalyser\SourceAnalyser.csproj", "{7C17D57B-BF95-4D8C-829E-046580F4100F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
