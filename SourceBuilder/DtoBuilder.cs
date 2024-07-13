@@ -46,9 +46,12 @@ public class DtoBuilder
 
         var model = new PropertyModel(info.PropertyType.Name, info.Name);
         model.TypeDeclaration =  BuildTypeDeclaration(info.PropertyType);
+        
         if (_propertyReflector.IsMarkedAsNullable(info))
         {
-            model.TypeDeclaration += "?";
+            // TASKT: Terrible kludge!!! The nullabel prefix thing.
+            if (!info.PropertyType.Name.StartsWith("Nullable"))
+                model.TypeDeclaration += "?";
         }
 
         return model;

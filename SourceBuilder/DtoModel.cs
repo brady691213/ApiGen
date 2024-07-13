@@ -1,6 +1,4 @@
-﻿using Reflection;
-
-namespace SourceBuilder;
+﻿namespace SourceBuilder;
 
 /// <summary>
 /// Models information required to generate a type declaration for a REPR type DTO.
@@ -13,7 +11,7 @@ namespace SourceBuilder;
 /// </remarks>
 public class DtoModel(string dtoName, List<PropertyModel> properties)
 {
-    public string DtoName { get; set; } = dtoName;
+    public string TypeName { get; set; } = dtoName;
 
     public List<PropertyModel> Properties { get; set; } = properties;
 }

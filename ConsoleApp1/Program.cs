@@ -7,6 +7,6 @@ var asm = al.LoadAssembly(@"C:\Users\brady\projects\ApiGen\Library\CTSCore.dll")
 
 var sp = new DtoBuilder();
 
-var code = sp.BuildDtoForEntity(typeof(CourseTemplate));
+var code = sp.BuildDtoForEntity(DtoRequestResponse.Request, typeof(CourseTemplate));
 
 Console.WriteLine(code);
