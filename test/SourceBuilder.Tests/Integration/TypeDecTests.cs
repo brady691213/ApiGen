@@ -28,24 +28,24 @@ public class MassTypeDecTheoryData : TheoryData<string, string>
     public MassTypeDecTheoryData()
     {
         var parser = new SourceParser();
-        var allSourceDecs = parser.GetDecsFromAssembly();
+        var allInputDecs = parser.GetDecsFromAssembly();
 
         var reflector = new Reflector();
         var ctx = reflector.GetDbContextType(DbContextAsmPath, "CTSDBContext");
 
-        var builder = new PropertyBuilder();
-        var entities = reflector.GetEntityTypes(ctx);
-        foreach (var entityType in entities)
-        {
-            var generatedModels = reflector.GetEntityProperties(entityType)
-                .Select(p => builder.PropertyModelFromInfo(p))
-                .ToList();
-            var generatedDecs = generatedModels
-                .Select(m => $"public {m.TypeDeclaration}")
-                .ToList();
-            
-            var expectedDec = allSourceDecs
-                .Select(d => d.DeclaringFile == entityType.Name && d.MatchedDec)
-        }
+        // var builder = new PropertyBuilder();
+        // var entities = reflector.GetEntityTypes(ctx);
+        // foreach (var entityType in entities)
+        // {
+        //     var generatedModels = reflector.GetEntityProperties(entityType)
+        //         .Select(p => builder.PropertyModelFromInfo(p))
+        //         .ToList();
+        //     var generatedDecs = generatedModels
+        //         .Select(m => $"public {m.TypeDeclaration}")
+        //         .ToList();
+        //
+        //     var expectedDec = allInputDecs
+        //         .Select(d => d.DeclaringFile == entityType.Name && d.Name == );
+        // }
     }
 }
