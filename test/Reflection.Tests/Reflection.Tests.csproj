@@ -15,7 +15,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\Reflection\Reflection.csproj" />
-      <ProjectReference Include="..\..\src\SourceReader\SourceReader.csproj" />
       <ProjectReference Include="..\Reflection.Tests.Types\Reflection.Tests.Types.csproj" />
     </ItemGroup>
 

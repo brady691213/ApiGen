@@ -1,0 +1,7 @@
+<Project>
+    
+    <ItemGroup>
+        <PackageReference Include="Vogen" Version="4.0.12" />
+    </ItemGroup>
+    
+</Project>

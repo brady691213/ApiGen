@@ -1,13 +1,14 @@
 ﻿using System.Text.RegularExpressions;
 using Reflection;
 using SourceBuilder;
+using SourceReader;
 
-namespace SourceReader;
+namespace SourceParser;
 
 public class SourceParser
 {
     private Regex propRegex =
-        new(@"(?'access'\w+) (?:virtual\s+)?(?'type'\w+(?:<[^>]+>)?) (?'id'\w+) \{ get; set; \}(?'init' = [^;]+;)?");
+        new(@"(?'access'\w+) (?:virtual\s+)?(?'type'\w+\??(?:<[^>]+>)?) (?'name'\w+) (?'getset'\{ get; set; \})(?'init' = [^;]+;)?");
 
     private PropertyBuilder _propertyBuilder = new PropertyBuilder();
 
@@ -32,7 +33,7 @@ public class SourceParser
                     match.Groups["type"].Value,
                     match.Groups["name"].Value,
                     match.Groups["getset"].Value,
-                    match.Groups["isVirtual"].Value
+                    match.Groups["init"].Value
                 ));
             }
         }

@@ -18,4 +18,10 @@ public class TypeDecTests
 
         actualDec.ShouldBe(expectedDec.RawDeclaration);
     }
+
+    [Fact]
+    public void aFact()
+    {
+        var data = new MassTypeTestTheoryData();
+    }
 }

@@ -12,7 +12,7 @@ public class MassTypeTestTheoryData : TheoryData<PropertyInfo, InputPropertyDecl
     public MassTypeTestTheoryData()
     {
         // Read all prop declarations from the decompiled source for the CTSCore assembly.
-        var parser = new SourceParser();
+        var parser = new SourceParser.SourceParser();
         var allInputDecs = parser.GetDecsFromAssembly();
 
         // Now get all entity types from the original, compiled CTSCore assembly.
