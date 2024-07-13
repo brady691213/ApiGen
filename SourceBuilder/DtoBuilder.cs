@@ -55,16 +55,16 @@ public class DtoBuilder
         return model;
     }
 
-    public string BuildTypeDeclaration(Type propType)
+    public string? BuildTypeDeclaration(Type propType)
     {
         if (!propType.IsGenericType)
         {
-            return skipTypeAliasing ? propType.Name : _reflector.GetTypeAlias(propType);
+            return skipTypeAliasing ? propType.Name : TypeAliasing.GetAliasForType(propType);
         }
 
         var typenameParts = propType.Name.Split('`');
         
-        var names = new List<string>();
+        var names = new List<string?>();
         foreach (var genericTypeArgument in propType.GenericTypeArguments)
         {
             names.Add(BuildTypeDeclaration(genericTypeArgument));

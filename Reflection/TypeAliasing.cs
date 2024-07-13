@@ -5,12 +5,12 @@ namespace Reflection;
 
 public class TypeAliasing
 {
-    private static Dictionary<string, Type> _aliasLookup;
-    private static Dictionary<Type, string> _typeLookup;
+    internal static readonly Dictionary<string, Type> AliasLookup;
+    internal static readonly Dictionary<Type, string> TypeLookup;
 
     static TypeAliasing()
     {
-        _aliasLookup = new Dictionary<string, Type>
+        AliasLookup = new Dictionary<string, Type>
         {
             { "bool", typeof(Boolean) },
             { "byte", typeof(Byte) },
@@ -29,7 +29,7 @@ public class TypeAliasing
             { "string", typeof(String) }
         };
 
-        _typeLookup = new Dictionary<Type, string>
+        TypeLookup = new Dictionary<Type, string>
         {
             { typeof(Boolean), "bool" },
             { typeof(Byte), "byte" },
@@ -49,19 +49,13 @@ public class TypeAliasing
         };
     }
     
-    public static string GetTypeAlias(Type type)
+    public static string? GetAliasForType(Type type)
     {
-        if (_typeLookup.ContainsKey(type))
-            return _typeLookup[type];
-        // TASKT: Log not found
-        return type.Name;
+        return TypeLookup.GetValueOrDefault(type);
     }
 
-    private string GetTypeName(string alias)
+    public static Type? GetTypeForAlias(string alias)
     {
-        if (_aliasLookup.TryGetValue(alias, out Type? value))
-            return value.Name;
-        // TASKT: Log not found.
-        return alias;
+        return AliasLookup.GetValueOrDefault(alias);
     }
 }

@@ -1,28 +1,24 @@
-﻿namespace Reflection.Tests.Unit;
+﻿using Shouldly;
+
+namespace Reflection.Tests.Unit;
 
 public class TypeAliasingTests
 {
-    private readonly Dictionary<string, Type> _aliasLookup;
-
-    public TypeAliasingTests()
+    [Theory]
+    [ClassData(typeof(AliasToTypeTheoryData))]
+    public void CorrectTypeForAlias(string alias, Type expected)
     {
-        _aliasLookup = new Dictionary<string, Type>
-        {
-            { "bool", typeof(Boolean) },
-            { "byte", typeof(Byte) },
-            { "sbyte", typeof(SByte) },
-            { "char", typeof(Char) },
-            { "decimal", typeof(Decimal) },
-            { "double", typeof(Double) },
-            { "float", typeof(Single) },
-            { "int", typeof(Int32) },
-            { "uint", typeof(UInt32) },
-            { "long", typeof(Int64) },
-            { "ulong", typeof(UInt64) },
-            { "object", typeof(Object) },
-            { "short", typeof(Int16) },
-            { "ushort", typeof(UInt16) },
-            { "string", typeof(String) }
-        };
+        var actualType = TypeAliasing.GetTypeForAlias(alias);
+        
+        actualType.ShouldBe(expected);
+    }
+    
+    [Theory]
+    [ClassData(typeof(TypeToAliasTheoryData))]
+    public void CorrectAliasForType(Type type, string expected)
+    {
+        var actualAlias = TypeAliasing.GetAliasForType(type);
+        
+        actualAlias.ShouldBe(expected);
     }
 }

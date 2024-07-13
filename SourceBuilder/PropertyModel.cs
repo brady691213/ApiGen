@@ -18,7 +18,7 @@ public class PropertyModel(string typeName, string propertyName)
 {
     private TypeAliasing _propertyReflector = new();
     
-    public string TypeDeclaration { get; set; } 
+    public string? TypeDeclaration { get; set; } 
 
     public string PropertyName { get; set; } = propertyName;
     
