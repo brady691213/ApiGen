@@ -16,7 +16,7 @@ namespace SourceBuilder;
 /// </remarks>
 public class PropertyModel(string typeName, string propertyName)
 {
-    private PropertyReflector _propertyReflector = new();
+    private TypeAliasing _propertyReflector = new();
     
     public string TypeDeclaration { get; set; } 
 

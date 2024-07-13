@@ -15,8 +15,8 @@ public class DtoBuilderTests
     {
         var dtoBuilder = new DtoBuilder();
         var entityType = typeof(CourseTemplate);
-        var dbRef = new DbContextReflector();
-        var pRef = new PropertyReflector();
+        var dbRef = new Reflector();
+        var pRef = new TypeAliasing();
         
         var expectedModels = dbRef.GetEntityProperties(entityType)
             .Select(p => dtoBuilder.PropertyModelFromInfo(p))

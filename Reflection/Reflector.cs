@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Reflection;
 
-public class DbContextReflector
+public class Reflector
 {
     private AssemblyLoader _asmLoader = new();
     
@@ -14,7 +14,7 @@ public class DbContextReflector
     /// <remarks>
     /// Gets all entity types used to define DbSet properties in type <paramref name="dbContextType"/>.
     /// </remarks>
-    public IEnumerable<Type> GetDbSetTypes(Type dbContextType)
+    public IEnumerable<Type> GetEntityTypes(Type dbContextType)
     {
         var props = dbContextType.GetProperties();
         var dbsetTypeName = typeof(DbSet<>).Name;
@@ -27,7 +27,7 @@ public class DbContextReflector
         return dbSets;
     }
     
-    public IEnumerable<Type> GetDbSetTypesFromAssembly(string assemblyPath, string dbContextName)
+    public IEnumerable<Type> GetEntityTypesFromAssembly(string assemblyPath, string dbContextName)
     {
         var dbsetTypeName = typeof(DbSet<>).Name;
         var dbct = GetDbContextType(assemblyPath, dbContextName);
@@ -77,6 +77,13 @@ public class DbContextReflector
         var baseFlags = BindingFlags.Public | BindingFlags.Instance;
 
         return entityType.GetProperties(baseFlags | BindingFlags.DeclaredOnly);
+    }
+    
+    public bool IsMarkedAsNullable(PropertyInfo p)
+    {
+        // https://stackoverflow.com/a/72586919/8741
+        // Comment adds to check ReadState not WriteState, for get only. Maybe check for each method.
+        return new NullabilityInfoContext().Create(p).WriteState is NullabilityState.Nullable;
     }
 }
 

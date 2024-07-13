@@ -10,8 +10,8 @@ public class DtoBuilder
 {
     // TASKT: Male this part of an IOptions read from config.
     public bool skipTypeAliasing = false;
-    
-    private PropertyReflector _propertyReflector = new();
+
+    private Reflector _reflector = new();
 
 
     /// <summary>
@@ -23,19 +23,19 @@ public class DtoBuilder
     public string BuildDtoForEntity(DtoRequestResponse dtoType, Type entityType)
     {
         // TASKT: Move props work to prop reflector.
-        
-        var dbReflector = new DbContextReflector();
+
+        var dbReflector = new Reflector();
         var entityProps = dbReflector.GetEntityProperties(entityType);
 
         var dtoProps = entityProps
             .Select(PropertyModelFromInfo)
             .ToList();
-        var dtoModel = new DtoModel( entityType.Name, dtoProps);
-        
+        var dtoModel = new DtoModel(entityType.Name, dtoProps);
+
         var loader = new TemplateLoader();
         var template = loader.LoadDtoTemplate();
 
-        var dtoSource = template.Render(new {model = dtoModel});
+        var dtoSource = template.Render(new { model = dtoModel });
 
         return dtoSource;
     }
@@ -45,32 +45,32 @@ public class DtoBuilder
         // TASKT: Map Nullable<T> to T?
 
         var model = new PropertyModel(info.PropertyType.Name, info.Name);
-        model.TypeDeclaration =  BuildTypeDeclaration(info.PropertyType);
-        
-        if (_propertyReflector.IsMarkedAsNullable(info))
+        model.TypeDeclaration = BuildTypeDeclaration(info.PropertyType);
+
+        if (_reflector.IsMarkedAsNullable(info))
         {
-            // TASKT: Terrible kludge!!! The nullabel prefix thing.
-            if (!info.PropertyType.Name.StartsWith("Nullable"))
-                model.TypeDeclaration += "?";
+            model.TypeDeclaration += "?";
         }
 
         return model;
     }
-    
+
     public string BuildTypeDeclaration(Type propType)
     {
         if (!propType.IsGenericType)
         {
-            return skipTypeAliasing ? propType.Name : _propertyReflector.GetTypeAlias(propType);
+            return skipTypeAliasing ? propType.Name : _reflector.GetTypeAlias(propType);
         }
 
+        var typenameParts = propType.Name.Split('`');
+        
         var names = new List<string>();
         foreach (var genericTypeArgument in propType.GenericTypeArguments)
         {
             names.Add(BuildTypeDeclaration(genericTypeArgument));
         }
 
-        return $"{propType.Name.Split('`')[0]}<{string.Join(",", names)}>";
+        return $"{typenameParts[0]}<{string.Join(",", names)}>";
     }
 
     private string BuildDtoName(DtoRequestResponse dtoType, Type entityType)
