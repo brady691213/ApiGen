@@ -1,51 +1,21 @@
 ﻿using System.Reflection;
-using Reflection;
 using Shouldly;
-using SourceAnalyser;
+using SourceReader;
 using Xunit;
 
 namespace SourceBuilder.Tests.Integration;
 
 public class TypeDecTests
 {
-    private const string DbContextAsmPath = @"C:\Users\brady\projects\ApiGen\Library\CTSCore.dll";
-    private const string DbContextName = "CTSDBContext";
+    private PropertyBuilder _builder = new PropertyBuilder();
 
     [Theory]
-    [ClassData(typeof(MassTypeDecTheoryData))]
-
-    public void GetAllPropsGivesBigList()
+    [ClassData(typeof(MassTypeTestTheoryData))]
+    public void GeneratedPropertyTypeIsCorrect(PropertyInfo info, InputPropertyDeclaration expectedDec)
     {
-        
-        //props.ShouldNotBeEmpty();
-    }
-}
+        var model = _builder.PropertyModelFromInfo(info);
+        var actualDec = model.TypeDeclaration;
 
-public class MassTypeDecTheoryData : TheoryData<string, string>
-{
-    private const string DbContextAsmPath = @"C:\Users\brady\projects\ApiGen\Library\CTSCore.dll";
-
-    public MassTypeDecTheoryData()
-    {
-        var parser = new SourceParser();
-        var allInputDecs = parser.GetDecsFromAssembly();
-
-        var reflector = new Reflector();
-        var ctx = reflector.GetDbContextType(DbContextAsmPath, "CTSDBContext");
-
-        // var builder = new PropertyBuilder();
-        // var entities = reflector.GetEntityTypes(ctx);
-        // foreach (var entityType in entities)
-        // {
-        //     var generatedModels = reflector.GetEntityProperties(entityType)
-        //         .Select(p => builder.PropertyModelFromInfo(p))
-        //         .ToList();
-        //     var generatedDecs = generatedModels
-        //         .Select(m => $"public {m.TypeDeclaration}")
-        //         .ToList();
-        //
-        //     var expectedDec = allInputDecs
-        //         .Select(d => d.DeclaringFile == entityType.Name && d.Name == );
-        // }
+        actualDec.ShouldBe(expectedDec.RawDeclaration);
     }
 }

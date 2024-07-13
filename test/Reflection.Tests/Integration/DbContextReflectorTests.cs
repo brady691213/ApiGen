@@ -1,4 +1,3 @@
-using CTSCore.Models;
 using Shouldly;
 
 namespace Reflection.Tests.Integration;

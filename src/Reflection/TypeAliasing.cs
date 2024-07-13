@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using System.Text.RegularExpressions;
-
-namespace Reflection;
+﻿namespace Reflection;
 
 public class TypeAliasing
 {
