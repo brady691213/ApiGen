@@ -15,16 +15,18 @@ using SourceBuilder;
 
 var parser = new SourceParser();
 
-var props = parser.GetEntityProperties();
+// var props = parser.GetEntityProperties();
+//
+// var lines = "";
+// foreach (var prop in props)
+// {
+//     lines += Path.GetFileName(prop.DeclaringFile).Replace(".cs", "") + ":\t\t" + prop.MatchedDec + Environment.NewLine;
+// }
+//
+// File.WriteAllText("properties.txt", lines);
 
-var lines = "";
-foreach (var prop in props)
-{
-    lines += prop.DeclaringFile + '\t' + prop.MatchedDec + Environment.NewLine;
-}
+var uniq = parser.GetUniqueProps();
 
-File.WriteAllText("properties.txt", lines);
-
-var x = props.Count;
+var x = uniq.Count;
 
 
