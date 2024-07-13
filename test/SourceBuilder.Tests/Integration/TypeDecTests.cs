@@ -16,7 +16,7 @@ public class TypeDecTests
         var model = _builder.PropertyModelFromInfo(info);
         var actualDec = model.TypeDeclaration;
 
-        actualDec.ShouldBe(expectedDec.RawDeclaration);
+        actualDec.ShouldBe(expectedDec.ContainingTypeName);
     }
 
     [Fact]

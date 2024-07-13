@@ -31,7 +31,7 @@ public class MassTypeTestTheoryData : TheoryData<PropertyInfo, InputPropertyDecl
         foreach (var info in allProps)
         {
             var dec = allInputDecs
-                .SingleOrDefault(d => d.DeclaringFile == info.DeclaringType?.Name
+                .SingleOrDefault(d => d.ContainingTypeName == info.DeclaringType?.Name
                                       && d.Name == info.Name);
             Add(info, dec!);
         }

@@ -10,9 +10,11 @@
 /// <param name="name">The name of this property.</param>
 /// <param name="getSet">The get and set accessors for this property. Currently only allows for auto-props e.g. { get; set; }</param>
 /// <param name="initializer">Any lambda initializer for this property.</param>
-public class InputPropertyDeclaration(string rawDeclaration, string declaringFile, string access, string isVirtual, string propType, string name, string getSet, string initializer)
+public class InputPropertyDeclaration(string rawDeclaration, string declaringFile, string containingTypeName, string access, string isVirtual, string propType, string name, string getSet, string initializer)
 {
     public string RawDeclaration { get; set; } = rawDeclaration;
+    
+    public string ContainingTypeName { get; set; } = containingTypeName;
 
     public string DeclaringFile { get; set; } = declaringFile;
 

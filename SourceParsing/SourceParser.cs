@@ -5,12 +5,16 @@ using SourceReader;
 
 namespace SourceParser;
 
-public class SourceParser
+public partial class SourceParser
 {
-    private Regex propRegex =
-        new(@"(?'access'\w+) (?:virtual\s+)?(?'type'\w+\??(?:<[^>]+>)?) (?'name'\w+) (?'getset'\{ get; set; \})(?'init' = [^;]+;)?");
-
-    private PropertyBuilder _propertyBuilder = new PropertyBuilder();
+    [GeneratedRegex(@"(?'access'\w+)\s+(?'class_type'(?:class)|(?:record))\s+(?'class_name'\w+)")]
+    private static partial Regex ClassRegex();
+    
+    [GeneratedRegex(@"(?'access'\w+) (?:virtual\s+)?(?'type'\w+\??(?:<[^>]+>)?) (?'name'\w+) (?'getset'\{ get; set; \})(?'init' = [^;]+;)?")]
+    private static partial Regex PropertyRegex();   
+    
+    private readonly Regex _classRegex = ClassRegex();
+    private readonly Regex _propRegex = PropertyRegex();
 
     public List<InputPropertyDeclaration> GetDecsFromAssembly()
     {
@@ -21,13 +25,20 @@ public class SourceParser
         foreach (var filePath in files)
         {
             var source = File.ReadAllText(filePath);
-            var matches = propRegex.Matches(source);
-
-            foreach (Match match in matches)
+            
+            var classMatches = _classRegex.Matches(source);
+            if (classMatches.Count > 1)
+            {
+                throw new InvalidOperationException("More than one class in file");
+            }
+            
+            var propertyMatches = _propRegex.Matches(source);
+            foreach (Match match in propertyMatches)
             {
                 decs.Add(new InputPropertyDeclaration(
                     match.Value,
                     Path.GetFileName(filePath),
+                    classMatches[0].Groups["class_name"].Value,
                     match.Groups["access"].Value,
                     match.Groups["isVirtual"].Value,
                     match.Groups["type"].Value,
@@ -39,37 +50,5 @@ public class SourceParser
         }
 
         return decs;
-    }
-
-    public List<PropertyModel> GetModelsFromAssembly()
-    {
-        var loader = new AssemblyLoader();
-
-        var propLines = File.ReadAllLines("properties.txt");
-        var asm = loader.LoadAssembly(@"C:\Users\brady\projects\ApiGen\Library\CTSCore.dll");
-        var allTypes = asm.GetTypes();
-
-        var models = new List<PropertyModel>();
-
-        foreach (var line in propLines.Where(l => !l.Contains("class ")))
-        {
-            var parts = line.Replace("{ get; set; }", "").Split(new char[] { ' ', '\t', ':' },
-                StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-            var tname = parts[0];
-            var decType = allTypes.Where(t => t.Name == tname);
-
-            foreach (var type in decType)
-            {
-                var props = type.GetProperties();
-
-                foreach (var prop in props)
-                {
-                    var m = _propertyBuilder.PropertyModelFromInfo(prop);
-                    models.Add(m);
-                }
-            }
-        }
-
-        return models;
     }
 }
