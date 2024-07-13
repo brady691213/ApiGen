@@ -6,6 +6,7 @@ namespace SourceBuilder.Tests.Unit;
 
 public class PropertyModelTests
 {
+    private readonly PropertyBuilder _propertyBuilder = new();
     private readonly DtoBuilder _dtoBuilder = new();
     private readonly Type _genericType = typeof(NestedGenerics);
     
@@ -17,7 +18,7 @@ public class PropertyModelTests
         var expectedDec = "List<Nullable<int>>";
         var nullableProp = _genericType.GetProperty(nameof(NestedGenerics.ExplicitNullables));
 
-        var model = _dtoBuilder.PropertyModelFromInfo(nullableProp!);
+        var model = _propertyBuilder.PropertyModelFromInfo(nullableProp!);
 
         var actualDec = model.TypeDeclaration;
         actualDec.ShouldBe(expectedDec);
@@ -31,7 +32,7 @@ public class PropertyModelTests
         var nullableProp = _genericType.GetProperty(nameof(NestedGenerics.ShortFormNullables));
         var expectedDec = "List<Nullable<int>>?";
 
-        var model = _dtoBuilder.PropertyModelFromInfo(nullableProp!);
+        var model = _propertyBuilder.PropertyModelFromInfo(nullableProp!);
         
         var actualDec = model.TypeDeclaration;
         actualDec.ShouldBe(expectedDec);

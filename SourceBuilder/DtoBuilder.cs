@@ -11,9 +11,8 @@ public class DtoBuilder
     // TASKT: Make this part of an IOptions read from config.
     internal bool SkipTypeAliasing = false;
 
-    private Reflector _reflector = new();
-
-
+    private PropertyBuilder _propertyBuilder = new();
+    
     /// <summary>
     /// Builds source code for a request or response DTO that can eb mapped to an EF entity.
     /// </summary>
@@ -28,7 +27,7 @@ public class DtoBuilder
         var entityProps = dbReflector.GetEntityProperties(entityType);
 
         var dtoProps = entityProps
-            .Select(PropertyModelFromInfo)
+            .Select(_propertyBuilder.PropertyModelFromInfo)
             .ToList();
         var dtoModel = new DtoModel(entityType.Name, dtoProps);
 
@@ -39,39 +38,7 @@ public class DtoBuilder
 
         return dtoSource;
     }
-
-    public PropertyModel PropertyModelFromInfo(PropertyInfo info)
-    {
-        // TASKT: Map Nullable<T> to T?
-
-        var model = new PropertyModel(info.PropertyType.Name, info.Name);
-        model.TypeDeclaration = BuildTypeDeclaration(info.PropertyType);
-
-        if (_reflector.IsMarkedAsNullable(info))
-        {
-            model.TypeDeclaration += "?";
-        }
-
-        return model;
-    }
-
-    public string? BuildTypeDeclaration(Type propType)
-    {
-        if (!propType.IsGenericType)
-        {
-            return SkipTypeAliasing ? propType.Name : TypeAliasing.GetAliasForType(propType);
-        }
-
-        var typenameParts = propType.Name.Split('`');
-        
-        var names = new List<string?>();
-        foreach (var genericTypeArgument in propType.GenericTypeArguments)
-        {
-            names.Add(BuildTypeDeclaration(genericTypeArgument));
-        }
-
-        return $"{typenameParts[0]}<{string.Join(",", names)}>";
-    }
+    
 
     private string BuildDtoName(DtoRequestResponse dtoType, Type entityType)
     {
