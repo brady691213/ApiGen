@@ -6,7 +6,7 @@ namespace SourceAnalyser;
 
 public class SourceParser
 {
-    private Regex propRegex = new Regex(@"public (?:virtual\s+)?\w+(?:<[\w<>]+>)?\??\s+\w+\??");
+    private Regex propRegex = new(@"(?'access'\w+) +(?'type'[\w\?\[\]<>, ]+) +(?'id'\w+) (?'getset'\{ get; set; \})(?'init' = [^;]+;)?");
     private PropertyBuilder _propertyBuilder = new PropertyBuilder();
     
     public List<PropertySourceDec> GetDecsFromAssembly()

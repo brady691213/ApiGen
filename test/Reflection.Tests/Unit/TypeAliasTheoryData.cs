@@ -1,4 +1,6 @@
-﻿namespace Reflection.Tests.Unit;
+﻿using SourceAnalyser;
+
+namespace Reflection.Tests.Unit;
 
 public class AliasToTypeTheoryData: TheoryData<string, Type>
 {

@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\SourceAnalyser\SourceAnalyser.csproj" />
       <ProjectReference Include="..\..\src\SourceBuilder\SourceBuilder.csproj" />
       <ProjectReference Include="..\Reflection.Tests.Types\Reflection.Tests.Types.csproj" />
     </ItemGroup>
