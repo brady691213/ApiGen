@@ -14,6 +14,7 @@ public class PropertyBuilder
 
         var model = new PropertyModel(info.PropertyType.Name, info.Name);
         model.TypeDeclaration = BuildTypeDeclaration(info.PropertyType);
+        model.ExposingTypeName = info.DeclaringType?.Name;
 
         if (IsMarkedAsNullable(info))
         {

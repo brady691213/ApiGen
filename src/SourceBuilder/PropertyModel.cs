@@ -22,5 +22,5 @@ public class PropertyModel(string typeName, string propertyName)
 
     public string PropertyName { get; set; } = propertyName;
     
-
+    public string? ExposingTypeName { get; set; }
 }
