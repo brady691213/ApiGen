@@ -2,7 +2,7 @@
 
 public class NestedGenerics
 {
-    public Nullable<Guid> Anullable { get; set; }
+    public Nullable<Guid> ANullable { get; set; }
     
     public List<Int32?>? ShortFormNullables { get; set; }
     

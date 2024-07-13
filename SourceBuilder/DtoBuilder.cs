@@ -8,8 +8,8 @@ namespace SourceBuilder;
 /// </summary>
 public class DtoBuilder
 {
-    // TASKT: Male this part of an IOptions read from config.
-    public bool skipTypeAliasing = false;
+    // TASKT: Make this part of an IOptions read from config.
+    internal bool SkipTypeAliasing = false;
 
     private Reflector _reflector = new();
 
@@ -59,7 +59,7 @@ public class DtoBuilder
     {
         if (!propType.IsGenericType)
         {
-            return skipTypeAliasing ? propType.Name : TypeAliasing.GetAliasForType(propType);
+            return SkipTypeAliasing ? propType.Name : TypeAliasing.GetAliasForType(propType);
         }
 
         var typenameParts = propType.Name.Split('`');

@@ -17,6 +17,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include="SourceBuilder.Tests" />
+    </ItemGroup>
+
+    <ItemGroup>
       <None Remove="Templates\dto.txt" />
     </ItemGroup>
 

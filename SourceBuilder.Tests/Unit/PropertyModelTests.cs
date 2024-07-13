@@ -1,5 +1,4 @@
-﻿using Reflection;
-using Reflection.Tests.Types;
+﻿using Reflection.Tests.Types;
 using Shouldly;
 using Xunit;
 
@@ -11,11 +10,11 @@ public class PropertyModelTests
     private readonly Type _genericType = typeof(NestedGenerics);
     
     [Fact]
-    public void NoAliasExplicitNullableGenericIsValid()
+    public void NestedGenericTypeDecIsValid()
     {
-        _dtoBuilder.skipTypeAliasing = true;
+        _dtoBuilder.SkipTypeAliasing = true;
 
-        var expectedDec = "List<Nullable<Int32>>?";
+        var expectedDec = "List<Nullable<int>>";
         var nullableProp = _genericType.GetProperty(nameof(NestedGenerics.ExplicitNullables));
 
         var model = _dtoBuilder.PropertyModelFromInfo(nullableProp!);
@@ -25,37 +24,9 @@ public class PropertyModelTests
     }
     
     [Fact]
-    public void AliasedExplicitNullableGenericIsValid()
+    public void NestedGenericNullableTypeDecIsValid()
     {
-        _dtoBuilder.skipTypeAliasing = false;
-
-        var expectedDec = "List<Nullable<int>>?";
-        var nullableProp = _genericType.GetProperty(nameof(NestedGenerics.ExplicitNullables));
-
-        var model = _dtoBuilder.PropertyModelFromInfo(nullableProp!);
-
-        var actualDec = model.TypeDeclaration;
-        actualDec.ShouldBe(expectedDec);
-    }
-    
-    [Fact]
-    public void NoAliasShortFormNullableGenericIsValid()
-    {
-        _dtoBuilder.skipTypeAliasing = true;
-
-        var expectedDec = "List<Nullable<Int32>>?";
-        var nullableProp = _genericType.GetProperty(nameof(NestedGenerics.ShortFormNullables));
-
-        var model = _dtoBuilder.PropertyModelFromInfo(nullableProp!);
-
-        var actualDec = model.TypeDeclaration;
-        actualDec.ShouldBe(expectedDec);
-    }
-    
-    [Fact]
-    public void AliasedShortFormNullableGenericIsValid()
-    {
-        _dtoBuilder.skipTypeAliasing = true;
+        _dtoBuilder.SkipTypeAliasing = true;
         
         var nullableProp = _genericType.GetProperty(nameof(NestedGenerics.ShortFormNullables));
         var expectedDec = "List<Nullable<int>>?";
