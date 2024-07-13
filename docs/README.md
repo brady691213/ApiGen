@@ -1,5 +1,9 @@
 ﻿# API Generation Project
 
+## Status
+
+This project is only on github for version control at this stage and by no means offers any safe or usable code.
+
 ## Tasks
 
 - Access modifiers. Everything is public but we should really be using internal more.
