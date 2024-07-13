@@ -11,12 +11,12 @@ public class TypeDecTests
 
     [Theory]
     [ClassData(typeof(MassTypeTestTheoryData))]
-    public void GeneratedPropertyTypeIsCorrect(PropertyInfo info, InputPropertyDeclaration expectedDec)
+    public void GeneratedPropertyTypeIsCorrect(PropertyInfo info, string expected)
     {
         var model = _builder.PropertyModelFromInfo(info);
-        var actualDec = model.TypeDeclaration;
+        var actual = model.TypeString;
 
-        actualDec.ShouldBe(expectedDec.ContainingTypeName);
+        actual.ShouldBe(expected);
     }
 
     [Fact]

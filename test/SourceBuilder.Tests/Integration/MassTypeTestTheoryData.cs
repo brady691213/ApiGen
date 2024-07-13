@@ -5,7 +5,7 @@ using Xunit;
 
 namespace SourceBuilder.Tests.Integration;
 
-public class MassTypeTestTheoryData : TheoryData<PropertyInfo, InputPropertyDeclaration>
+public class MassTypeTestTheoryData : TheoryData<PropertyInfo, string>
 {
     private const string DbContextAsmPath = @"C:\Users\brady\projects\ApiGen\Library\CTSCore.dll";
 
@@ -33,7 +33,7 @@ public class MassTypeTestTheoryData : TheoryData<PropertyInfo, InputPropertyDecl
             var dec = allInputDecs
                 .SingleOrDefault(d => d.ContainingTypeName == info.DeclaringType?.Name
                                       && d.Name == info.Name);
-            Add(info, dec!);
+            Add(info, dec?.PropType ?? "Bad prop type on dec");
         }
     }
 }

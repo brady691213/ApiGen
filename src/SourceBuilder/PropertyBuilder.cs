@@ -13,12 +13,12 @@ public class PropertyBuilder
         // TASKT: Map Nullable<T> to T?
 
         var model = new PropertyModel(info.PropertyType.Name, info.Name);
-        model.TypeDeclaration = BuildTypeDeclaration(info.PropertyType);
+        model.TypeString = BuildTypeDeclaration(info.PropertyType);
         model.ExposingTypeName = info.DeclaringType?.Name;
 
         if (IsMarkedAsNullable(info))
         {
-            model.TypeDeclaration += "?";
+            model.TypeString += "?";
         }
 
         return model;

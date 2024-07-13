@@ -20,7 +20,7 @@ public class PropertyModelTests
 
         var model = _propertyBuilder.PropertyModelFromInfo(nullableProp!);
 
-        var actualDec = model.TypeDeclaration;
+        var actualDec = model.TypeString;
         actualDec.ShouldBe(expectedDec);
     }
     
@@ -34,7 +34,7 @@ public class PropertyModelTests
 
         var model = _propertyBuilder.PropertyModelFromInfo(nullableProp!);
         
-        var actualDec = model.TypeDeclaration;
+        var actualDec = model.TypeString;
         actualDec.ShouldBe(expectedDec);
     }
 }
