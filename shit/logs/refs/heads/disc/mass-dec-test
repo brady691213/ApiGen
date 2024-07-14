@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 488ae5c5b4139866f4db8c9a48591fa0ab5dfc84 Brady Kelly <brady691213@outlook.com> 1720884894 +0200	branch: Created from HEAD
+488ae5c5b4139866f4db8c9a48591fa0ab5dfc84 f927f6d7ad320baa36d7107fdc9b3ff1df45848e Brady Kelly <brady691213@outlook.com> 1720902108 +0200	commit: Moving toward mass property dec test
+f927f6d7ad320baa36d7107fdc9b3ff1df45848e 4cfd1b7701171f9ad7cfdec1d7aba12b1faf590a Brady Kelly <brady691213@outlook.com> 1720909889 +0200	commit: Regex tp parse prop decs finaly working
+4cfd1b7701171f9ad7cfdec1d7aba12b1faf590a 4ae21e5ec869b98c8d540f48c669170226eaa615 Brady Kelly <brady691213@outlook.com> 1720909912 +0200	commit: new cli project
+4ae21e5ec869b98c8d540f48c669170226eaa615 ee7e974d8c7b99be90e5e56caba190c6d399e371 Brady Kelly <brady691213@outlook.com> 1720912587 +0200	commit: Mass type test starrting to work, but type strings still wrong
+ee7e974d8c7b99be90e5e56caba190c6d399e371 3c8a0f7e3b63c473757fd97e4e8de956879e2621 Brady Kelly <brady691213@outlook.com> 1720913366 +0200	commit: Simple prop gens work, nullables still long form
+3c8a0f7e3b63c473757fd97e4e8de956879e2621 291358281819a9a40de53d15a8aabd69948d33ee Brady Kelly <brady691213@outlook.com> 1720917387 +0200	commit: All cases for Mass types test pass!
+291358281819a9a40de53d15a8aabd69948d33ee 188e4e8446383300661160c8ce19cdf58a4ceeef Brady Kelly <brady691213@outlook.com> 1720917596 +0200	commit: Some docs

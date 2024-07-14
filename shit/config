@@ -1,0 +1,22 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[branch "main"]
+	remote = origin
+	merge = refs/heads/reflection
+	merge = refs/heads/main
+	merge = refs/heads/main
+	merge = refs/heads/main
+[remote "bb"]
+	url = https://work94-admin@bitbucket.org/work94/aladin.git
+	fetch = +refs/heads/*:refs/remotes/bb/*
+[remote "origin"]
+	url = https://github.com/brady691213/ApiGen.git
+	fetch = +refs/heads/*:refs/remotes/origin/*

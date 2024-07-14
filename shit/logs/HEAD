@@ -1,0 +1,67 @@
+0000000000000000000000000000000000000000 da03588643ccd8ecc7dd92fcc814e407cf82b12f Brady Kelly <brady691213@outlook.com> 1720387474 +0200	commit (initial): New solution
+da03588643ccd8ecc7dd92fcc814e407cf82b12f dea3d77d44b5fc808c0cbeefddb4ada0d860877b Brady Kelly <brady691213@outlook.com> 1720388821 +0200	commit: use type params
+dea3d77d44b5fc808c0cbeefddb4ada0d860877b 35e4d09aa99c2bf46286e66d641279bc0357b195 Brady Kelly <brady691213@outlook.com> 1720388854 +0200	pull (start): checkout 35e4d09aa99c2bf46286e66d641279bc0357b195
+35e4d09aa99c2bf46286e66d641279bc0357b195 fc398d9256427f7bc4a160eb655c302255fa405b Brady Kelly <brady691213@outlook.com> 1720388913 +0200	commit: After first pull from new remote
+fc398d9256427f7bc4a160eb655c302255fa405b 9c2d2fbb55314bb2737a072f94e953fe90cba242 Brady Kelly <brady691213@outlook.com> 1720388918 +0200	rebase (pick): use type params
+9c2d2fbb55314bb2737a072f94e953fe90cba242 9c2d2fbb55314bb2737a072f94e953fe90cba242 Brady Kelly <brady691213@outlook.com> 1720388918 +0200	rebase (finish): returning to refs/heads/main
+9c2d2fbb55314bb2737a072f94e953fe90cba242 9c2d2fbb55314bb2737a072f94e953fe90cba242 Brady Kelly <brady691213@outlook.com> 1720388957 +0200	checkout: moving from main to reflection
+9c2d2fbb55314bb2737a072f94e953fe90cba242 16ea52e9ff501b1f9d4f521cb85e2ed3c71508c9 Brady Kelly <brady691213@outlook.com> 1720392897 +0200	commit: One test passing
+16ea52e9ff501b1f9d4f521cb85e2ed3c71508c9 b302438d8a33086535848afa149f73bd67ba0b9c Brady Kelly <brady691213@outlook.com> 1720393406 +0200	commit: Same one test passing with Shouldly
+b302438d8a33086535848afa149f73bd67ba0b9c b7c21b7bdfbbe8c44f0c4114112663d463eb0ae1 Brady Kelly <brady691213@outlook.com> 1720396222 +0200	commit: Both tests so far passing
+b7c21b7bdfbbe8c44f0c4114112663d463eb0ae1 d805e8c9a065556797f9639aa63e1cd388d9a70c Brady Kelly <brady691213@outlook.com> 1720402124 +0200	commit: Checkpoint
+d805e8c9a065556797f9639aa63e1cd388d9a70c 7313582ba0da90f1c82a4fa2e1e016c5c370bffd Brady Kelly <brady691213@outlook.com> 1720460472 +0200	commit: Postponed source gen due to problems
+7313582ba0da90f1c82a4fa2e1e016c5c370bffd 94f9f18df41c3bcf01ee602a4bd05999dc5843bb Brady Kelly <brady691213@outlook.com> 1720472458 +0200	commit: Moved common CTSDBContext reference to Directory.Build.props
+94f9f18df41c3bcf01ee602a4bd05999dc5843bb b471f8df37121c7de348be9f7ac17526bcb7b0af Brady Kelly <brady691213@outlook.com> 1720782131 +0200	commit: New start
+b471f8df37121c7de348be9f7ac17526bcb7b0af 3751831447a37bc8c5a8daef1e3f1190fc7e0dec Brady Kelly <brady691213@outlook.com> 1720786817 +0200	commit: Some new testing
+3751831447a37bc8c5a8daef1e3f1190fc7e0dec 29ca4e1659abe950ecda6519cbce8bcf408299c8 Brady Kelly <brady691213@outlook.com> 1720789476 +0200	commit: Incomplete Dto template parses
+29ca4e1659abe950ecda6519cbce8bcf408299c8 fbe313e6064bcf11230b152f40fdfff605821047 Brady Kelly <brady691213@outlook.com> 1720793598 +0200	commit: Dto template renders but incomplete
+fbe313e6064bcf11230b152f40fdfff605821047 3102b8a07f23a9ac48a3686db3fad8ac56e90d26 Brady Kelly <brady691213@outlook.com> 1720794743 +0200	commit: render starting to work for Dto template
+3102b8a07f23a9ac48a3686db3fad8ac56e90d26 373426048b3ea08ec3d99f32ba3274502dff2754 Brady Kelly <brady691213@outlook.com> 1720795152 +0200	commit: Dto template renders fine
+373426048b3ea08ec3d99f32ba3274502dff2754 4cfc1ad10d6c05fa72e3f3a27491834a95a5f743 Brady Kelly <brady691213@outlook.com> 1720798822 +0200	commit: Some test cleanup
+4cfc1ad10d6c05fa72e3f3a27491834a95a5f743 6a62122fd9f24de682145cb54b92b6a5c5b60d96 Brady Kelly <brady691213@outlook.com> 1720799903 +0200	commit: Attention to xml documentation=
+6a62122fd9f24de682145cb54b92b6a5c5b60d96 3448f83c60b68a3f26eca03dbb41d435d3398d95 Brady Kelly <brady691213@outlook.com> 1720801210 +0200	commit: More documentation
+3448f83c60b68a3f26eca03dbb41d435d3398d95 5759b2b0eddda3a2a8685fb8a5dfc139cff7154b Brady Kelly <brady691213@outlook.com> 1720803794 +0200	commit: Enough documentation for now.
+5759b2b0eddda3a2a8685fb8a5dfc139cff7154b afc6affad219c0b422931574dc7605845603f3e0 Brady Kelly <brady691213@outlook.com> 1720804079 +0200	commit: Enough again. For real.
+afc6affad219c0b422931574dc7605845603f3e0 466bba96c4abd980663483a9cfe8149d0aefc14a Brady Kelly <brady691213@outlook.com> 1720804968 +0200	commit: So far
+466bba96c4abd980663483a9cfe8149d0aefc14a fad838f2b1f1350dd0f748e0893c0f8db3c559a9 Brady Kelly <brady691213@outlook.com> 1720810851 +0200	commit: Busy with generic type decs for props
+fad838f2b1f1350dd0f748e0893c0f8db3c559a9 074d6a938d1ebb8c8fc0fc3e0d1fa4d5dede894d Brady Kelly <brady691213@outlook.com> 1720812086 +0200	commit: Nearly at generic decs
+074d6a938d1ebb8c8fc0fc3e0d1fa4d5dede894d 103960527f98a2098be40f0b4443e190080cc71f Brady Kelly <brady691213@outlook.com> 1720813570 +0200	commit: No more joy on nullable
+103960527f98a2098be40f0b4443e190080cc71f d91d83900cb6f40fe51ce80d56018f456f61a772 Brady Kelly <brady691213@outlook.com> 1720814205 +0200	commit: Some joy with nullables
+d91d83900cb6f40fe51ce80d56018f456f61a772 b209fe21d8f6a660945c764464fcc5174c0e10e3 Brady Kelly <brady691213@outlook.com> 1720814673 +0200	commit: Nullable decs nearly there.
+b209fe21d8f6a660945c764464fcc5174c0e10e3 5fef18963bad3be75906b40e63db8863dbebda4f Brady Kelly <brady691213@outlook.com> 1720815148 +0200	commit: Poprerty type decs OK, but reflection still converting all nullables to Nullable<T> and usign full type names
+5fef18963bad3be75906b40e63db8863dbebda4f 3f3980f9555d423099a41544eaacc13563812387 Brady Kelly <brady691213@outlook.com> 1720819363 +0200	commit: Enough work for one day.
+3f3980f9555d423099a41544eaacc13563812387 a25e216070943d2ebe7531b2a7dcefaa0ef5a847 Brady Kelly <brady691213@outlook.com> 1720819458 +0200	commit: Resume alias for nullable tomorrow.
+a25e216070943d2ebe7531b2a7dcefaa0ef5a847 f52f209b6b0703a36a1b439bdd2c744c039eefc0 Brady Kelly <brady691213@outlook.com> 1720821132 +0200	commit: Bugfix in type dec with no alias
+f52f209b6b0703a36a1b439bdd2c744c039eefc0 a1e5a82c3627151cb8be9a17ddb45d9cf8c699b7 Brady Kelly <brady691213@outlook.com> 1720821831 +0200	commit: Fixed metadata laoder for assembly loader
+a1e5a82c3627151cb8be9a17ddb45d9cf8c699b7 1d5102d0c10e248ed93015abc6589002b1014a7f Brady Kelly <brady691213@outlook.com> 1720824209 +0200	commit: No more ApiGen.sln.DotSettings.user
+1d5102d0c10e248ed93015abc6589002b1014a7f c9ea189d07f1ecffae62911b0caf7e74fdeb5604 Brady Kelly <brady691213@outlook.com> 1720824237 +0200	commit: Fixes to suite MetadataContextLoader
+c9ea189d07f1ecffae62911b0caf7e74fdeb5604 bf59cbb00dd173a3f12699af7c333b83e6a50a40 Brady Kelly <brady691213@outlook.com> 1720824855 +0200	commit: GetDbSetEntities looking OK, 1 test passes
+bf59cbb00dd173a3f12699af7c333b83e6a50a40 af4f438f7869259274198d58429b7c7d70ca7475 Brady Kelly <brady691213@outlook.com> 1720825095 +0200	commit: Promoted ModelBuilder to SourceBuilder
+af4f438f7869259274198d58429b7c7d70ca7475 d236f2376a88400f3915f0576d2d783caf47d9f3 Brady Kelly <brady691213@outlook.com> 1720828666 +0200	commit: Cleanup in tests and refactor from prop ref to dto builder
+d236f2376a88400f3915f0576d2d783caf47d9f3 31e73746f96710f0e2e3b8079d939b61bb7d54fc Brady Kelly <brady691213@outlook.com> 1720829099 +0200	commit: Finished for a day
+31e73746f96710f0e2e3b8079d939b61bb7d54fc cc954caba92c9559fc5a9502d5677956fba8aeee Brady Kelly <brady691213@outlook.com> 1720851666 +0200	commit: Caution
+cc954caba92c9559fc5a9502d5677956fba8aeee 0000000000000000000000000000000000000000 Brady Kelly <brady691213@outlook.com> 1720853534 +0200	Branch: renamed refs/heads/reflection to refs/heads/main
+0000000000000000000000000000000000000000 cc954caba92c9559fc5a9502d5677956fba8aeee Brady Kelly <brady691213@outlook.com> 1720853534 +0200	Branch: renamed refs/heads/reflection to refs/heads/main
+cc954caba92c9559fc5a9502d5677956fba8aeee 0000000000000000000000000000000000000000 Brady Kelly <brady691213@outlook.com> 1720853568 +0200	Branch: renamed refs/heads/main to refs/heads/main
+cc954caba92c9559fc5a9502d5677956fba8aeee cc954caba92c9559fc5a9502d5677956fba8aeee Brady Kelly <brady691213@outlook.com> 1720853568 +0200	Branch: renamed refs/heads/main to refs/heads/main
+cc954caba92c9559fc5a9502d5677956fba8aeee a945e202801484e6f8b86e0f1bc205e77dec20e4 Brady Kelly <brady691213@outlook.com> 1720853840 +0200	commit: No scriban docs here
+a945e202801484e6f8b86e0f1bc205e77dec20e4 66a8eda76f24633dc9feed60a8ed7c06999639da Brady Kelly <brady691213@outlook.com> 1720856992 +0200	commit: Checkpoint
+66a8eda76f24633dc9feed60a8ed7c06999639da 7cbcbe10722dfa5840d1c4aa67a6d1283be955a3 Brady Kelly <brady691213@outlook.com> 1720858880 +0200	commit: Passing unit tests for type aliases
+7cbcbe10722dfa5840d1c4aa67a6d1283be955a3 00efd3a60b3b4694f5c021106767f8ca989dca7b Brady Kelly <brady691213@outlook.com> 1720859352 +0200	commit: Aimless refactor
+00efd3a60b3b4694f5c021106767f8ca989dca7b bfbc545c3b1799121b5b280c770b27a05ec6efb1 Brady Kelly <brady691213@outlook.com> 1720860635 +0200	commit: Checkin
+bfbc545c3b1799121b5b280c770b27a05ec6efb1 69d804ac84842a4e4cd3d80bbc2bd1dc920f2ced Brady Kelly <brady691213@outlook.com> 1720861217 +0200	commit: Reorg project structure
+69d804ac84842a4e4cd3d80bbc2bd1dc920f2ced 44cb94715c4dcfe99054fdf8172fc80a9431281b Brady Kelly <brady691213@outlook.com> 1720862446 +0200	commit: Ignore ILSpy output for CTSCore
+44cb94715c4dcfe99054fdf8172fc80a9431281b 9901fa8d10e849edd93f1a3662b7131a5b879063 Brady Kelly <brady691213@outlook.com> 1720863921 +0200	commit: Some work
+9901fa8d10e849edd93f1a3662b7131a5b879063 243469989f9aa5b19b1154010ec11c71ad9462dd Brady Kelly <brady691213@outlook.com> 1720868979 +0200	commit: Source parser getting property decs
+243469989f9aa5b19b1154010ec11c71ad9462dd 3f4180acf23efd34e9d035eebb3a61eb9f4c3800 Brady Kelly <brady691213@outlook.com> 1720873369 +0200	commit: Teeny weeny steps
+3f4180acf23efd34e9d035eebb3a61eb9f4c3800 488a64874157724644a01e7effb4e486068f9118 Brady Kelly <brady691213@outlook.com> 1720878490 +0200	commit: Now for the big bang, check type decs for all properties in assembly
+488a64874157724644a01e7effb4e486068f9118 f2c7d3e772fa4482ddf74e9e12dc7237930024f0 Brady Kelly <brady691213@outlook.com> 1720884424 +0200	commit: Added docs to InputPropertyDeclaration
+f2c7d3e772fa4482ddf74e9e12dc7237930024f0 488ae5c5b4139866f4db8c9a48591fa0ab5dfc84 Brady Kelly <brady691213@outlook.com> 1720884873 +0200	commit: Checkpoint
+488ae5c5b4139866f4db8c9a48591fa0ab5dfc84 488ae5c5b4139866f4db8c9a48591fa0ab5dfc84 Brady Kelly <brady691213@outlook.com> 1720884894 +0200	checkout: moving from main to disc/mass-dec-test
+488ae5c5b4139866f4db8c9a48591fa0ab5dfc84 f927f6d7ad320baa36d7107fdc9b3ff1df45848e Brady Kelly <brady691213@outlook.com> 1720902108 +0200	commit: Moving toward mass property dec test
+f927f6d7ad320baa36d7107fdc9b3ff1df45848e 4cfd1b7701171f9ad7cfdec1d7aba12b1faf590a Brady Kelly <brady691213@outlook.com> 1720909889 +0200	commit: Regex tp parse prop decs finaly working
+4cfd1b7701171f9ad7cfdec1d7aba12b1faf590a 4ae21e5ec869b98c8d540f48c669170226eaa615 Brady Kelly <brady691213@outlook.com> 1720909912 +0200	commit: new cli project
+4ae21e5ec869b98c8d540f48c669170226eaa615 ee7e974d8c7b99be90e5e56caba190c6d399e371 Brady Kelly <brady691213@outlook.com> 1720912587 +0200	commit: Mass type test starrting to work, but type strings still wrong
+ee7e974d8c7b99be90e5e56caba190c6d399e371 3c8a0f7e3b63c473757fd97e4e8de956879e2621 Brady Kelly <brady691213@outlook.com> 1720913366 +0200	commit: Simple prop gens work, nullables still long form
+3c8a0f7e3b63c473757fd97e4e8de956879e2621 291358281819a9a40de53d15a8aabd69948d33ee Brady Kelly <brady691213@outlook.com> 1720917387 +0200	commit: All cases for Mass types test pass!
+291358281819a9a40de53d15a8aabd69948d33ee 188e4e8446383300661160c8ce19cdf58a4ceeef Brady Kelly <brady691213@outlook.com> 1720917596 +0200	commit: Some docs
