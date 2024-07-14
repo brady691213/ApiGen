@@ -1,4 +1,4 @@
-﻿namespace SourceReader;
+﻿namespace SourceParsing;
 
 /// <summary>
 /// An input property declaration, i.e. property info as read from source vs. as generated for output.

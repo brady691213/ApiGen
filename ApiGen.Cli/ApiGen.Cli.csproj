@@ -10,7 +10,7 @@
     <ItemGroup>
       <ProjectReference Include="..\SourceParsing\SourceParsing.csproj" />
       <ProjectReference Include="..\src\Reflection\Reflection.csproj" />
-      <ProjectReference Include="..\src\SourceBuilder\SourceBuilder.csproj" />
+      <ProjectReference Include="..\src\SourceBuilding\SourceBuilding.csproj" />
     </ItemGroup>
 
 </Project>

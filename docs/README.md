@@ -1,14 +1,25 @@
-﻿# API Generation Project
+﻿# Reprise
+
+A project to generate code for a REPR pattern ASP.NET Minimal API based on entities defined by an EF Core DbContext.
 
 ## Status
 
-This project is only on github for version control at this stage and by no means offers any safe or usable code.
+This project is still in an early discovery stage, and still very experimental. 
+You can use it if you like living on the edge, or just fork it and only use some. 
+
+Reprise should be ready for trial use in about two months, all going well.
 
 ## Tasks
 
-- Access modifiers. Everything is public but we should really be using internal more.
-- Use ClassFixture for tests
-- Alternate, runtime config and DI for tests.
+- TASKT: Centralise config values and constants
+- TASKT: Access modifiers. Everything is public, but we should really be using internal more.
+- TASKT: More unit tests.
+- TASKT: Use ClassFixture for tests
+- TASKT: Logging
+- TASKT: IOptions, config. etc.
+- TASKT: Alternate, runtime config and DI for tests.
+
+## Raison d'être
 
 This project arose when someone asked me if a web API could be "scaffolded" like an [Entity Framework Core (EF)](https://github.com/dotnet/efcore) 
 [DbContext](https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontext?view=efcore-8.0) class 
@@ -36,8 +47,8 @@ alternative to Minimal APIs as provided by ASP.NET Core.
 
 ## Projects
 
-### ModelBuilder 
-Used to generate source code for Request and Response DTOs. **This is not a source generator**, but simply uses text templates to generate C# source code.
+### SourceBuilder 
+Used to generate source code for Request and Response DTOs and Endpoint classes. **This is not a source generator**, but simply uses text templates to generate C# source code.
 
 ### Reflection
 

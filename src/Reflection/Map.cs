@@ -4,7 +4,7 @@
 /// A bidirectional map between any two types.
 /// </summary>
 /// <remarks>
-/// Found at: https://stackoverflow.com/a/10966684/8741
+/// Found at: https://stackoverflow.com/a/10966684/8741. No real use yet, 2 dictionary approach is fine.
 /// </remarks>
 public class Map<T1, T2>
 {

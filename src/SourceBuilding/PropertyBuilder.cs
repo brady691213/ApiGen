@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Reflection;
 
-namespace SourceBuilder;
+namespace SourceBuilding;
 
 public class PropertyBuilder
 {
@@ -32,13 +32,13 @@ public class PropertyBuilder
             // {
             //     return TypeAliasing.GetAliasForType(propType.Name.Replace("[]", "");
             // }
-            return TypeAliasing.GetAliasForType(propType);
+            return CSharpTypeInformation.GetAliasForType(propType);
         }
 
         var typenameParts = propType.Name.Split('`');
         if (typenameParts.Length > 1 && typenameParts[0] == "Nullable")
         {
-            return TypeAliasing.GetAliasForType(propType.GenericTypeArguments[0]) + "?";
+            return CSharpTypeInformation.GetAliasForType(propType.GenericTypeArguments[0]) + "?";
         }
         
         var names = new List<string?>();

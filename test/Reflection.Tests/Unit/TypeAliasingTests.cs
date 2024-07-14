@@ -1,24 +1,67 @@
-﻿using Shouldly;
+﻿using System.Diagnostics;
+using Shouldly;
 
 namespace Reflection.Tests.Unit;
 
 public class TypeAliasingTests
 {
     [Theory]
-    [ClassData(typeof(AliasToTypeTheoryData))]
-    public void CorrectTypeForAlias(string alias, Type expected)
+    [ClassData(typeof(SimpleTypeToAliasTheoryData))]
+    public void CorrectAliasForSimpleType(Type type, string expected)
     {
-        var actualType = TypeAliasing.GetTypeForAlias(alias);
-        
-        actualType.ShouldBe(expected);
+        var actualAlias = CSharpTypeInformation.GetAliasForType(type);
+        actualAlias.ShouldBe(expected);
     }
     
     [Theory]
-    [ClassData(typeof(TypeToAliasTheoryData))]
-    public void CorrectAliasForType(Type type, string expected)
+    [ClassData(typeof(ArrayTypeToAliasTheoryData))]
+    public void CorrectAliasForSimpleArrayType(Type type, string expected)
     {
-        var actualAlias = TypeAliasing.GetAliasForType(type);
-        
+        var actualAlias = CSharpTypeInformation.GetAliasForType(type);
         actualAlias.ShouldBe(expected);
+    }
+    
+    [Theory]
+    [ClassData(typeof(AliasToSimpleTypeTheoryData))]
+    public void CorrectTypeForSimpleAlias(string alias, Type expected)
+    {
+        var actualType = CSharpTypeInformation.GetTypeForAlias(alias);
+        actualType.ShouldBe(expected);
+    }
+
+
+    private class SimpleTypeToAliasTheoryData: TheoryData<Type, string>
+    {
+        public SimpleTypeToAliasTheoryData()
+        {
+            foreach (var kvp in CSharpTypeInformation.TypeKeyedLookup)
+            {
+                Add(kvp.Key, kvp.Value);
+            }
+        }
+    }
+    
+    private class ArrayTypeToAliasTheoryData: TheoryData<Type, string>
+    {
+        public ArrayTypeToAliasTheoryData()
+        {
+            foreach (var kvp in CSharpTypeInformation.TypeKeyedLookup)
+            {
+                var arrayType = Type.GetType($"System.{kvp.Key.Name}[]");
+                arrayType.ShouldNotBeNull();
+                Add(arrayType, kvp.Value);
+            }
+        }
+    }
+    
+    private class AliasToSimpleTypeTheoryData: TheoryData<string, Type>
+    {
+        public AliasToSimpleTypeTheoryData()
+        {
+            foreach (var kvp in CSharpTypeInformation.AliasKeyedLookup)
+            {
+                Add(kvp.Key, kvp.Value);
+            }
+        }
     }
 }

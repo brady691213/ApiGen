@@ -1,6 +1,6 @@
 ﻿using Scriban;
 
-namespace SourceBuilder;
+namespace SourceBuilding;
 
 /// <summary>
 /// A helper that loads template text from a file and uses Scriban to parse a <see cref="Template"/> object.
@@ -8,7 +8,7 @@ namespace SourceBuilder;
 public class TemplateLoader
 {
     // TASKT: Make this path a variable that points to a lcoal soure text file for debugging and to the build output for runtime use.
-    private const string DtoTemplatePath = @"C:\Users\brady\projects\ApiGen\SourceBuilder\Templates\ReprDto.txt";
+    private const string DtoTemplatePath = @"C:\Users\brady\projects\ApiGen\SourceBuilding\Templates\ReprDto.txt";
     
     /// <summary>
     /// Loads a Scriban template object for a Request or Response DTO from a text file.

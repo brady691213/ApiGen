@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using SourceBuilding;
 using Xunit;
 
 namespace SourceBuilder.Tests.Integration;

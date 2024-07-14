@@ -1,4 +1,4 @@
-﻿namespace SourceBuilder;
+﻿namespace SourceBuilding;
 
 /// <summary>
 /// Tool to resolve and determine paths for API generation templates.

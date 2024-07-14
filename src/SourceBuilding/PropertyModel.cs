@@ -1,6 +1,6 @@
 ﻿using Reflection;
 
-namespace SourceBuilder;
+namespace SourceBuilding;
 
 /// <summary>
 /// Models information required to generate a property declaration.
@@ -15,7 +15,7 @@ namespace SourceBuilder;
 /// </remarks>
 public class PropertyModel(string typeName, string propertyName)
 {
-    private TypeAliasing _propertyReflector = new();
+    private CSharpTypeInformation _propertyReflector = new();
     
     public string? TypeString { get; set; } 
 

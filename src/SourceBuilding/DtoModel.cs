@@ -1,4 +1,4 @@
-﻿namespace SourceBuilder;
+﻿namespace SourceBuilding;
 
 /// <summary>
 /// Models information required to generate a type declaration for a REPR type DTO.

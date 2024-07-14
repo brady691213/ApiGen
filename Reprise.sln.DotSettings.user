@@ -1,0 +1,13 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;Assembly Path="C:\Users\brady\projects\ApiGen\Library\CTSCore.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\ettie\.nuget\packages\icsharpcode.decompiler\8.2.0.7535\lib\netstandard2.0\ICSharpCode.Decompiler.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=82d6c01b_002D8f23_002D4b47_002Db4df_002De6392f10b883/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CorrectAliasForSimpleType" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::59C370B0-21E5-4182-8B45-D44E50EBF790::net8.0::Reflection.Tests.Unit.TypeAliasingTests.CorrectAliasForSimpleType&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::59C370B0-21E5-4182-8B45-D44E50EBF790::net8.0::Reflection.Tests.Unit.TypeAliasingTests.CorrectAliasForArrayType&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::59C370B0-21E5-4182-8B45-D44E50EBF790::net8.0::Reflection.Tests.Unit.TypeAliasingTests.CorrectAliasForSimpleArrayType&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Shouldly;
+using SourceBuilding;
 using Xunit;
 
 namespace SourceBuilder.Tests.Integration;

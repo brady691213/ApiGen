@@ -1,16 +1,13 @@
 ﻿using Reflection;
 
-namespace SourceBuilder;
+namespace SourceBuilding;
 
 /// <summary>
 /// This class uses text templates to generate models for a web API such as Request and Response DTOs.
 /// </summary>
 public class DtoBuilder
 {
-    // TASKT: Make this part of an IOptions read from config.
-    internal bool SkipTypeAliasing = false;
-
-    private PropertyBuilder _propertyBuilder = new();
+    private readonly PropertyBuilder _propertyBuilder = new();
     
     /// <summary>
     /// Builds source code for a request or response DTO that can eb mapped to an EF entity.
