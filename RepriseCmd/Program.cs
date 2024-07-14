@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 using IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureHostConfiguration(configHost =>
@@ -12,7 +14,5 @@ using IHost host = Host.CreateDefaultBuilder(args)
     })
     .Build();
     
-// dotnet add package Serilog --version 2.12.0
-// dotnet add package Serilog.Settings.Configuration --version 7.0.0
-// dotnet add package Serilog.Extensions.Hosting --version 7.0.0
-// dotnet add package Serilog.Sinks.Console --version 4.1.0
+    var logger = host.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogInformation("Host,logging, Di, shebang started up");
