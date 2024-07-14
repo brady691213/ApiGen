@@ -3,8 +3,6 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Reflection;
 
-namespace SourceBuilding;
-
 public class FeatureBuilder(string outputFolder, string rootNamespace)
 {
     private readonly CodeCompileUnit _compileUnit = new();
