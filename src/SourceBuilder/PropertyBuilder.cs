@@ -28,10 +28,18 @@ public class PropertyBuilder
     {
         if (!propType.IsGenericType)
         {
-            return SkipTypeAliasing ? propType.Name : TypeAliasing.GetAliasForType(propType);
+            // if (propType.Name.EndsWith("[]"))
+            // {
+            //     return TypeAliasing.GetAliasForType(propType.Name.Replace("[]", "");
+            // }
+            return TypeAliasing.GetAliasForType(propType);
         }
 
         var typenameParts = propType.Name.Split('`');
+        if (typenameParts.Length > 1 && typenameParts[0] == "Nullable")
+        {
+            return TypeAliasing.GetAliasForType(propType.GenericTypeArguments[0]) + "?";
+        }
         
         var names = new List<string?>();
         foreach (var genericTypeArgument in propType.GenericTypeArguments)

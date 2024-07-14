@@ -18,10 +18,4 @@ public class TypeDecTests
 
         actual.ShouldBe(expected);
     }
-
-    [Fact]
-    public void aFact()
-    {
-        var data = new MassTypeTestTheoryData();
-    }
 }

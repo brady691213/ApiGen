@@ -1,16 +1,14 @@
 ﻿using System.Text.RegularExpressions;
-using Reflection;
-using SourceBuilder;
 using SourceReader;
 
-namespace SourceParser;
+namespace SourceParsing;
 
 public partial class SourceParser
 {
     [GeneratedRegex(@"(?'access'\w+)\s+(?'class_type'(?:class)|(?:record))\s+(?'class_name'\w+)")]
     private static partial Regex ClassRegex();
     
-    [GeneratedRegex(@"(?'access'\w+) (?:virtual\s+)?(?'type'\w+\??(?:<[^>]+>)?) (?'name'\w+) (?'getset'\{ get; set; \})(?'init' = [^;]+;)?")]
+    [GeneratedRegex(@"(?'access'\w+)\s+(?:virtual\s+)?(?'type'\w+(\[\])?\??(?:<[^>]+>)?)\s+(?'name'\w+)\s+(?'getset'\{ get; set; \})(?'init' = [^;]+;)?")]
     private static partial Regex PropertyRegex();   
     
     private readonly Regex _classRegex = ClassRegex();

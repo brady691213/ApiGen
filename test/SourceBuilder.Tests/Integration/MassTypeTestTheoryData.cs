@@ -2,6 +2,7 @@
 using Reflection;
 using SourceReader;
 using Xunit;
+using SourceParser = SourceParsing.SourceParser;
 
 namespace SourceBuilder.Tests.Integration;
 
@@ -12,7 +13,7 @@ public class MassTypeTestTheoryData : TheoryData<PropertyInfo, string>
     public MassTypeTestTheoryData()
     {
         // Read all prop declarations from the decompiled source for the CTSCore assembly.
-        var parser = new SourceParser.SourceParser();
+        var parser = new SourceParser();
         var allInputDecs = parser.GetDecsFromAssembly();
 
         // Now get all entity types from the original, compiled CTSCore assembly.
@@ -24,6 +25,10 @@ public class MassTypeTestTheoryData : TheoryData<PropertyInfo, string>
         var entities = reflector.GetEntityTypes(context);
         foreach (var entityType in entities)
         {
+            if (entityType.Name.Contains("ssessmentEvidenc"))
+            {
+                var x = "y";
+            }
             allProps.AddRange(reflector.GetEntityProperties(entityType));
         }
         
@@ -33,6 +38,10 @@ public class MassTypeTestTheoryData : TheoryData<PropertyInfo, string>
             var dec = allInputDecs
                 .SingleOrDefault(d => d.ContainingTypeName == info.DeclaringType?.Name
                                       && d.Name == info.Name);
+            if (dec == null)
+            {
+                var x = info;
+            }
             Add(info, dec?.PropType ?? "Bad prop type on dec");
         }
     }
