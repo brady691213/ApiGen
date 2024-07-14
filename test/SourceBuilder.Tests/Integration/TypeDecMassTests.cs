@@ -1,13 +1,16 @@
 ﻿using System.Reflection;
 using Shouldly;
-using SourceReader;
 using Xunit;
 
 namespace SourceBuilder.Tests.Integration;
 
-public class TypeDecTests
+/// <summary>
+/// Here I use 1709 property declarations parsed from the decompiled sample assembly as expected cases
+/// to test actual declarations generated using information obtained via reflection.
+/// </summary>
+public class TypeDecMassTests
 {
-    private PropertyBuilder _builder = new PropertyBuilder();
+    private readonly PropertyBuilder _builder = new();
 
     [Theory]
     [ClassData(typeof(MassTypeTestTheoryData))]
