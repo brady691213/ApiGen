@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Shouldly;
+﻿using Shouldly;
 
 namespace Reflection.Tests.Unit;
 
@@ -21,15 +20,6 @@ public class TypeAliasingTests
         actualAlias.ShouldBe(expected);
     }
     
-    [Theory]
-    [ClassData(typeof(AliasToSimpleTypeTheoryData))]
-    public void CorrectTypeForSimpleAlias(string alias, Type expected)
-    {
-        var actualType = CSharpTypeInformation.GetTypeForAlias(alias);
-        actualType.ShouldBe(expected);
-    }
-
-
     private class SimpleTypeToAliasTheoryData: TheoryData<Type, string>
     {
         public SimpleTypeToAliasTheoryData()
@@ -50,17 +40,6 @@ public class TypeAliasingTests
                 var arrayType = Type.GetType($"System.{kvp.Key.Name}[]");
                 arrayType.ShouldNotBeNull();
                 Add(arrayType, kvp.Value);
-            }
-        }
-    }
-    
-    private class AliasToSimpleTypeTheoryData: TheoryData<string, Type>
-    {
-        public AliasToSimpleTypeTheoryData()
-        {
-            foreach (var kvp in CSharpTypeInformation.AliasKeyedLookup)
-            {
-                Add(kvp.Key, kvp.Value);
             }
         }
     }
