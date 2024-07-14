@@ -1,25 +1,15 @@
-﻿using Reflection;
-
-namespace SourceBuilding;
+﻿namespace SourceBuilding;
 
 /// <summary>
 /// Models information required to generate a property declaration.
 /// </summary>
-/// <param name="typeName">Type of the property to declare.</param>
-/// <param name="propertyName">Name of the property to declare.</param>
-/// <remarks>
-/// Used to build a simple C# property declaration like the following:
-/// <code>
-/// public <paramref name="typeName"/> <paramref name="propertyName"/> { get; set; }
-/// </code>
-/// </remarks>
-public class PropertyModel(string typeName, string propertyName)
+/// <param name="typeString">String describing the property's type.</param>
+/// <param name="name">Name of a property.</param>
+public class PropertyModel(string typeString, string name, Type? declaringType)
 {
-    private CSharpTypeInformation _propertyReflector = new();
-    
-    public string? TypeString { get; set; } 
+    public string TypeString { get; set; } = typeString;
 
-    public string PropertyName { get; set; } = propertyName;
-    
-    public string? ExposingTypeName { get; set; }
+    public string Name { get; set; } = name;
+
+    public Type? DeclaringType { get; set; } = declaringType;
 }
