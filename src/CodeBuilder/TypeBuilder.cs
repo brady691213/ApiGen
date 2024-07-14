@@ -3,28 +3,30 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Reflection;
 
-namespace CodeDomSourceBuilder;
+namespace CodeBuilder;
 
-public class TypeBuilder(string outputFolder, string rootNamespace)
+/// <summary>
+/// General functionality for building CodeDom elements common to most code building tasks.
+/// </summary>
+public class TypeBuilder(CodeOutputConfig outputConfig)
 {
     private readonly CodeCompileUnit _compileUnit = new();
 
-    public string BuildResponseDto(Type entityType, string? operationName = null)
+    public string BuildModelType(Type entityType, string? operationName = null)
     {
-        var responeBindingFlags = BindingFlags.Public | BindingFlags.Instance;
-
-        var ns = new CodeNamespace($"{rootNamespace}.Features.HelloWorld");
+        var dtoNamespace = GetTypeNamespace();
         
         var responseClass = new CodeTypeDeclaration($"HelloWorld{operationName ?? ""}");
         responseClass.IsClass = true;
         responseClass.TypeAttributes = TypeAttributes.Public;
-        foreach (var pm in GetPropertyMembers(entityType.GetProperties(responeBindingFlags).ToList()))
+        var outputProps = GetModelProperties(entityType);
+        foreach (var pm in GetPropertyMembers(outputProps))
         {
             responseClass.Members.Add(pm);
         }
 
-        ns.Types.Add(responseClass);
-        _compileUnit.Namespaces.Add(ns);
+        dtoNamespace.Types.Add(responseClass);
+        _compileUnit.Namespaces.Add(dtoNamespace);
 
         var dtoSource = GenerateCSharpCode(_compileUnit);
 
@@ -63,5 +65,17 @@ public class TypeBuilder(string outputFolder, string rootNamespace)
         property.HasSet = true;
         property.Type = new CodeTypeReference(info.PropertyType);
         return property;
+    }
+
+    private CodeNamespace GetTypeNamespace()
+    {
+        var root = outputConfig.RootNamespace ?? outputConfig.OutputFolder;
+        return new CodeNamespace($"{root}.Features.HelloWorld");
+    }
+
+    private List<PropertyInfo> GetModelProperties(Type inputType)
+    {
+        var bindingFlags = BindingFlags.Public | BindingFlags.Instance;
+        return inputType.GetProperties(bindingFlags).ToList();
     }
 }

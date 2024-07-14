@@ -1,7 +1,8 @@
-﻿using Shouldly;
+﻿using Reflection;
+using Shouldly;
 using Xunit;
 
-namespace Reflection.Tests.Unit;
+namespace SourceBuilder.Tests.Unit;
 
 public class TypeAliasingTests
 {
