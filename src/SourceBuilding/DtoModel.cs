@@ -11,6 +11,8 @@
 /// </remarks>
 public class DtoModel(string dtoName, List<PropertyModel> properties)
 {
+    public DtoRequestResponse DtoDirection { get; set; }
+    
     public string TypeName { get; set; } = dtoName;
 
     public List<PropertyModel> Properties { get; set; } = properties;
