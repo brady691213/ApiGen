@@ -8,7 +8,7 @@ namespace CodeBuilder;
 /// <summary>
 /// General functionality for building CodeDom elements common to most code building tasks.
 /// </summary>
-public class TypeBuilder(CodeOutputConfig outputConfig): CodeBuilder
+public class TypeBuilder(CodeOutputConfig outputConfig): ClassBuilder
 {
     public string BuildModelType(Type entityType, string? operationName = null)
     {
