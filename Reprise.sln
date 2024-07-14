@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceApi", "ReferenceAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDomSourceBuilder", "CodeDomSourceBuilder\CodeDomSourceBuilder.csproj", "{D31C3B4C-F993-4631-861D-1CFC91C8A1FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepriseCli", "RepriseCli\RepriseCli.csproj", "{DEE19E8D-0F90-44EF-9BDB-5CFFDC70EDCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeDomSourceBuilder", "src\CodeDomSourceBuilder\CodeDomSourceBuilder.csproj", "{5D7B39F0-32C5-433E-88E2-0C3E061693A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +64,13 @@ Global
 		{D31C3B4C-F993-4631-861D-1CFC91C8A1FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D31C3B4C-F993-4631-861D-1CFC91C8A1FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D31C3B4C-F993-4631-861D-1CFC91C8A1FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEE19E8D-0F90-44EF-9BDB-5CFFDC70EDCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEE19E8D-0F90-44EF-9BDB-5CFFDC70EDCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEE19E8D-0F90-44EF-9BDB-5CFFDC70EDCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEE19E8D-0F90-44EF-9BDB-5CFFDC70EDCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D7B39F0-32C5-433E-88E2-0C3E061693A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D7B39F0-32C5-433E-88E2-0C3E061693A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D7B39F0-32C5-433E-88E2-0C3E061693A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D7B39F0-32C5-433E-88E2-0C3E061693A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

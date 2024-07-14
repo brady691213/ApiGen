@@ -3,7 +3,9 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Reflection;
 
-public class FeatureBuilder(string outputFolder, string rootNamespace)
+namespace CodeDomSourceBuilder;
+
+public class TypeBuilder(string outputFolder, string rootNamespace)
 {
     private readonly CodeCompileUnit _compileUnit = new();
 
