@@ -11,6 +11,7 @@
     <ItemGroup>
       <PackageReference Include="ICSharpCode.Decompiler" Version="8.2.0.7535" />
       <PackageReference Include="Scriban" Version="5.10.0" />
+      <PackageReference Include="System.CodeDom" Version="9.0.0-preview.6.24327.7" />
     </ItemGroup>
 
     <ItemGroup>
