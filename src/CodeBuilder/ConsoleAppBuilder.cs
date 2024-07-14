@@ -7,8 +7,14 @@ public class ConsoleAppBuilder : CodeBuilder
 {
     public void BuildApp()
     {
+        var ns = new CodeNamespace($"HelloWorldApp");
+        
         var program = BuildProgramClass();
         AddEntryPoint(program);
+
+        ns.Types.Add(program);
+        CompileUnit.Namespaces.Add(ns);
+        
         var code = GenerateCSharpCode();
         
         Console.WriteLine(code);

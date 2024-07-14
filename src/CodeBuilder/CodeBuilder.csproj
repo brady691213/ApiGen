@@ -14,8 +14,7 @@
 
     <ItemGroup>
       <None Remove="Templates\ProjectFile" />
-      <None Include="Templates\ProjectFile.csproj" />
-      <None Include="Templates\ProjectFile.xml">
+      <None Include="Templates\ProjectFile.csproj">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

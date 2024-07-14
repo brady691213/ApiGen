@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CodeBuilder\CodeBuilder.csproj" />
       <ProjectReference Include="..\src\CodeBuilder\CodeBuilder.csproj" />
     </ItemGroup>
 
