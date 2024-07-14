@@ -8,10 +8,8 @@ namespace CodeBuilder;
 /// <summary>
 /// General functionality for building CodeDom elements common to most code building tasks.
 /// </summary>
-public class TypeBuilder(CodeOutputConfig outputConfig)
+public class TypeBuilder(CodeOutputConfig outputConfig): CodeBuilder
 {
-    private readonly CodeCompileUnit _compileUnit = new();
-
     public string BuildModelType(Type entityType, string? operationName = null)
     {
         var dtoNamespace = GetTypeNamespace();
@@ -26,9 +24,9 @@ public class TypeBuilder(CodeOutputConfig outputConfig)
         }
 
         dtoNamespace.Types.Add(responseClass);
-        _compileUnit.Namespaces.Add(dtoNamespace);
+        CompileUnit.Namespaces.Add(dtoNamespace);
 
-        var dtoSource = GenerateCSharpCode(_compileUnit);
+        var dtoSource = GenerateCSharpCode();
 
         return dtoSource;
     }
@@ -38,35 +36,12 @@ public class TypeBuilder(CodeOutputConfig outputConfig)
         CodeMemberProperty[] members = [];
         foreach (var info in props)
         {
-            var prop = BuildAutoProperty(info);
+            var prop = CodeElements.BuildAutoProperty(info);
             ((IList)members).Add(prop);
         }
         return members.ToList();
     }
-
-    private string GenerateCSharpCode(CodeCompileUnit compileUnit)
-    {
-        CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-        CodeGeneratorOptions options = new CodeGeneratorOptions();
-        options.BracingStyle = "C";
-
-        using StringWriter sourceWriter = new StringWriter();
-        provider.GenerateCodeFromCompileUnit(compileUnit, sourceWriter, options);
-
-        return sourceWriter.ToString();
-    }
-
-    private CodeMemberProperty BuildAutoProperty(PropertyInfo info)
-    {
-        var property = new CodeMemberProperty();
-        property.Attributes = MemberAttributes.Final | MemberAttributes.Public;
-        property.Name = info.Name;
-        property.HasGet = true;
-        property.HasSet = true;
-        property.Type = new CodeTypeReference(info.PropertyType);
-        return property;
-    }
-
+    
     private CodeNamespace GetTypeNamespace()
     {
         var root = outputConfig.RootNamespace ?? outputConfig.OutputFolder;

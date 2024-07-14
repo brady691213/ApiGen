@@ -1,6 +1,5 @@
 ﻿namespace CodeBuilder;
 
-public class ConsoleAppBuilder
+public class ConsoleAppBuilder: CodeBuilder
 {
-    
 }

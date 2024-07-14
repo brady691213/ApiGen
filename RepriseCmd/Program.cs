@@ -18,6 +18,7 @@ using IHost host = Host.CreateDefaultBuilder(args)
     
     var logger = host.Services.GetRequiredService<ILogger<Program>>();
     logger.LogInformation("Host,logging, Di, shebang started up");
+    logger.LogInformation("Program namespace is {namespace}", typeof(Program).Namespace);
     
     var executor = CommandExecutor.For(_ =>
     {
@@ -25,3 +26,4 @@ using IHost host = Host.CreateDefaultBuilder(args)
     });
 
     return executor.Execute(args);
+    
