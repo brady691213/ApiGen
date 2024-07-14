@@ -12,4 +12,12 @@
       <PackageReference Include="System.CodeDom" Version="6.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Templates\ProjectFile" />
+      <None Include="Templates\ProjectFile.csproj" />
+      <None Include="Templates\ProjectFile.xml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

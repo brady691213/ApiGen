@@ -7,19 +7,12 @@ namespace CodeBuilder;
 /// </summary>
 public class TemplateLoader
 {
-    // TASKT: Make this path a variable that points to a lcoal soure text file for debugging and to the build output for runtime use.
-    private const string DtoTemplatePath = @"C:\Users\brady\projects\ApiGen\SourceBuilding\Templates\ReprDto.txt";
+    private static string _dtoTemplatePath = @"Templates\ProjectFile.sb";
     
-    /// <summary>
-    /// Loads a Scriban template object for a Request or Response DTO from a text file.
-    /// </summary>
-    /// <returns>A <see cref="Template"/> based on the text content of the <see cref="DtoTemplatePath"/> text file.</returns>
-    public Template LoadDtoTemplate()
+    public static Template LoadCsprojTemplate()
     {
-        var templateText = File.ReadAllText(DtoTemplatePath);
-
+        var templateText = File.ReadAllText(_dtoTemplatePath);
         var parsedTemplate = Template.Parse(templateText);
-
         return parsedTemplate;
     }
 }

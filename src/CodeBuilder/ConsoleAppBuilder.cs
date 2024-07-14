@@ -3,18 +3,26 @@ using System.Reflection;
 
 namespace CodeBuilder;
 
-public class ConsoleAppBuilder: CodeBuilder
+public class ConsoleAppBuilder : CodeBuilder
 {
-    public ConsoleAppBuilder()
+    public void BuildApp()
     {
-        var mainClass = new CodeTypeDeclaration("Program");
-        mainClass.IsClass = true;
-        mainClass.TypeAttributes = TypeAttributes.Public;
-
-        AddEntryPoint(mainClass);
+        var program = BuildProgramClass();
+        AddEntryPoint(program);
+        var code = GenerateCSharpCode();
+        
+        Console.WriteLine(code);
     }
-    
-    public void AddEntryPoint(CodeTypeDeclaration entryPointClass)
+
+    private CodeTypeDeclaration BuildProgramClass()
+    {
+        var programClass = new CodeTypeDeclaration("Program");
+        programClass.IsClass = true;
+        programClass.TypeAttributes = TypeAttributes.Public;
+        return programClass;
+    }
+
+    private void AddEntryPoint(CodeTypeDeclaration entryPointClass)
     {
         CodeEntryPointMethod main = new CodeEntryPointMethod();
 
@@ -24,5 +32,16 @@ public class ConsoleAppBuilder: CodeBuilder
             new CodeTypeReferenceExpression("System.Console"),
             "WriteLine", hello));
         entryPointClass.Members.Add(main);
+    }
+
+    private string BuildProjectDefinition()
+    {
+        var model = new ProjectFileModel();
+        model.RepriseVersion = "0.0.1";
+
+        var template = TemplateLoader.LoadCsprojTemplate();
+        var pjfText = template.Render(new { model = model });
+
+        return pjfText;
     }
 }

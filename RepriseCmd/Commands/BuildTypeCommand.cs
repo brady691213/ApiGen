@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using CodeBuilder;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Oakton;
 
@@ -19,6 +20,10 @@ public class BuildTypeCommand: OaktonCommand<InputForBuildType>
     public override bool Execute(InputForBuildType input)
     {
         _logger.LogInformation($"Building type {input.TypeName} with output to {input.OutputDirectory}");
+
+        var bld = new ConsoleAppBuilder();
+        bld.BuildApp();
+        
         return true;
     }
 }
