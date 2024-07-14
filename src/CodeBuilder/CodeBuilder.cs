@@ -8,18 +8,16 @@ public class CodeBuilder
     private CodeDomProvider _provider = CodeDomProvider.CreateProvider("CSharp");
     protected CodeCompileUnit CompileUnit = new();
     protected CodeGeneratorOptions Options = new CodeGeneratorOptions();
-    
-    public CodeBuilder()
+
+    protected CodeBuilder()
     {
         Options.BracingStyle = "C";
     }
-    
-    public string GenerateCSharpCode()
+
+    protected string GenerateCSharpCode()
     {
         using var sourceWriter = new StringWriter();
         _provider.GenerateCodeFromCompileUnit(CompileUnit, sourceWriter, Options);
-
         return sourceWriter.ToString();
     }
-    
 }

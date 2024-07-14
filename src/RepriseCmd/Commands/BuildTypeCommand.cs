@@ -22,8 +22,9 @@ public class BuildTypeCommand: OaktonCommand<InputForBuildType>
         //_logger.LogInformation($"Building type {input.TypeName} with output to {input.OutputDirectory}");
 
         var bld = new ConsoleAppBuilder();
-        bld.BuildApp();
+        var code = bld.BuildHelloWorldApp();
         
+        Console.WriteLine(code);
         return true;
     }
 }

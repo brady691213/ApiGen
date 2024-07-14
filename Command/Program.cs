@@ -3,4 +3,4 @@
 using CodeBuilder;
 
 var cb = new ConsoleAppBuilder();
-cb.BuildApp();
+cb.BuildHelloWorldApp();

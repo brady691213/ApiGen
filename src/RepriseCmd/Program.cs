@@ -18,23 +18,7 @@ using RepriseCmd.Commands;
 //     })
 //     .Build();
     
-    //var logger = host.Services.GetRequiredService<ILogger<Program>>();
-    // TASKT: How to get real name of this console app.
-    //logger.LogInformation("{cliName} started", "RepriseCmd");
-
-    //return CommandExecutor.ExecuteCommand<BuildTypeCommand>(args);
-
-    // var executor = CommandExecutor.For(_ =>
-    // {
-    //     _.RegisterCommands(typeof(Program).GetTypeInfo().Assembly);
-    // });
-
-    // return executor.Execute(args);
-
-    var cb = new ConsoleAppBuilder();
-    cb.BuildApp();
-
-    return 0;
+return CommandExecutor.ExecuteCommand<BuildTypeCommand>(args);
 
 
     

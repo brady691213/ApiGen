@@ -5,19 +5,29 @@ namespace CodeBuilder;
 
 public class ConsoleAppBuilder : CodeBuilder
 {
-    public void BuildApp()
+    public string BuildHelloWorldApp()
     {
-        var ns = new CodeNamespace($"HelloWorldApp");
+        var rootNamespace = new CodeNamespace("HelloWorldApp");
+        rootNamespace.Imports.Add(new CodeNamespaceImport("System"));
+        var programClass = BuildProgramClass();
         
-        var program = BuildProgramClass();
-        AddEntryPoint(program);
+        var mainMethod = new CodeMemberMethod
+        {
+            Name = "Main",
+            Attributes = MemberAttributes.Static | MemberAttributes.Public
+        };
+        mainMethod.Parameters.Add(new CodeParameterDeclarationExpression(typeof(string[]), "args"));
+        mainMethod.Statements.Add(new CodeMethodInvokeExpression(
+            new CodeTypeReferenceExpression("System.Console"),
+            "WriteLine", 
+            new CodePrimitiveExpression("Hello world")));
+        
+        programClass.Members.Add(mainMethod);
+        rootNamespace.Types.Add(programClass);
+        CompileUnit.Namespaces.Add(rootNamespace);
 
-        ns.Types.Add(program);
-        CompileUnit.Namespaces.Add(ns);
-        
         var code = GenerateCSharpCode();
-        
-        Console.WriteLine(code);
+        return code;
     }
 
     private CodeTypeDeclaration BuildProgramClass()
@@ -28,26 +38,28 @@ public class ConsoleAppBuilder : CodeBuilder
         return programClass;
     }
 
+    // Create the Main method
+    private CodeMemberMethod BuildMain()
+    {
+        var main = new CodeMemberMethod
+        {
+            Name = "Main",
+            Attributes = MemberAttributes.Static | MemberAttributes.Public,
+            ReturnType = new CodeTypeReference(typeof(void))
+        };
+        return main;
+    }
+
     private void AddEntryPoint(CodeTypeDeclaration entryPointClass)
     {
         CodeEntryPointMethod main = new CodeEntryPointMethod();
+        main.Parameters.Add(new CodeParameterDeclarationExpression(typeof(string[]), "args"));
 
-        var hello = new CodePrimitiveExpression("Hello world");
+        var helloString = new CodePrimitiveExpression("Hello world");
 
         main.Statements.Add(new CodeMethodInvokeExpression(
             new CodeTypeReferenceExpression("System.Console"),
-            "WriteLine", hello));
+            "WriteLine", helloString));
         entryPointClass.Members.Add(main);
-    }
-
-    private string BuildProjectDefinition()
-    {
-        var model = new ProjectFileModel();
-        model.RepriseVersion = "0.0.1";
-
-        var template = TemplateLoader.LoadCsprojTemplate();
-        var pjfText = template.Render(new { model = model });
-
-        return pjfText;
     }
 }
