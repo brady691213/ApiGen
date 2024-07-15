@@ -4,9 +4,9 @@ using Serilog;
 
 namespace RepriseCmd;
 
-public class HostProvider
+public class RepriseHostBuilder
 {
-    internal static IHost AppStartup()
+    internal static IHost BuildHost()
     {
         var builder = new ConfigurationBuilder();
         builder.SetBasePath(Directory.GetCurrentDirectory())
