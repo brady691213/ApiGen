@@ -9,6 +9,8 @@ Functions to build code elements and project files.
 
 ## Tasks - Later
 
+- TASKT: Fathom how to get MS ILogger from Serilog.
+- TASKT: Replace exceptions with Result pattern.
 - TASKT: Use value objects and avoid primitives.
 - TASKT: Revise hard-coded defaults for project tfm and RepriseVersion.
 - TASKT: Method of determining default solution name and path if not provided.

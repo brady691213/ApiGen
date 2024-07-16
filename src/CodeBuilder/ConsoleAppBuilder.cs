@@ -22,15 +22,14 @@ public class ConsoleAppBuilder : ClassBuilder
 
         var projectModel = new ProjectModel(projectName);
         
-        var projectDirectory = $"{solutionDirectory}/src/{projectName}";
-        Directory.CreateDirectory($"{solutionDirectory}/src");
-        Directory.CreateDirectory(projectDirectory);
-        var projectBuilder = new ProjectBuilder();
-        var projectFileText = projectBuilder.BuildProjectDefinition(projectModel);        
-        File.WriteAllText($"{projectDirectory}/{projectName}.csproj", projectFileText);
-        
         var code = BuildProgramClass();
-        File.WriteAllText($"{projectDirectory}/Program.cs", code);
+        var codeModel = new CodeFileModel("Program.cs", code);
+        projectModel.CodeFileModels.Add(codeModel);
+        
+        var sourceLocation = $"{solutionDirectory}/src";
+        
+        var projectBuilder = new ProjectBuilder();
+        projectBuilder.CreateProject(projectModel, sourceLocation);        
         
         var slnBuilder = new SolutionBuilder();
         var slnDef = slnBuilder.BuildSolutionDefinition(solutionName, [projectModel]);

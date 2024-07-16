@@ -18,7 +18,7 @@ public class RepriseCommandCreator : ICommandCreator
     public IOaktonCommand CreateCommand(Type commandType)
     {
         // var cmd = (IOaktonCommand)_services.GetRequiredService(commandType);
-        // var logger = Log.ForContext<BuildTypeCommand>();
+        var logger = Log.ForContext<BuildAppCommand>();
         // cmd.
         return (IOaktonCommand)_services.GetRequiredService(commandType);
     }
