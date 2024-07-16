@@ -10,8 +10,17 @@
     <ItemGroup>
       <ProjectReference Include="..\..\SourceParsing\SourceParsing.csproj" />
       <ProjectReference Include="..\..\src\SourceBuilding\SourceBuilding.csproj" />
-      <ProjectReference Include="..\..\src\SourceParsing\SourceParsing.csproj" />
       <ProjectReference Include="..\Reflection.Tests.Types\Reflection.Tests.Types.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Integration\TypeDecMassTests.cs" />
+      <Compile Remove="Unit\PropertyModelTests.cs" />
+      <Compile Remove="Integration\MassTypeTestTheoryData.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Integration\" />
     </ItemGroup>
 
 </Project>

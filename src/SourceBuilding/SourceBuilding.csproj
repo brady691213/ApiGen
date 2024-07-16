@@ -26,4 +26,8 @@
       <None Remove="Templates\dto.txt" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="PropertyBuilder.cs" />
+    </ItemGroup>
+
 </Project>
