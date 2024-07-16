@@ -2,33 +2,46 @@
 using System.CodeDom.Compiler;
 using System.Collections;
 using System.Reflection;
+using SourceBuilding;
 
 namespace CodeBuilder;
 
 /// <summary>
 /// General functionality for building CodeDom elements common to most code building tasks.
 /// </summary>
-public class TypeBuilder(CodeOutputConfig outputConfig): ClassBuilder
+public class TypeBuilder(CodeOutputConfig outputConfig)
 {
-    public string BuildModelType(Type entityType, string? operationName = null)
+    public string BuildDto(string dtoNamespace, Type entityType, DtoDirection? direction, string? operationName = "")
     {
-        var dtoNamespace = GetTypeNamespace();
+        var classBuilder = new ClassBuilder();
+        var codeNamespace = new CodeNamespace(dtoNamespace);
         
-        var responseClass = new CodeTypeDeclaration($"HelloWorld{operationName ?? ""}");
-        responseClass.IsClass = true;
-        responseClass.TypeAttributes = TypeAttributes.Public;
+        var dtoClass = new CodeTypeDeclaration();
+        dtoClass.IsClass = true;
+        dtoClass.TypeAttributes = TypeAttributes.Public;
         var outputProps = GetModelProperties(entityType);
         foreach (var pm in GetPropertyMembers(outputProps))
         {
-            responseClass.Members.Add(pm);
+            dtoClass.Members.Add(pm);
         }
 
-        dtoNamespace.Types.Add(responseClass);
-        CompileUnit.Namespaces.Add(dtoNamespace);
+        codeNamespace.Types.Add(dtoClass);
 
-        var dtoSource = GenerateCSharpCode();
+        var dtoSource = classBuilder.GenerateCSharpCode([codeNamespace]);
 
         return dtoSource;
+    }
+
+    /// <summary>
+    /// Builds a name for a REPR dto based on an entity type, whether for a request or response, and the CRUD operation;
+    /// </summary>
+    /// <remarks>
+    /// Examples, for a request to update an `Employee`, the name will be `EmployeeUpdateRequest`,
+    /// and for the response from request to delete a `Course`, the name will be `CourseDeleteResponse`. 
+    /// </remarks>
+    private string BuildDtoName(Type entityType, DtoDirection? direction, string? operationName = "")
+    {
+        return $"{entityType}{operationName}{direction?.ToString() ?? ""}";
     }
 
     private List<CodeMemberProperty> GetPropertyMembers(List<PropertyInfo> props)
@@ -40,12 +53,6 @@ public class TypeBuilder(CodeOutputConfig outputConfig): ClassBuilder
             ((IList)members).Add(prop);
         }
         return members.ToList();
-    }
-    
-    private CodeNamespace GetTypeNamespace()
-    {
-        var root = outputConfig.RootNamespace ?? outputConfig.OutputFolder;
-        return new CodeNamespace($"{root}.Features.HelloWorld");
     }
 
     private List<PropertyInfo> GetModelProperties(Type inputType)
