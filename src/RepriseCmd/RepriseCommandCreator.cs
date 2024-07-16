@@ -20,6 +20,6 @@ public class RepriseCommandCreator : ICommandCreator
 
     public object CreateModel(Type modelType)
     {
-        return _services.GetRequiredService(modelType);
+        return _services.GetService(modelType);
     }
 }

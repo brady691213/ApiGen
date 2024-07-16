@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RepriseCmd.Commands;
 using Serilog;
 
 namespace RepriseCmd;
@@ -24,6 +26,8 @@ public class RepriseHostBuilder
 
         var host = Host.CreateDefaultBuilder() // Initialising the Host 
             .ConfigureServices((context, services) => { // Adding the DI container for configuration
+                services.AddTransient<InputForBuildType>();
+                services.AddTransient<BuildTypeCommand>();
             })
             .UseSerilog() // Add Serilog
             .Build(); // Build the Host

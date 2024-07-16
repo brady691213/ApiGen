@@ -10,8 +10,9 @@ var executor = CommandExecutor.For(_ =>
     _.DefaultCommand = typeof(BuildTypeCommand);
 }, new RepriseCommandCreator(host.Services));
 
-return await host.RunOaktonCommands(args);
+//return await host.RunOaktonCommands(args);
 //return CommandExecutor.ExecuteCommand<BuildTypeCommand>(args);
+return executor.Execute(args);
 
 
     
