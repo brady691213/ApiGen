@@ -1,11 +1,19 @@
 ﻿using System.CodeDom;
-using System.Reflection;
 
 namespace CodeBuilder;
 
 public class ConsoleAppBuilder : ClassBuilder
 {
-    public string BuildHelloWorldApp()
+    public void BuildHelloWorldApp(string outputPath)
+    {
+        var code = BuildProgramClass();
+        var project = BuildProjectDefinition();
+        
+        var projPath = $""        
+        
+    }
+
+    private string BuildProgramClass()
     {
         var mainMethod = new CodeMemberMethod
         {
@@ -21,5 +29,11 @@ public class ConsoleAppBuilder : ClassBuilder
         
         var code = GenerateCSharpCode();
         return code;
+    }
+
+    private string BuildProjectDefinition()
+    {
+        var projectBuilder = new ProjectBuilder();
+        return projectBuilder.BuildProjectFile("0.0.1", "net9.0");
     }
 }
