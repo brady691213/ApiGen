@@ -2,15 +2,13 @@
 
 public class SolutionBuilder
 {
-    public string BuilSolutionDefintion(List<ProjectFileModel> projectFileModels)
+    public string BuilSolutionDefintion(List<ProjectModel> projectModels)
     {
         var template = TemplateLoader.LoadTemplate(@"C:\Users\brady\projects\ApiGen\src\CodeBuilder\Templates\ProjectFile.csproj.txt");
 
-        var model = new SolutionFileModel();
-        model.SolutionId = Guid.NewGuid();
+        var model = new SolutionModel();
+        model.ProjectModels.AddRange(projectModels);
         
-        model.ProjectFileModels.AddRange(projectFileModels);
-
         var slnText = template.Render(new { model = model });
 
         return slnText;

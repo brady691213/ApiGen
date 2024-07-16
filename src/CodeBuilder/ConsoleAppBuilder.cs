@@ -7,10 +7,8 @@ public class ConsoleAppBuilder : ClassBuilder
     public void BuildHelloWorldApp(string outputPath)
     {
         var projectName = "HelloWorld";
-        var code = BuildProgramClass();
-        var projectDef = BuildProjectDefinition();
 
-        // For now, we just use the project as a solution name and path.
+        // For now, we just use the project name as a solution name and path.
         var solutionName = projectName;
         var solutionPath = $"{outputPath}/{solutionName}";
         var projectPath = $"{solutionPath}/src/{projectName}";
@@ -22,13 +20,19 @@ public class ConsoleAppBuilder : ClassBuilder
         }
 
         Directory.CreateDirectory(solutionPath);
-        var slnBuilder = new SolutionBuilder();
-        var slnDef = slnBuilder.BuilSolutionDefintion([projectDef])
-        
         Directory.CreateDirectory($"{solutionPath}/src");
         Directory.CreateDirectory($"{solutionPath}/src/{projectName}");
 
-        File.WriteAllText($"{projectPath}/{projectName}.csproj", projectDef);
+        var code = BuildProgramClass();
+        var projectModel = new ProjectModel(projectName);
+        
+        var projectBuilder = new ProjectBuilder();
+        var projectFileText = projectBuilder.BuildProjectDefinition(projectModel);        
+        File.WriteAllText($"{projectPath}/{projectName}.csproj", projectFileText);
+        
+        var slnBuilder = new SolutionBuilder();
+        var slnDef = slnBuilder.BuilSolutionDefintion([projectModel]);
+        File.WriteAllText(solutionPath, slnDef);
     }
 
     private string BuildProgramClass()
@@ -47,14 +51,5 @@ public class ConsoleAppBuilder : ClassBuilder
 
         var code = GenerateCSharpCode();
         return code;
-    }
-
-    /// <summary>
-    /// Build the text content for a .csproj file.
-    /// </summary>
-    private string BuildProjectDefinition()
-    {
-        var projectBuilder = new ProjectBuilder();
-        return projectBuilder.BuildProjectDefinition("0.0.1", "net9.0");
     }
 }

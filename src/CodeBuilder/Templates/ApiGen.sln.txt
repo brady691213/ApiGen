@@ -3,7 +3,7 @@
 VisualStudioVersion = 17.0.31903.59
 {{- for project in model.project_file_models }}
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{%{{}%}{{model.solution_id}}{%{}}%}") = "{{project.project_name}}", "{{project.project_path}}", "{%{{}%}{{project.project_id}}{%{}}%}"
+Project("{%{{}%}{{model.solution_id}}{%{}}%}") = "{{project.project_name}}", "src/{{project.project_name}}.csproj", "{%{{}%}{{project.project_id}}{%{}}%}"
 EndProject
 {{- end }}
 Global

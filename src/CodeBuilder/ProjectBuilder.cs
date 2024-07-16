@@ -2,13 +2,9 @@
 
 public class ProjectBuilder
 {
-    public string BuildProjectDefinition(string repriseVersion, string tfm)
+    public string BuildProjectDefinition(ProjectModel model)
     {
         var template = TemplateLoader.LoadTemplate(@"C:\Users\brady\projects\ApiGen\src\CodeBuilder\Templates\ProjectFile.csproj.txt");
-
-        var model = new ProjectFileModel();
-        model.ProjectFrameworkMoniker = tfm;
-        model.RepriseVersion = repriseVersion;
 
         var csprojText = template.Render(new { model = model });
         
