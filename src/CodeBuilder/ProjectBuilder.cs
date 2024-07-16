@@ -4,7 +4,7 @@ public class ProjectBuilder
 {
     public string BuildProjectFile(string repriseVersion, string tfm)
     {
-        var template = TemplateLoader.LoadCsprojTemplate();
+        var template = TemplateLoader.LoadTemplate(@"C:\Users\brady\projects\ApiGen\src\CodeBuilder\Templates\ProjectFile.csproj.txt");
 
         var model = new ProjectFileModel();
         model.ProjectFrameworkMoniker = tfm;

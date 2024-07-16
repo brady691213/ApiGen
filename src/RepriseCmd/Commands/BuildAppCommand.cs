@@ -22,9 +22,8 @@ public class BuildAppCommand: OaktonCommand<InputForBuildType>
         Logger.Information($"Building type {input.TypeName} with output to {input.OutputDirectory}");
 
         var bld = new ConsoleAppBuilder();
-        var code = bld.BuildHelloWorldApp();
+        bld.BuildHelloWorldApp(@"C:\Users\brady\projects\ApiGen\test-output");
         
-        Console.WriteLine(code);
         return true;
     }
 }

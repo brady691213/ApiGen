@@ -6,11 +6,26 @@ public class ConsoleAppBuilder : ClassBuilder
 {
     public void BuildHelloWorldApp(string outputPath)
     {
+        var projectName = "HelloWorld";
         var code = BuildProgramClass();
-        var project = BuildProjectDefinition();
-        
-        var projPath = $""        
-        
+        var projectDef = BuildProjectDefinition();
+
+        // TASKT: Just for now we use the project as a solution name and path.
+        var solutionName = projectName;
+        var solutionPath = $"{outputPath}/{solutionName}";
+        var projectPath = $"{solutionPath}/src/{projectName}";
+
+        if (Directory.Exists(solutionPath))
+        {
+            throw new InvalidOperationException(
+                $"Solution path {solutionPath} already exists. `{nameof(outputPath)}` must specify a new directory.");
+        }
+
+        Directory.CreateDirectory(solutionPath);
+        Directory.CreateDirectory($"{solutionPath}/src");
+        Directory.CreateDirectory($"{solutionPath}/src/{projectName}");
+
+        File.WriteAllText($"{projectPath}/{projectName}.csproj", projectDef);
     }
 
     private string BuildProgramClass()
@@ -23,10 +38,10 @@ public class ConsoleAppBuilder : ClassBuilder
         mainMethod.Parameters.Add(new CodeParameterDeclarationExpression(typeof(string[]), "args"));
         mainMethod.Statements.Add(new CodeMethodInvokeExpression(
             new CodeTypeReferenceExpression("System.Console"),
-            "WriteLine", 
+            "WriteLine",
             new CodePrimitiveExpression("Hello world")));
         ProgramClass.Members.Add(mainMethod);
-        
+
         var code = GenerateCSharpCode();
         return code;
     }

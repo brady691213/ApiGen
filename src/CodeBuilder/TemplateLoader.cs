@@ -9,9 +9,9 @@ public class TemplateLoader
 {
     private static string _dtoTemplatePath = @"Templates\ProjectFile.sb";
     
-    public static Template LoadCsprojTemplate()
+    public static Template LoadTemplate(string filePath)
     {
-        var templateText = File.ReadAllText(_dtoTemplatePath);
+        var templateText = File.ReadAllText(filePath);
         var parsedTemplate = Template.Parse(templateText);
         return parsedTemplate;
     }
