@@ -4,35 +4,37 @@ namespace CodeBuilder;
 
 public class ConsoleAppBuilder : ClassBuilder
 {
-    public void BuildHelloWorldApp(string outputPath)
+    public void BuildHelloWorldApp(string outputDirectory)
     {
         var projectName = "HelloWorld";
 
         // For now, we just use the project name as a solution name and path.
         var solutionName = projectName;
-        var solutionPath = $"{outputPath}/{solutionName}";
-        var projectPath = $"{solutionPath}/src/{projectName}";
+        var solutionDirectory = $"{outputDirectory}/{solutionName}";
 
-        if (Directory.Exists(solutionPath))
+        if (Directory.Exists(solutionDirectory))
         {
             throw new InvalidOperationException(
-                $"Solution path {solutionPath} already exists. `{nameof(outputPath)}` must specify a new directory.");
+                $"Solution path {solutionDirectory} already exists. `{nameof(outputDirectory)}` must specify a new directory.");
         }
 
-        Directory.CreateDirectory(solutionPath);
-        Directory.CreateDirectory($"{solutionPath}/src");
-        Directory.CreateDirectory($"{solutionPath}/src/{projectName}");
+        Directory.CreateDirectory(solutionDirectory);
 
-        var code = BuildProgramClass();
         var projectModel = new ProjectModel(projectName);
         
+        var projectDirectory = $"{solutionDirectory}/src/{projectName}";
+        Directory.CreateDirectory($"{solutionDirectory}/src");
+        Directory.CreateDirectory(projectDirectory);
         var projectBuilder = new ProjectBuilder();
         var projectFileText = projectBuilder.BuildProjectDefinition(projectModel);        
-        File.WriteAllText($"{projectPath}/{projectName}.csproj", projectFileText);
+        File.WriteAllText($"{projectDirectory}/{projectName}.csproj", projectFileText);
+        
+        var code = BuildProgramClass();
+        File.WriteAllText($"{projectDirectory}/Program.cs", code);
         
         var slnBuilder = new SolutionBuilder();
-        var slnDef = slnBuilder.BuilSolutionDefintion([projectModel]);
-        File.WriteAllText(solutionPath, slnDef);
+        var slnDef = slnBuilder.BuildSolutionDefinition(solutionName, [projectModel]);
+        File.WriteAllText($"{solutionDirectory}/{solutionName}.sln", slnDef);
     }
 
     private string BuildProgramClass()

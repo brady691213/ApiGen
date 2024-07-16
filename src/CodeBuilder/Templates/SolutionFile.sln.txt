@@ -1,9 +1,9 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
-{{- for project in model.project_file_models }}
+{{- for project in model.project_models }}
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{%{{}%}{{model.solution_id}}{%{}}%}") = "{{project.project_name}}", "src/{{project.project_name}}.csproj", "{%{{}%}{{project.project_id}}{%{}}%}"
+Project("{%{{}%}{{model.solution_id}}{%{}}%}") = "{{project.project_name}}", "src/{{project.project_name}}/{{project.project_name}}.csproj", "{%{{}%}{{project.project_id}}{%{}}%}"
 EndProject
 {{- end }}
 Global
@@ -15,9 +15,11 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-	{{- for project in model.project_definitions }}
+	{{- for project in model.project_models }}
 		{%{{}%}{{project.project_id}}{%{}}%}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{%{{}%}{{project.project_id}}{%{}}%}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{%{{}%}{{project.project_id}}{%{}}%}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{%{{}%}{{project.project_id}}{%{}}%}.Release|Any CPU.Build.0 = Release|Any CPU	
+    {{- end }}				
+	EndGlobalSection
 EndGlobal

@@ -2,6 +2,7 @@
 **/bin
 **/obj
 
+test-output
 Reprise.sln.DotSettings.user
 ApiGen.sln.DotSettings.user
 scriban-doc

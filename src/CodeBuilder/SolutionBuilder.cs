@@ -2,11 +2,12 @@
 
 public class SolutionBuilder
 {
-    public string BuilSolutionDefintion(List<ProjectModel> projectModels)
+    public string BuildSolutionDefinition(string solutionName, List<ProjectModel> projectModels)
     {
-        var template = TemplateLoader.LoadTemplate(@"C:\Users\brady\projects\ApiGen\src\CodeBuilder\Templates\ProjectFile.csproj.txt");
+        var template = TemplateLoader.LoadTemplate(@"C:\Users\brady\projects\ApiGen\src\CodeBuilder\Templates\SolutionFile.sln.txt");
 
         var model = new SolutionModel();
+        model.SolutionName = solutionName;
         model.ProjectModels.AddRange(projectModels);
         
         var slnText = template.Render(new { model = model });
