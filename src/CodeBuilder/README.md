@@ -2,6 +2,11 @@
 
 Functions to build code elements and project files.
 
+## Notes
+
+- Trying to move away from throwing exceptions, but it's extremely important to not overwrite ot delete existing code, 
+so exceptions are safer than starting to use the Result pattern now. 
+
 ## Tasks - Now!
 
 - TASKT: Let solution determine project path. Iterate solution's projects to create project files.
