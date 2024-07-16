@@ -10,7 +10,7 @@ public class ConsoleAppBuilder : ClassBuilder
         var code = BuildProgramClass();
         var projectDef = BuildProjectDefinition();
 
-        // TASKT: Just for now we use the project as a solution name and path.
+        // For now, we just use the project as a solution name and path.
         var solutionName = projectName;
         var solutionPath = $"{outputPath}/{solutionName}";
         var projectPath = $"{solutionPath}/src/{projectName}";
