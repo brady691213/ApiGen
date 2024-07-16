@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection.Tests", "test\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceBuilder.Tests", "test\SourceBuilder.Tests\SourceBuilder.Tests.csproj", "{B39333D2-6D7D-41BC-A5AC-391109197DAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceParsing", "src\SourceParsing\SourceParsing.csproj", "{0E86D114-945B-47E2-848A-6D3208CA324B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeBuilder", "src\CodeBuilder\CodeBuilder.csproj", "{5D7B39F0-32C5-433E-88E2-0C3E061693A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepriseCmd", "src\RepriseCmd\RepriseCmd.csproj", "{D47959EE-5D7A-493C-A29B-6DE931B23B10}"
@@ -48,10 +46,6 @@ Global
 		{B39333D2-6D7D-41BC-A5AC-391109197DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B39333D2-6D7D-41BC-A5AC-391109197DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B39333D2-6D7D-41BC-A5AC-391109197DAE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E86D114-945B-47E2-848A-6D3208CA324B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E86D114-945B-47E2-848A-6D3208CA324B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E86D114-945B-47E2-848A-6D3208CA324B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E86D114-945B-47E2-848A-6D3208CA324B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D7B39F0-32C5-433E-88E2-0C3E061693A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5D7B39F0-32C5-433E-88E2-0C3E061693A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D7B39F0-32C5-433E-88E2-0C3E061693A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
