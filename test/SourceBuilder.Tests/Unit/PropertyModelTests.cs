@@ -8,7 +8,6 @@ namespace SourceBuilder.Tests.Unit;
 public class PropertyModelTests
 {
     private readonly PropertyBuilder _propertyBuilder = new();
-    private readonly DtoBuilder _dtoBuilder = new();
     private readonly Type _genericType = typeof(TypesForPropertyBuilderTests);
     
     //[Theory]
