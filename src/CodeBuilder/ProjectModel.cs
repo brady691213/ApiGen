@@ -2,13 +2,13 @@
 
 namespace CodeBuilder;
 
-public class ProjectModel(string projectName)
+public class ProjectModel(string projectName, List<CodeFileModel>? codeFileModels = null)
 {
     public Guid ProjectId { get; } = Guid.NewGuid();
     
     public string ProjectName { get; set; } = projectName;
 
-    public List<CodeFileModel> CodeFileModels { get; set; } = new();
+    public List<CodeFileModel> CodeFileModels { get; set; } = codeFileModels ?? [];
 
     // Just a default for now.
     public string ProjectFrameworkMoniker { get; set; } = "net9.0";

@@ -1,5 +1,4 @@
 ﻿using System.CodeDom;
-using System.CodeDom.Compiler;
 using System.Collections;
 using System.Reflection;
 using SourceBuilding;
@@ -9,16 +8,20 @@ namespace CodeBuilder;
 /// <summary>
 /// General functionality for building CodeDom elements common to most code building tasks.
 /// </summary>
-public class TypeBuilder(CodeOutputConfig outputConfig)
+public class TypeBuilder
 {
     public string BuildDto(string dtoNamespace, Type entityType, DtoDirection? direction, string? operationName = "")
     {
         var classBuilder = new ClassBuilder();
         var codeNamespace = new CodeNamespace(dtoNamespace);
-        
-        var dtoClass = new CodeTypeDeclaration();
-        dtoClass.IsClass = true;
-        dtoClass.TypeAttributes = TypeAttributes.Public;
+
+        var dtoName = BuildDtoName(entityType, direction, operationName);
+        var dtoClass = new CodeTypeDeclaration
+        {
+            Name = dtoName,
+            IsClass = true,
+            TypeAttributes = TypeAttributes.Public
+        };
         var outputProps = GetModelProperties(entityType);
         foreach (var pm in GetPropertyMembers(outputProps))
         {
@@ -26,9 +29,7 @@ public class TypeBuilder(CodeOutputConfig outputConfig)
         }
 
         codeNamespace.Types.Add(dtoClass);
-
         var dtoSource = classBuilder.GenerateCSharpCode([codeNamespace]);
-
         return dtoSource;
     }
 
@@ -49,7 +50,7 @@ public class TypeBuilder(CodeOutputConfig outputConfig)
         CodeMemberProperty[] members = [];
         foreach (var info in props)
         {
-            var prop = CodeElements.BuildAutoProperty(info);
+            var prop = CodeElementBuilder.BuildAutoProperty(info);
             ((IList)members).Add(prop);
         }
         return members.ToList();

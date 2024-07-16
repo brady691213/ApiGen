@@ -7,35 +7,58 @@ namespace CodeBuilder;
 public class ClassBuilder
 {
     private CodeDomProvider _provider = CodeDomProvider.CreateProvider("CSharp");
-    protected CodeCompileUnit CompileUnit = new();
-    protected CodeNamespace ClassNamespace;
-    protected CodeGeneratorOptions GenerateOptions = new CodeGeneratorOptions();
-    protected CodeTypeDeclaration ProgramClass;
+    private CodeGeneratorOptions _generateOptions = new CodeGeneratorOptions();
 
-    protected ClassBuilder()
+    public ClassBuilder()
     {
-        ClassNamespace = new CodeNamespace("HelloWorldApp");
-        ClassNamespace.Imports.Add(new CodeNamespaceImport("System"));
-        ProgramClass = BuildClass();
-        
-        GenerateOptions.BracingStyle = "C";
+        _generateOptions.BracingStyle = "C";
     }
     
-    private CodeTypeDeclaration BuildClass()
+    public CodeTypeDeclaration BuildClass(string className)
     {
-        var programClass = new CodeTypeDeclaration("Program");
+        var programClass = new CodeTypeDeclaration(className);
         programClass.IsClass = true;
         programClass.TypeAttributes = TypeAttributes.Public;
         return programClass;
     }
 
-    protected string GenerateCSharpCode()
+    public CodeMemberMethod BuildMainMethod(CodeStatementCollection? statements = null)
     {
-        ClassNamespace.Types.Add(ProgramClass);
-        CompileUnit.Namespaces.Add(ClassNamespace);
+        var mainMethod = new CodeMemberMethod
+        {
+            Name = "Main",
+            Attributes = MemberAttributes.Static | MemberAttributes.Public
+        };
+        mainMethod.Parameters.Add(new CodeParameterDeclarationExpression(typeof(string[]), "args"));
+
+        if (statements == null)
+        {
+            mainMethod.Statements.Add(new CodeMethodInvokeExpression(
+                new CodeTypeReferenceExpression("System.Console"),
+                "WriteLine",
+                new CodePrimitiveExpression("Hello world")));
+        }
+
+        return mainMethod;
+    }
+
+    public CodeNamespace BuildNamespace(string name, List<string>? addImports = null)
+    {
+        var ns = new CodeNamespace(name);
+        var imports = addImports ?? ["System"];
+        ns.Imports.AddRange(imports
+            .Where(i => i != "System").Select(i => new CodeNamespaceImport(i))
+            .ToArray());
+        return ns;
+    }
+
+    public string GenerateCSharpCode(CodeNamespace[] namespaces)
+    {
+        var compileUnit = new CodeCompileUnit();
+        compileUnit.Namespaces.AddRange(namespaces);
         
         using var sourceWriter = new StringWriter();
-        _provider.GenerateCodeFromCompileUnit(CompileUnit, sourceWriter, GenerateOptions);
+        _provider.GenerateCodeFromCompileUnit(compileUnit, sourceWriter, _generateOptions);
         return sourceWriter.ToString();
     }
 }
