@@ -1,9 +1,11 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
+{{- for project in model.project_file_models }}
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{%{{}%}{{model.solution_id}}{%{}}%}") = "{{model.project_name}}", "{{model.project_path}}", "{%{{}%}{{model.project_id}}{%{}}%}"
+Project("{%{{}%}{{model.solution_id}}{%{}}%}") = "{{project.project_name}}", "{{project.project_path}}", "{%{{}%}{{project.project_id}}{%{}}%}"
 EndProject
+{{- end }}
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,8 +15,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{%{{}%}{{model.project_id}}{%{}}%}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{%{{}%}{{model.project_id}}{%{}}%}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{%{{}%}{{model.project_id}}{%{}}%}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{%{{}%}{{model.project_id}}{%{}}%}.Release|Any CPU.Build.0 = Release|Any CPU	
+	{{- for project in model.project_definitions }}
+		{%{{}%}{{project.project_id}}{%{}}%}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{%{{}%}{{project.project_id}}{%{}}%}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{%{{}%}{{project.project_id}}{%{}}%}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{%{{}%}{{project.project_id}}{%{}}%}.Release|Any CPU.Build.0 = Release|Any CPU	
 EndGlobal

@@ -22,6 +22,9 @@ public class ConsoleAppBuilder : ClassBuilder
         }
 
         Directory.CreateDirectory(solutionPath);
+        var slnBuilder = new SolutionBuilder();
+        var slnDef = slnBuilder.BuilSolutionDefintion([projectDef])
+        
         Directory.CreateDirectory($"{solutionPath}/src");
         Directory.CreateDirectory($"{solutionPath}/src/{projectName}");
 
@@ -46,9 +49,12 @@ public class ConsoleAppBuilder : ClassBuilder
         return code;
     }
 
+    /// <summary>
+    /// Build the text content for a .csproj file.
+    /// </summary>
     private string BuildProjectDefinition()
     {
         var projectBuilder = new ProjectBuilder();
-        return projectBuilder.BuildProjectFile("0.0.1", "net9.0");
+        return projectBuilder.BuildProjectDefinition("0.0.1", "net9.0");
     }
 }
