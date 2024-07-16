@@ -20,7 +20,7 @@ public class ProjectBuilder
                 $"Project output location {projectDirectory} already exists. `{nameof(model.ProjectName)}` must specify a non-existent directory within {outputLocation}.");
         }
 
-        Directory.CreateDirectory(outputLocation);
+        Directory.CreateDirectory(projectDirectory);
 
         // Write code files before project file, so we don't create an invalid project file.
         foreach (var codeFile in model.CodeFileModels)
