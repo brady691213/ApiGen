@@ -15,7 +15,7 @@ public class DtoBuilder
     /// <param name="dtoType">A ValueObject that specifies if the DTO will be used as a Request or a Response.</param>
     /// <param name="entityType">EF entity type to base the DTO on.</param>
     /// <returns></returns>
-    public string BuildDtoForEntity(DtoRequestResponse dtoType, Type entityType)
+    public string BuildDtoForEntity(DtoDirection dtoType, Type entityType)
     {
         // TASKT: Move props work to prop reflector.
 
@@ -36,7 +36,7 @@ public class DtoBuilder
     }
     
 
-    private string BuildDtoName(DtoRequestResponse dtoType, Type entityType)
+    private string BuildDtoName(DtoDirection dtoType, Type entityType)
     {
         return $"{entityType.Name}{dtoType}";
     }
