@@ -27,7 +27,7 @@ public class RepriseHostBuilder
         var host = Host.CreateDefaultBuilder() // Initialising the Host 
             .ConfigureServices((context, services) => { // Adding the DI container for configuration
                 services.AddTransient<InputForBuildType>();
-                services.AddTransient<BuildTypeCommand>();
+                services.AddTransient<BuildAppCommand>();
             })
             .UseSerilog() // Add Serilog
             .Build(); // Build the Host

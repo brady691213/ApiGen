@@ -1,16 +1,16 @@
 ﻿using CodeBuilder;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Oakton;
+using Serilog;
+using ILogger = Serilog.ILogger;
 
 namespace RepriseCmd.Commands;
 
 [Description("Build a simple type")]
-public class BuildTypeCommand: OaktonCommand<InputForBuildType>
+public class BuildAppCommand: OaktonCommand<InputForBuildType>
 {
-    private ILogger<BuildTypeCommand> _logger;
+    internal ILogger Logger = Log.ForContext<BuildAppCommand>();
     
-    public BuildTypeCommand()
+    public BuildAppCommand()
     {
         //_logger = logger;
         // Usage("Build a type in the current directory").Arguments(x => x.TypeName);
@@ -19,7 +19,7 @@ public class BuildTypeCommand: OaktonCommand<InputForBuildType>
     
     public override bool Execute(InputForBuildType input)
     {
-        //_logger.LogInformation($"Building type {input.TypeName} with output to {input.OutputDirectory}");
+        Logger.Information($"Building type {input.TypeName} with output to {input.OutputDirectory}");
 
         var bld = new ConsoleAppBuilder();
         var code = bld.BuildHelloWorldApp();

@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 using Oakton;
+using RepriseCmd.Commands;
+using Serilog;
 
 namespace RepriseCmd;
 
@@ -15,6 +17,9 @@ public class RepriseCommandCreator : ICommandCreator
 
     public IOaktonCommand CreateCommand(Type commandType)
     {
+        // var cmd = (IOaktonCommand)_services.GetRequiredService(commandType);
+        // var logger = Log.ForContext<BuildTypeCommand>();
+        // cmd.
         return (IOaktonCommand)_services.GetRequiredService(commandType);
     }
 
