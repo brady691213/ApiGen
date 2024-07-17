@@ -6,7 +6,7 @@ using RepriseCmd.Commands;
 
 var appBuilder = new ConsoleAppBuilder();
 
-appBuilder.BuildHelloWorldApp(@"C:\Users\brady\projects\ApiGen\test-output\");
+appBuilder.BuildHelloWorldApp(@"C:\Users\brady\projects\ApiGen\sample-output\");
 
 // var host = RepriseHostBuilder.BuildHost();
 // var executor = CommandExecutor.For(_ =>

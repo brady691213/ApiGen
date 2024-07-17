@@ -25,12 +25,12 @@ public class ProjectBuilder
         // Write code files before project file, so we don't create an invalid project file.
         foreach (var codeFile in model.CodeFileModels)
         {
-            var codePath = Path.Combine(outputLocation, codeFile.FileName);
+            var codePath = Path.Combine(projectDirectory, codeFile.FileName);
             File.WriteAllText(codePath, codeFile.Content);
         }
         
         // Finally write the project file.
-        var filePath = Path.Combine(outputLocation, $"{model.ProjectName}.csproj");
+        var filePath = Path.Combine(projectDirectory, $"{model.ProjectName}.csproj");
         File.WriteAllText(filePath, content);
     }
 }

@@ -24,7 +24,7 @@ public class ConsoleAppBuilder
         var slnBuilder = new SolutionBuilder();
         var slnModel = new SolutionModel(solutionName, [projectModel]);
         
-        slnBuilder.CreateSolution(slnModel, solutionDirectory);
+        slnBuilder.CreateSolution(slnModel, outputDirectory);
     }
 
     private string BuildProgramClass(string @namespace)

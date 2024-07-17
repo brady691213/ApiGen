@@ -18,15 +18,18 @@ public class SolutionBuilder
         var content = template.Render(new { model = solutionModel });
         
         var solutionDirectory = $"{outputLocation}/{solutionModel.SolutionName}";
-        if (Directory.Exists(solutionDirectory))
+        if (!Directory.Exists(solutionDirectory))
         {
-            throw new InvalidOperationException(
-                $"Solution output location {solutionDirectory} already exists. {solutionModel.SolutionName} must specify a non-existent directory within {outputLocation}.");
+            Directory.CreateDirectory(solutionDirectory);
         }
         
-        Directory.CreateDirectory(solutionDirectory);
-
         var filePath = Path.Combine(solutionDirectory, $"{solutionModel.SolutionName}.sln");
+        if (File.Exists(filePath))
+        {
+            throw new InvalidOperationException(
+                $"Solution file already exists in {solutionDirectory}. This module may not overwrite existing files.");            
+        }
+        
         File.WriteAllText(filePath, content);
     }
 }

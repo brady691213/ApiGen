@@ -5,7 +5,7 @@ A project to generate code for a REPR pattern ASP.NET Minimal API based on entit
 ## Status
 
 This project is still in an early discovery stage, and still very experimental. 
-You can use it if you like living on the edge, or just fork it and only use some. 
+You can use it if you like living on the edge, or just fork it and only use some.   
 
 Reprise should be ready for trial use in about two months, all going well.
 
@@ -33,7 +33,7 @@ that a custom solution would be a better option. This project is the first outli
 
 I was influenced by the [REPR](https://deviq.com/design-patterns/repr-design-pattern) design pattern as used the [FastEndpoints](#fastendpoints) project. 
 
-With the **REPR** pattern, web APIs have three simple components:
+With the **REPR** pattern, web APIs use three simple components:
 - a Request
 - an Endpoint
 - a Response

@@ -9,6 +9,7 @@ so exceptions are safer than starting to use the Result pattern now.
 
 ## Tasks - Now!
 
+- TASKB: CreateProject creates sln dir and then CreateSolution creates dup dir inside solution dir.
 - TASKT: Let solution determine project path. Iterate solution's projects to create project files.
 - TASKT: For this version make ;et builders create files with provided paths.
 
