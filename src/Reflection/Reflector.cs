@@ -55,7 +55,7 @@ public class Reflector
     }
     
     /// <summary>
-    /// Returns a Type that defines a DbContext given an assembly path and DbContext name.
+    /// Returns a <see cref="Type"/> for a <see cref="DbContext"/> class given an assembly path and class name.
     /// </summary>
     /// <param name="assemblyPath">Path to an assembly that contains the DbContext.</param>
     /// <param name="dbContextName">Type name of the DbContext</param>
@@ -83,10 +83,10 @@ public class Reflector
     }
     
     /// <summary>
-    /// Gets all public properties for a given entity.
+    /// Gets a collection of <see cref="PropertyInfo"/> objects representing the public properties of
+    /// <paramref name="entityType"/>.
     /// </summary>
     /// <param name="entityType">Entity type to get properties for.</param>
-    /// <returns>A collection of <see cref="PropertyInfo"/> objects representing the public properties of <paramref name="entityType"/>.</returns>
     public IEnumerable<PropertyInfo> GetEntityProperties(Type entityType)
     {
         var baseFlags = BindingFlags.Public | BindingFlags.Instance;

@@ -18,7 +18,7 @@ public class PropertyBuilderUnitTests
     {
         public TypeStringForSimpleTypeTheoryData()
         {
-            foreach (var kvp in CSharpTypeMaps.TypeKeyedLookup)
+            foreach (var kvp in CSharpTypeMaps.TypeKeyedDictionary)
             {
                 Add(kvp.Key, kvp.Value);
             }
@@ -29,7 +29,7 @@ public class PropertyBuilderUnitTests
     {
         public TypeStringForNullableTheoryData()
         {
-            foreach (var kvp in CSharpTypeMaps.TypeKeyedLookup)
+            foreach (var kvp in CSharpTypeMaps.TypeKeyedDictionary)
             {
                 var nullableType = Type.GetType($"System.{kvp.Key}?");
                 nullableType.ShouldNotBeNull();

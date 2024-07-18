@@ -26,7 +26,7 @@ public class TypeAliasingTests
     {
         public SimpleTypeToAliasTheoryData()
         {
-            foreach (var kvp in CSharpTypeMaps.TypeKeyedLookup)
+            foreach (var kvp in CSharpTypeMaps.TypeKeyedDictionary)
             {
                 Add(kvp.Key, kvp.Value);
             }
@@ -37,7 +37,7 @@ public class TypeAliasingTests
     {
         public ArrayTypeToAliasTheoryData()
         {
-            foreach (var kvp in CSharpTypeMaps.TypeKeyedLookup)
+            foreach (var kvp in CSharpTypeMaps.TypeKeyedDictionary)
             {
                 var arrayType = Type.GetType($"System.{kvp.Key.Name}[]");
                 arrayType.ShouldNotBeNull();

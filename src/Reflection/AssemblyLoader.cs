@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace Reflection;
 
+/// <summary>
+/// Loads <see cref="Assembly"/> types from assembly files on disk.
+/// </summary>
 public class AssemblyLoader
 {
     /// <summary>
