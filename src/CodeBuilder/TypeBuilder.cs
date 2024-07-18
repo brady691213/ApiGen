@@ -23,7 +23,7 @@ public class TypeBuilder
             TypeAttributes = TypeAttributes.Public
         };
         var outputProps = GetModelProperties(entityType);
-        foreach (var pm in GetPropertyMembers(outputProps))
+        foreach (var pm in BuildPropertyMembers(outputProps))
         {
             dtoClass.Members.Add(pm);
         }
@@ -45,7 +45,12 @@ public class TypeBuilder
         return $"{entityType}{operationName}{direction?.ToString() ?? ""}";
     }
 
-    private List<CodeMemberProperty> GetPropertyMembers(List<PropertyInfo> props)
+    /// <summary>
+    /// Builds a collection of property members that corresponds to a collection of <see cref="PropertyInfo"/> objects obtained via reflection.
+    /// </summary>
+    /// <param name="props">PropertyInfo objects to base output CodeMemberProperty objects on.</param>
+    /// <returns>A collection of <see cref="CodeMemberProperty"/> objects based on <paramref name="props"/>.</returns>
+    private List<CodeMemberProperty> BuildPropertyMembers(List<PropertyInfo> props)
     {
         CodeMemberProperty[] members = [];
         foreach (var info in props)

@@ -16,5 +16,9 @@
     <ItemGroup>
         <InternalsVisibleTo Include="Reflection.Tests" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Map.cs" />
+    </ItemGroup>
     
 </Project>

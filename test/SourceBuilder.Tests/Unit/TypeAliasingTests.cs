@@ -10,7 +10,7 @@ public class TypeAliasingTests
     [ClassData(typeof(SimpleTypeToAliasTheoryData))]
     public void CorrectAliasForSimpleType(Type type, string expected)
     {
-        var actualAlias = CSharpTypeInformation.GetAliasForType(type);
+        var actualAlias = CSharpTypeMaps.GetAliasForType(type);
         actualAlias.ShouldBe(expected);
     }
     
@@ -18,7 +18,7 @@ public class TypeAliasingTests
     [ClassData(typeof(ArrayTypeToAliasTheoryData))]
     public void CorrectAliasForSimpleArrayType(Type type, string expected)
     {
-        var actualAlias = CSharpTypeInformation.GetAliasForType(type);
+        var actualAlias = CSharpTypeMaps.GetAliasForType(type);
         actualAlias.ShouldBe(expected);
     }
     
@@ -26,7 +26,7 @@ public class TypeAliasingTests
     {
         public SimpleTypeToAliasTheoryData()
         {
-            foreach (var kvp in CSharpTypeInformation.TypeKeyedLookup)
+            foreach (var kvp in CSharpTypeMaps.TypeKeyedLookup)
             {
                 Add(kvp.Key, kvp.Value);
             }
@@ -37,7 +37,7 @@ public class TypeAliasingTests
     {
         public ArrayTypeToAliasTheoryData()
         {
-            foreach (var kvp in CSharpTypeInformation.TypeKeyedLookup)
+            foreach (var kvp in CSharpTypeMaps.TypeKeyedLookup)
             {
                 var arrayType = Type.GetType($"System.{kvp.Key.Name}[]");
                 arrayType.ShouldNotBeNull();

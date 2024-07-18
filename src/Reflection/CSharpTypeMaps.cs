@@ -2,11 +2,11 @@
 
 namespace Reflection;
 
-public class CSharpTypeInformation
+public static class CSharpTypeMaps
 {
     public static readonly Dictionary<Type, string> TypeKeyedLookup;
 
-    static CSharpTypeInformation()
+    static CSharpTypeMaps()
     {
         TypeKeyedLookup = new Dictionary<Type, string>
         {

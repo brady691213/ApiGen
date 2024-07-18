@@ -7,8 +7,6 @@ namespace SourceBuilder.Tests;
 
 public class TemplateTests
 {
-
-    
     [Fact]
     public void ParseDtoTemplateHasNoErrors()
     {
@@ -24,6 +22,4 @@ public class TemplateTests
 
         actualMsgs.ShouldBe(expectedMessages);
     }
-
-
 }

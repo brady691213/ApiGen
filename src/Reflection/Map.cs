@@ -6,7 +6,7 @@
 /// <remarks>
 /// Found at: https://stackoverflow.com/a/10966684/8741. No real use yet, 2 dictionary approach is fine.
 /// </remarks>
-public class Map<T1, T2>
+public class Map<T1, T2> where T1 : notnull
 {
     // TASKT: Check out then follow up suggestions.
     

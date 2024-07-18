@@ -3,16 +3,28 @@
 namespace CodeBuilder;
 
 /// <summary>
-/// A helper that loads template text from a file and uses Scriban to parse a <see cref="Template"/> object.
+/// A helper for preparing <see cref="Scriban"/> templates. 
 /// </summary>
-public class TemplateLoader
+public static class TemplateLoader
 {
-    private static string _dtoTemplatePath = @"Templates\ProjectFile.sb";
-    
+    /// <summary>
+    /// Loads template text from a file and returns a parsed template object.
+    /// </summary>
     public static Template LoadTemplate(string filePath)
     {
         var templateText = File.ReadAllText(filePath);
         var parsedTemplate = Template.Parse(templateText);
         return parsedTemplate;
+    }
+
+    private static void LogTemplateErrors(Template tempalte)
+    {
+        // TASKT: Implment this properly.
+        // Keep for more specific tests.    
+        // var actualMsgs = template.Messages
+        //     .Where(m => m.Type == ParserMessageType.Error)
+        //     .Select(m => m.Message)
+        //     .ToList();
+        //
     }
 }

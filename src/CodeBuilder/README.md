@@ -15,6 +15,7 @@ so exceptions are safer than starting to use the Result pattern now.
 
 ## Tasks - Later
 
+- TASKT: Make template location a realtive path but shareable between this and integration tests.
 - TASKT: Interesting issue with order of statements in a method.
 - TASKT: Fathom how to get MS ILogger from Serilog.
 - TASKT: Replace exceptions with Result pattern.
