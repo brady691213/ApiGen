@@ -26,4 +26,10 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="RepriseCommandCreator.cs" />
+      <Compile Remove="RepriseHostBuilder.cs" />
+      <Compile Remove="Commands\InputForBuildType.cs" />
+    </ItemGroup>
+
 </Project>

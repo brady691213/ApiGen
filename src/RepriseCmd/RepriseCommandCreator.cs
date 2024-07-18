@@ -1,11 +1,13 @@
-﻿using System.ComponentModel;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Oakton;
 using RepriseCmd.Commands;
 using Serilog;
 
 namespace RepriseCmd;
 
+/// <summary>
+/// Implementation as per Oakton docs with the goal of injecting loggers into commands when created but simply not working.
+/// </summary>
 public class RepriseCommandCreator : ICommandCreator
 {
     private readonly IServiceProvider _services;
