@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceBuilding", "src\Sourc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection.Tests.Types", "test\Reflection.Tests.Types\Reflection.Tests.Types.csproj", "{4DF90166-0C3B-49CC-8E30-3DBBA5CD34C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection.Tests", "test\Reflection.Tests\Reflection.Tests.csproj", "{59C370B0-21E5-4182-8B45-D44E50EBF790}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection.IntegrationTests", "test\Reflection.IntegrationTests\Reflection.IntegrationTests.csproj", "{59C370B0-21E5-4182-8B45-D44E50EBF790}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeBuilder", "src\CodeBuilder\CodeBuilder.csproj", "{5D7B39F0-32C5-433E-88E2-0C3E061693A3}"
 EndProject

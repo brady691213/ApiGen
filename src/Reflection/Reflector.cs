@@ -1,18 +1,22 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-
 namespace Reflection;
 
+/// <summary>
+/// Provides functionality to extract EF entity type information from compiled <see cref="DbContext"/> classes.
+/// </summary>
 public class Reflector
 {
     private AssemblyLoader _asmLoader = new();
     
     /// <summary>
-    /// Gets a collection of all entity types, i.e. models, defined in a given DbContext.
+    /// Gets a collection of all entity types, i.e. models, defined in a given <see cref="DbContext"/>.
     /// </summary>
-    /// <param name="dbContextType">Type that defines a DbContext to read entity types from.</param>
+    /// <param name="dbContextType">DbContext type to read entity types from.</param>
     /// <remarks>
-    /// Gets all entity types used to define DbSet properties in type <paramref name="dbContextType"/>.
+    /// Gets all entity types used to define <see cref="DbSet{TEntity}"/> properties in
+    /// type <paramref name="dbContextType"/> providing this class is defined an assembly that is referenced
+    /// by this assembly.
     /// </remarks>
     public IEnumerable<Type> GetEntityTypes(Type dbContextType)
     {
@@ -26,7 +30,18 @@ public class Reflector
 
         return dbSets;
     }
-    
+
+    /// <summary>
+    /// Gets a collection of all entity types, i.e. models, defined in a named <see cref="DbContext"/>.
+    /// </summary>
+    /// <param name="assemblyPath">Path to the assembly file inm which the class with name
+    /// <paramref name="dbContextName"/>.</param>
+    /// <param name="dbContextName">Name of the DbContext class to read entity types from.</param>
+    /// <remarks>
+    /// Gets all entity types used to define <see cref="DbSet{TEntity}"/> properties in
+    /// the class with name <paramref name="dbContextName"/> providing this class is defined the assembly file located
+    /// at <paramref name="assemblyPath"/>.
+    /// </remarks>
     public IEnumerable<Type> GetEntityTypesFromAssembly(string assemblyPath, string dbContextName)
     {
         var dbsetTypeName = typeof(DbSet<>).Name;
