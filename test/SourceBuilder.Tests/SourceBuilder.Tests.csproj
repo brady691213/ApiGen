@@ -10,7 +10,6 @@
     <ItemGroup>
       <ProjectReference Include="..\..\SourceParsing\SourceParsing.csproj" />
       <ProjectReference Include="..\..\src\SourceBuilding\SourceBuilding.csproj" />
-      <ProjectReference Include="..\Reflection.Tests.Types\Reflection.Tests.Types.csproj" />
     </ItemGroup>
 
     <ItemGroup>

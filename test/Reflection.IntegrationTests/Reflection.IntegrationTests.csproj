@@ -16,7 +16,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\Reflection\Reflection.csproj" />
-      <ProjectReference Include="..\Reflection.Tests.Types\Reflection.Tests.Types.csproj" />
     </ItemGroup>
 
     <ItemGroup>

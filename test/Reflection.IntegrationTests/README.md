@@ -1,6 +1,6 @@
 ﻿# Integration Tests for Reflection
 
-Tests that check capabilities of the **Reflection** project in the **Reprise** solution.
+Tests that check capabilities of the **Reprise.Reflection** project in the **Reprise** solution.
 
 ## Integration Tests
 

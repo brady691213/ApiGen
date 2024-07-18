@@ -5,7 +5,7 @@ namespace Reflection;
 /// <summary>
 /// Provides functionality to extract EF entity type information from compiled <see cref="DbContext"/> classes.
 /// </summary>
-public class Reflector
+public class EntityReflector
 {
     private AssemblyLoader _asmLoader = new();
     
