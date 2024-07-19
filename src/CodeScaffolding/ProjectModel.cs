@@ -6,6 +6,8 @@ public class ProjectModel(string projectName, List<CodeFileModel>? codeFileModel
     
     public string ProjectName { get; set; } = projectName;
 
+    public List<PackageReferenceModel> PackageReferences { get; set; } = new();
+
     public List<CodeFileModel> CodeFileModels { get; set; } = codeFileModels ?? [];
 
     // Just a default for now.

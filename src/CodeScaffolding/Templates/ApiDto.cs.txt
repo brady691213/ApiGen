@@ -1,0 +1,8 @@
+﻿public record {{model.dto_name}}
+{%{{}%}
+    {{- for prop in model.properties }}
+    public {{prop.type_alias}} {{prop.name}} {%{{}%} get; set; {%{}}%}
+    public {{prop.type_alias}} {{prop.name}} { get; set; }
+    public {{prop.type_alias}} {{prop.name}} { get; set; }
+    {{- end }}
+{%{}}%}

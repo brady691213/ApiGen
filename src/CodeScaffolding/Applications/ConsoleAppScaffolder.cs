@@ -13,6 +13,7 @@ public class ConsoleAppScaffolder
         // For now, we just use the project name as a solution name and path.
         var solutionName = projectName;
         
+        // TASKB: Passes projectName for namespace. Not documented.
         var progSource = BuildProgramClass(projectName);
         var progModel = new CodeFileModel("Program.cs", progSource);
 

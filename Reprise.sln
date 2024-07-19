@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepriseCmd", "src\RepriseCm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeScaffolderIntegrationTests", "test\CodeScaffolderIntegrationTests\CodeScaffolderIntegrationTests.csproj", "{CEAFF188-811E-4826-8A02-114BB39D176A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleFastEndpoints", "SampleFastEndpoints\SampleFastEndpoints.csproj", "{A59A442D-EE4D-4AE4-82A8-D7E83E3DF9B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{CEAFF188-811E-4826-8A02-114BB39D176A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEAFF188-811E-4826-8A02-114BB39D176A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEAFF188-811E-4826-8A02-114BB39D176A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A59A442D-EE4D-4AE4-82A8-D7E83E3DF9B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59A442D-EE4D-4AE4-82A8-D7E83E3DF9B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59A442D-EE4D-4AE4-82A8-D7E83E3DF9B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59A442D-EE4D-4AE4-82A8-D7E83E3DF9B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

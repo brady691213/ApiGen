@@ -58,7 +58,6 @@ public class ClassBuilder
 
         return mainMethod;
     }
-
     
     public CodeNamespace BuildNamespace(string name, List<string>? addImports = null)
     {
