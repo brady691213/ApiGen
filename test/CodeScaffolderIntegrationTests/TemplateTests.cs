@@ -1,4 +1,5 @@
 ﻿using CodeScaffolder;
+using CodeScaffolding;
 using Shouldly;
 using Xunit;
 
@@ -22,7 +23,7 @@ public class TemplatesTheoryData: TheoryData<string>
 {
     public TemplatesTheoryData()
     {
-        var files = Directory.GetFiles(@"src/CodeScaffolder/Templates");
+        var files = Directory.GetFiles(@"src/CodeScaffolding/Templates");
         foreach (var file in files)
         {
             Add(Path.GetFullPath(file));

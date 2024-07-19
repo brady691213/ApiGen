@@ -1,4 +1,4 @@
-﻿namespace CodeScaffolder;
+﻿namespace CodeScaffolding;
 
 public class ProjectModel(string projectName, List<CodeFileModel>? codeFileModels = null)
 {

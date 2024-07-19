@@ -2,7 +2,7 @@
 using System.CodeDom.Compiler;
 using System.Reflection;
 
-namespace CodeScaffolder;
+namespace CodeScaffolding;
 
 /// <summary>
 /// Builds classes and other type defintoions based on input obtained from Reflection.

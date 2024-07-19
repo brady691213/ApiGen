@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace CodeScaffolder;
+namespace CodeScaffolding;
 
 public class SolutionBuilder
 {
@@ -15,7 +15,7 @@ public class SolutionBuilder
     {
         var template =
             TemplateLoader.LoadFromFile(
-                @"C:\Users\brady\projects\ApiGen\src\CodeScaffolder\Templates\SolutionFile.sln.txt");
+                @"C:\Users\brady\projects\ApiGen\src\CodeScaffolding\Templates\SolutionFile.sln.txt");
         var content = template.Render(new { model = solutionModel });
         
         var solutionDirectory = $"{outputLocation}/{solutionModel.SolutionName}";

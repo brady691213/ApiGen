@@ -1,4 +1,4 @@
-﻿namespace CodeScaffolder;
+﻿namespace CodeScaffolding;
 
 /// <summary>
 /// A facade that simplifies defining classes for building code with the <see cref="System.CodeDom"/> namespace.  

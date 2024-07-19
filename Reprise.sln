@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection", "src\Reflectio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reflection.IntegrationTests", "test\Reflection.IntegrationTests\Reflection.IntegrationTests.csproj", "{59C370B0-21E5-4182-8B45-D44E50EBF790}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeScaffolder", "src\CodeScaffolder\CodeScaffolder.csproj", "{5D7B39F0-32C5-433E-88E2-0C3E061693A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeScaffolding", "src\CodeScaffolding\CodeScaffolding.csproj", "{5D7B39F0-32C5-433E-88E2-0C3E061693A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepriseCmd", "src\RepriseCmd\RepriseCmd.csproj", "{D47959EE-5D7A-493C-A29B-6DE931B23B10}"
 EndProject

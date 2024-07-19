@@ -2,7 +2,7 @@
 using System.Reflection;
 using Scriban;
 
-namespace CodeScaffolder;
+namespace CodeScaffolding;
 
 /// <summary>
 /// A helper for preparing <see cref="Scriban"/> templates. 

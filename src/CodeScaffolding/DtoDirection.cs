@@ -1,6 +1,6 @@
 ﻿using Vogen;
 
-namespace CodeScaffolder;
+namespace CodeScaffolding;
 
 /// <summary>
 /// Indicates whether a DTO is used for a Request or a Response.
@@ -9,8 +9,8 @@ namespace CodeScaffolder;
 // ReSharper disable once StructCanBeMadeReadOnly
 public partial struct DtoDirection
 {
-    public static readonly DtoDirection Request = From("Request");
-    public static readonly DtoDirection Response = From("Response");
+    public static readonly DtoDirection Request = CodeScaffolder.DtoDirection.From("Request");
+    public static readonly DtoDirection Response = CodeScaffolder.DtoDirection.From("Response");
     private static string NormalizeInput(string input)
     {
         // Remove whitespace and make Titlecase.

@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\CodeScaffolder\CodeScaffolder.csproj" />
+      <ProjectReference Include="..\CodeScaffolding\CodeScaffolding.csproj" />
       <ProjectReference Include="..\src\CodeBuilder\CodeBuilder.csproj" />
     </ItemGroup>
 

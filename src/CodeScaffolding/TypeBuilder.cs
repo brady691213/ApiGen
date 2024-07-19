@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Reflection;
 
-namespace CodeScaffolder;
+namespace CodeScaffolding;
 
 /// <summary>
 /// General functionality for building CodeDom elements common to most code building tasks.
