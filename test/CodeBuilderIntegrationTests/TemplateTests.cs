@@ -13,7 +13,7 @@ public class TemplateTests
     {
         var expectedMessages = new List<string>();
         
-        var template = TemplateLoader.LoadTemplate(templatePath);
+        var template = TemplateLoader.LoadFromFile(templatePath);
 
         template.HasErrors.ShouldBeFalse($"Template {Path.GetFileName(templatePath)} has errors.");
     }

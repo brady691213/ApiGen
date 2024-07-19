@@ -10,7 +10,7 @@ public class ProjectBuilder
     /// <exception cref="InvalidOperationException"></exception>
     public void CreateProject(ProjectModel model, string outputLocation)
     {
-        var template = TemplateLoader.LoadTemplate(@"C:\Users\brady\projects\ApiGen\src\CodeBuilder\Templates\ProjectFile.csproj.txt");
+        var template = TemplateLoader.LoadFromFile(@"C:\Users\brady\projects\ApiGen\src\CodeBuilder\Templates\ProjectFile.csproj.txt");
         var content = template.Render(new { model = model });
 
         var projectDirectory = Path.Combine(outputLocation, model.ProjectName);

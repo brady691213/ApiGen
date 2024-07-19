@@ -13,7 +13,7 @@ public class SolutionBuilder
     public Result<CodeBuildInfo> CreateSolution(SolutionModel solutionModel, string? outputLocation = null)
     {
         var template =
-            TemplateLoader.LoadTemplate(
+            TemplateLoader.LoadFromFile(
                 @"C:\Users\brady\projects\ApiGen\src\CodeBuilder\Templates\SolutionFile.sln.txt");
         var content = template.Render(new { model = solutionModel });
         
@@ -28,8 +28,7 @@ public class SolutionBuilder
         var filePath = Path.Combine(solutionDirectory, $"{solutionModel.SolutionName}.sln");
         if (File.Exists(filePath))
         {
-            throw new InvalidOperationException(
-                $"Solution file already exists in {solutionDirectory}. This module may not overwrite existing files.");            
+            return Err<CodeBuildInfo>($"Solution file {filePath} already exists. This module may not overwrite existing files");
         }
         
         File.WriteAllText(filePath, content);
