@@ -1,10 +1,13 @@
-﻿using System.CodeDom;
-
+﻿using System.Diagnostics;
+using Serilog;
+using ILogger = Serilog.ILogger;
 namespace CodeBuilder;
 
 public class ConsoleAppBuilder
 {
-    public void BuildHelloWorldApp(string outputDirectory)
+    private readonly ILogger _logger = Log.ForContext<ConsoleAppBuilder>();
+    
+    public bool BuildHelloWorldApp(string outputDirectory)
     {
         var projectName = "HelloWorld";
 
@@ -24,9 +27,18 @@ public class ConsoleAppBuilder
         var slnBuilder = new SolutionBuilder();
         var slnModel = new SolutionModel(solutionName, [projectModel]);
         
-        slnBuilder.CreateSolution(slnModel, outputDirectory);
+        var result = slnBuilder.CreateSolution(slnModel, outputDirectory);
+        if (result.IsError)
+        {
+            var hasErr = result.TryGetError(out var error);
+            Debug.Assert(error != null, nameof(error) + " != null");
+            _logger.Error("Failed to generate console app: {ErrorMessage}", hasErr ? error.Message : "Unable to read error message from result");
+        }
+        
+        return result.IsOk;
     }
 
+    // TASKT: Factor into ClassBuilder
     private string BuildProgramClass(string @namespace)
     {
         var classBuilder = new ClassBuilder();

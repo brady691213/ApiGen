@@ -10,7 +10,7 @@ public class SolutionBuilder
     /// </summary>
     /// <param name="solutionModel">Model tha defines the solution to create.</param>
     /// <param name="outputLocation">Location to place the generated output. If not specified, the current directory will be used.</param>
-    public void CreateSolution(SolutionModel solutionModel, string? outputLocation = null)
+    public Result<CodeBuildInfo> CreateSolution(SolutionModel solutionModel, string? outputLocation = null)
     {
         var template =
             TemplateLoader.LoadTemplate(
@@ -18,10 +18,12 @@ public class SolutionBuilder
         var content = template.Render(new { model = solutionModel });
         
         var solutionDirectory = $"{outputLocation}/{solutionModel.SolutionName}";
-        if (!Directory.Exists(solutionDirectory))
+        if (Directory.Exists(solutionDirectory))
         {
-            Directory.CreateDirectory(solutionDirectory);
+            return Err<CodeBuildInfo>(
+                $"Solution directory {solutionDirectory} already exists in output location {outputLocation}");
         }
+        Directory.CreateDirectory(solutionDirectory);
         
         var filePath = Path.Combine(solutionDirectory, $"{solutionModel.SolutionName}.sln");
         if (File.Exists(filePath))
@@ -31,5 +33,7 @@ public class SolutionBuilder
         }
         
         File.WriteAllText(filePath, content);
+
+        return Ok(new CodeBuildInfo());
     }
 }
