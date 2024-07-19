@@ -9,10 +9,10 @@ namespace CodeBuilder;
 public class ClassBuilder
 {
     private CodeDomProvider _provider = CodeDomProvider.CreateProvider("CSharp");
-    private CodeGeneratorOptions _generateOptions = new CodeGeneratorOptions();
+    private CodeGeneratorOptions _generateOptions = new();
 
     /// <summary>
-    /// 
+    /// Builds C# classes as text using the <see cref="System.CodeDom"/> tooling.
     /// </summary>
     public ClassBuilder()
     {
@@ -76,6 +76,17 @@ public class ClassBuilder
     {
         var compileUnit = new CodeCompileUnit();
         compileUnit.Namespaces.AddRange(namespaces);
+        
+        using var sourceWriter = new StringWriter();
+        _provider.GenerateCodeFromCompileUnit(compileUnit, sourceWriter, _generateOptions);
+        return sourceWriter.ToString();
+    }
+    
+    public string GenerateClassCode(ClassModel model)
+    {
+        var compileUnit = new CodeCompileUnit();
+        var ns = BuildNamespace(model.ClassName);
+        compileUnit.Namespaces.Add(ns);
         
         using var sourceWriter = new StringWriter();
         _provider.GenerateCodeFromCompileUnit(compileUnit, sourceWriter, _generateOptions);

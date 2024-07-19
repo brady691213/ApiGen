@@ -2,6 +2,18 @@
 
 Functions to build code elements and project files.
 
+## Builders 
+
+These classes are responsible for generating artifacts for source code required to automatically build a C# solution.
+Builders for C# code rely on the Code Document Object Model (CodeDom) mechanism, and other builders, such as for
+projects, solutions, and other non-code artifacts, use [Scriban](https://github.com/scriban/scriban) templates. 
+- [More on the CodeDom](https://learn.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/dynamic-source-code-generation-and-compilation)
+
+## Models 
+
+This project uses its own models for input to builders, as facades over the complexities involved in using the 
+very abstract CodeDom models. Models here are aimed at being readable and simple to use. 
+
 ## Notes
 
 - Trying to move away from throwing exceptions, but it's extremely important to not overwrite ot delete existing code, 
