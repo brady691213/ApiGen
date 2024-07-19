@@ -5,9 +5,26 @@ Builders for C# code rely on the Code Document Object Model, or [CodeDom](https:
 mechanism, and other builders, such as for projects, solutions, and other non-code artifacts, use [Scriban](https://github.com/scriban/scriban) 
 templates. 
 
-## Tasks
+## Tasks - Now
 
+- TASKT: Merge `CodeFileModel` and `ClassModel`
+- TASKT: Merge `TypeBuiler` and `ClassBuilder`
+- TASKT: Tests for builders and scaffolders
 
+## Tasks - Next
+
+- TASKT: Element builders for properties
+- TASKT: Element builders for parameters
+- TASKT: Element builders for statements
+- TASKT: Generalize `BuildHelloWorldApp` into `BuildConsoleApp`
+
+### WebAppScaffolder
+
+- Scaffold an ASP.NET minimal API using the `FastEndpoints` framework.
+- Models and scaffolders for:
+  - Endpoint
+  - Request and Response DTOs
+  - Validators
 
 ### Scaffolding
 

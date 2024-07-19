@@ -14,7 +14,7 @@ public class SolutionBuilderTests
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new SolutionModel(SolutionName);
-        var builder = new SolutionBuilder();
+        var builder = new SolutionScaffolder();
         
         builder.ScaffoldSolution(model, TestConstants.OutputDirectory, null);
 
@@ -28,7 +28,7 @@ public class SolutionBuilderTests
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new SolutionModel(SolutionName);
-        var builder = new SolutionBuilder();
+        var builder = new SolutionScaffolder();
         
         builder.ScaffoldSolution(model, TestConstants.OutputDirectory, null);
         
@@ -43,7 +43,7 @@ public class SolutionBuilderTests
         var solDir = FileSystemTools.GetSolutionDirectory(SolutionName);
         FileSystemTools.EnsureDirectoryExists(solDir);
         var model = new SolutionModel(SolutionName);
-        var builder = new SolutionBuilder();
+        var builder = new SolutionScaffolder();
 
         Should.Throw<InvalidOperationException>(() =>
         {

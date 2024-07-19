@@ -2,9 +2,9 @@
 
 namespace CodeScaffolding;
 
-public class SolutionBuilder
+public class SolutionScaffolder
 {
-    private readonly ILogger _logger = Log.ForContext<SolutionBuilder>();
+    private readonly ILogger _logger = Log.ForContext<SolutionScaffolder>();
 
     /// <summary>
     /// Create a .NET solution with projects.
@@ -17,8 +17,6 @@ public class SolutionBuilder
             TemplateLoader.LoadFromFile(
                 @"C:\Users\brady\projects\ApiGen\src\CodeScaffolding\Templates\SolutionFile.sln.txt");
         var content = template.Render(new { model = solutionModel });
-        
-        
         
         var solutionDirectory = $"{outputLocation}/{solutionModel.SolutionName}";
         if (Directory.Exists(solutionDirectory))
@@ -37,7 +35,7 @@ public class SolutionBuilder
         File.WriteAllText(filePath, content);
 
         var sourceLocation = $"{solutionDirectory}/src";
-        var projectBuilder = new ProjectBuilder();
+        var projectBuilder = new ProjectScaffolder();
         foreach (var project in projectModels ?? [])
         {
             var result = projectBuilder.ScaffoldProject(project, sourceLocation);

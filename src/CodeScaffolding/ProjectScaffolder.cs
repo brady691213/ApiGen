@@ -1,6 +1,6 @@
 ﻿namespace CodeScaffolding;
 
-public class ProjectBuilder
+public class ProjectScaffolder
 {
     /// <summary>
     /// Create a .NET project with source code files.
@@ -24,7 +24,7 @@ public class ProjectBuilder
 
         Directory.CreateDirectory(projectDirectory);
 
-        // Write code files before project file, so we don't create an invalid project file.
+        // Write code files before project file, so we don't create an invalid project file in case a code file write fails.
         foreach (var codeFile in model.CodeFileModels)
         {
             var codePath = Path.Combine(projectDirectory, codeFile.FileName);

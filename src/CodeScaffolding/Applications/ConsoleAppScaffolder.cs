@@ -1,10 +1,10 @@
 ﻿using System.Diagnostics;
 using ILogger = Serilog.ILogger;
-namespace CodeScaffolding;
+namespace CodeScaffolding.Applications;
 
-public class ConsoleAppBuilder
+public class ConsoleAppScaffolder
 {
-    private readonly ILogger _logger = Log.ForContext<ConsoleAppBuilder>();
+    private readonly ILogger _logger = Log.ForContext<ConsoleAppScaffolder>();
     
     public bool BuildHelloWorldApp(string outputDirectory)
     {
@@ -12,16 +12,13 @@ public class ConsoleAppBuilder
 
         // For now, we just use the project name as a solution name and path.
         var solutionName = projectName;
-        var solutionDirectory = $"{outputDirectory}/{solutionName}";
         
         var progSource = BuildProgramClass(projectName);
         var progModel = new CodeFileModel("Program.cs", progSource);
 
         var projectModel = new ProjectModel(projectName, [progModel]);
-        var projectBuilder = new ProjectBuilder();
-        //projectBuilder.ScaffoldProject(projectModel, sourceLocation);        
         
-        var slnBuilder = new SolutionBuilder();
+        var slnBuilder = new SolutionScaffolder();
         var slnModel = new SolutionModel(solutionName, [projectModel]);
         
         var result = slnBuilder.ScaffoldSolution(slnModel, outputDirectory, [projectModel]);

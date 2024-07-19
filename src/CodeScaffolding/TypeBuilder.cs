@@ -1,6 +1,7 @@
 ﻿using System.CodeDom;
 using System.Collections;
 using System.Reflection;
+using CodeScaffolding.CodeElements;
 
 namespace CodeScaffolding;
 
@@ -9,7 +10,7 @@ namespace CodeScaffolding;
 /// </summary>
 public class TypeBuilder
 {
-    public string BuildDto(string dtoNamespace, Type entityType, DtoDirection? direction, string? operationName = "")
+    public string BuildDto(string dtoNamespace, Type entityType, Next.DtoDirection? direction, string? operationName = "")
     {
         var classBuilder = new ClassBuilder();
         var codeNamespace = new CodeNamespace(dtoNamespace);
@@ -39,7 +40,7 @@ public class TypeBuilder
     /// Examples, for a request to update an `Employee`, the name will be `EmployeeUpdateRequest`,
     /// and for the response from request to delete a `Course`, the name will be `CourseDeleteResponse`. 
     /// </remarks>
-    private string BuildDtoName(Type entityType, DtoDirection? direction, string? operationName = "")
+    private string BuildDtoName(Type entityType, Next.DtoDirection? direction, string? operationName = "")
     {
         return $"{entityType}{operationName}{direction?.ToString() ?? ""}";
     }

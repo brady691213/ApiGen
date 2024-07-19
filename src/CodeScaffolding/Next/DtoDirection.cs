@@ -1,6 +1,6 @@
 ﻿using Vogen;
 
-namespace CodeScaffolding;
+namespace CodeScaffolding.Next;
 
 /// <summary>
 /// Indicates whether a DTO is used for a Request or a Response.

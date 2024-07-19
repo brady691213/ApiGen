@@ -1,4 +1,5 @@
 ﻿using CodeScaffolding;
+using CodeScaffolding.Applications;
 using Oakton;
 using Serilog;
 using ILogger = Serilog.ILogger;
@@ -19,7 +20,7 @@ public class BuildConsoleAppAppCommand: OaktonCommand<InputForBuildConsoleApp>
     {
         _logger.Information($"Building started for console application. Source files will be written to {input.OutputDirectory}.");
 
-        var builder = new ConsoleAppBuilder();
+        var builder = new ConsoleAppScaffolder();
         var result = builder.BuildHelloWorldApp(input.OutputDirectory);
         
         _logger.Information($"Building completed for console application. Source written to {input.OutputDirectory}.");

@@ -1,7 +1,7 @@
 ﻿using System.CodeDom;
 using System.Reflection;
 
-namespace CodeScaffolding;
+namespace CodeScaffolding.CodeElements;
 
 public abstract class CodeElementBuilder
 {

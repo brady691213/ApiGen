@@ -16,7 +16,7 @@ public class ProjectBuilderTests
         var projDir = GetProjectDirectory(ProjectName);
         FileSystemTools.EnsureDirectoryExists(projDir);
         var model = new ProjectModel(ProjectName);
-        var builder = new ProjectBuilder();
+        var builder = new ProjectScaffolder();
 
         Should.Throw<InvalidOperationException>(() =>
         {
@@ -29,7 +29,7 @@ public class ProjectBuilderTests
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new ProjectModel(ProjectName);
-        var builder = new ProjectBuilder();
+        var builder = new ProjectScaffolder();
         
         builder.ScaffoldProject(model, TestConstants.OutputDirectory);
 
@@ -43,7 +43,7 @@ public class ProjectBuilderTests
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new ProjectModel(ProjectName);
-        var builder = new ProjectBuilder();
+        var builder = new ProjectScaffolder();
         
         builder.ScaffoldProject(model, TestConstants.OutputDirectory);
 
