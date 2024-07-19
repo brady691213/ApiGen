@@ -1,4 +1,2 @@
-﻿using Xunit;
-
-namespace CodeBuilderIntegrationTests;
+﻿namespace CodeScaffolderIntegrationTests;
 

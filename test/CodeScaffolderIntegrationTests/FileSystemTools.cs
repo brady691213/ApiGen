@@ -1,4 +1,4 @@
-﻿namespace CodeBuilderIntegrationTests;
+﻿namespace CodeScaffolderIntegrationTests;
 
 public class FileSystemTools
 {

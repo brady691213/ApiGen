@@ -1,9 +1,8 @@
 ﻿using CodeScaffolder;
-using Scriban.Parsing;
 using Shouldly;
 using Xunit;
 
-namespace CodeBuilderIntegrationTests;
+namespace CodeScaffolderIntegrationTests;
 
 public class TemplateTests
 {
