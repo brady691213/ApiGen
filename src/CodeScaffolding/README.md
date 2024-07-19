@@ -1,19 +1,67 @@
-﻿# The Code Builder Project
+﻿# Code Scaffolding
 
-Functions to build code elements and project files.
+Code responsible for [scaffolding](#Scaffolding) the code artifacts required for a complete C# solution.
+Builders for C# code rely on the Code Document Object Model, or [CodeDom](https://learn.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/dynamic-source-code-generation-and-compilation)
+mechanism, and other builders, such as for projects, solutions, and other non-code artifacts, use [Scriban](https://github.com/scriban/scriban) 
+templates. 
 
-## Builders 
+### Scaffolding
 
-These classes are responsible for generating artifacts for source code required to automatically build a C# solution.
-Builders for C# code rely on the Code Document Object Model (CodeDom) mechanism, and other builders, such as for
-projects, solutions, and other non-code artifacts, use [Scriban](https://github.com/scriban/scriban) templates. 
-- [More on the CodeDom](https://learn.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/dynamic-source-code-generation-and-compilation)
+I use the term scaffolding because _generation_ may be mistaken to refer to source generators,
+and _building_ may be mistaken for the context of compiling.
 
-### Code Scaffolding
+## Classes
 
-These generate text content for C# classes, structures, and records.
+### ConsoleAppBuilder
 
-#### SolutionScaffolder
+Creates a C# solution with one console app project. The solution is created with the following structure. 
+
+```
+HelloWorld
+    HelloWorld.sln
+    src/HelloWorld
+        HelloWorld.csproj
+        Program.cs
+```   
+
+This class uses [SolutionBuilder](#solutionbuilder) and [ProjectBuilder](#projectbuilder) to scaffold source artifacts.
+
+### SolutionBuilder
+
+Creates a C# solution with a solution (.sln) file with zero to many projects. The solution is created in a
+subdirectory of the provided output directory. 
+
+The solution is created with the following structure. An example for a Hello World console app is:
+
+```
+HelloWorld
+    HelloWorld.sln
+    src/HelloWorld
+        HelloWorld.csproj
+        Program.cs
+```        
+        
+By default, however, `SolutionBuilder` will not create a `src` folder or any projects. This class uses a Scriban 
+template to create the .sln file.
+
+### ProjectBuilder
+
+Creates C# project with a project file (.csproj), and a `Program' class. The project is created in a
+subdirectory of the provided output directory. If not provided, the app's current directory is used.
+The program class looks like this:
+
+```csharp
+namespace HelloWorld
+{        
+    public class Program
+    {        
+        public static void Main(string[] args)
+        {
+            System.Console.WriteLine("Hello world");
+        }
+    }
+}
+```
 
 ### Non-Code Builders
 

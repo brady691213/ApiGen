@@ -11,12 +11,14 @@ public class SolutionBuilder
     /// </summary>
     /// <param name="solutionModel">Model tha defines the solution to create.</param>
     /// <param name="outputLocation">Location to place the generated output. If not specified, the current directory will be used.</param>
-    public Result<CodeBuildInfo> ScaffoldSolution(SolutionModel solutionModel, string? outputLocation = null, List<ProjectModel>? projectModels = null)
+    public Result<CodeBuildInfo> ScaffoldSolution(SolutionModel solutionModel, string outputLocation, List<ProjectModel>? projectModels = null)
     {
         var template =
             TemplateLoader.LoadFromFile(
                 @"C:\Users\brady\projects\ApiGen\src\CodeScaffolding\Templates\SolutionFile.sln.txt");
         var content = template.Render(new { model = solutionModel });
+        
+        
         
         var solutionDirectory = $"{outputLocation}/{solutionModel.SolutionName}";
         if (Directory.Exists(solutionDirectory))

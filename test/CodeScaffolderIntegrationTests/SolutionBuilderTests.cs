@@ -47,7 +47,7 @@ public class SolutionBuilderTests
 
         Should.Throw<InvalidOperationException>(() =>
         {
-            builder.ScaffoldSolution(model);
+            builder.ScaffoldSolution(model, Directory.GetCurrentDirectory());
         });
     }
     

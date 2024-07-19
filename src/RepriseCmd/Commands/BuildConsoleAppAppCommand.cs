@@ -1,5 +1,4 @@
-﻿using CodeScaffolder;
-using CodeScaffolding;
+﻿using CodeScaffolding;
 using Oakton;
 using Serilog;
 using ILogger = Serilog.ILogger;
