@@ -5,6 +5,10 @@ Builders for C# code rely on the Code Document Object Model, or [CodeDom](https:
 mechanism, and other builders, such as for projects, solutions, and other non-code artifacts, use [Scriban](https://github.com/scriban/scriban) 
 templates. 
 
+## Tasks
+
+
+
 ### Scaffolding
 
 I use the term scaffolding because _generation_ may be mistaken to refer to source generators,
@@ -42,7 +46,7 @@ HelloWorld
 ```        
         
 By default, however, `SolutionBuilder` will not create a `src` folder or any projects. This class uses a Scriban 
-template to create the .sln file.
+template to create the `.sln` file, and then `ProjectBuilder` to create projects. 
 
 ### ProjectBuilder
 
@@ -63,10 +67,8 @@ namespace HelloWorld
 }
 ```
 
-### Non-Code Builders
-
-These generate text content for artifacts such as project files, and use Scriban templates to generate output
-
+This class uses a Scriban template to create the project (`.csproj`) file and `CodeDom` based classes to create
+C# code (`.cs`) files.
 
 ## Models 
 
@@ -75,7 +77,7 @@ very abstract CodeDom models.
 
 ### Template Models
 
-These are used as input for rendering [Scriban](https://github.com/scriban/scriban) templates. 
+These are used as input for rendering [Scriban](https://github.com/scriban/scriban) templates. Two such models and templates 
 
 ### Code Element Models
 
@@ -83,23 +85,18 @@ These are aimed at being readable and simple to use.
 
 _Models for code elements are still a work in progress._
 
-## Future Plans
+## Next Iteration
 
-- Trying to move away from throwing exceptions, but it's extremely important to not overwrite ot delete existing code, 
-so exceptions are safer than starting to use the Result pattern now. 
-
-### Tasks
-
-- TASKT: Make templates shareable between this and integration tests.
-- TASKT: Interesting issue with order of statements in a method.
-- TASKT: Use IHost and DI
-- TASKT: Replace exceptions with Result pattern.
-- TASKT: Use value objects and avoid primitives.
-- TASKT: Revise hard-coded defaults for project tfm and RepriseVersion.
-- TASKT: Method of determining default solution name and path if not provided.
-- TASKT: Delegate path resolution to a `PathResolver` class.
-- TASKT: Flesh out `SolutionModel` to include solution and project configs.
-- TASKT: Document that we use a convention for project path as `solution/src/projectName.csproj`.
-- TASKT: Allow selective or full overwrite for existing output solution folder.
+- Make templates shareable between this and integration tests.
+- Interesting issue with order of statements in a method.
+- Use IHost and DI
+- Replace exceptions with Result pattern.
+- Use value objects and avoid primitives.
+- Revise hard-coded defaults for project tfm and RepriseVersion.
+- Method of determining default solution name and path if not provided.
+- Delegate path resolution to a `PathResolver` class.
+- Flesh out `SolutionModel` to include solution and project configs.
+- Document that we use a convention for project path as `solution/src/projectName.csproj`.
+- Allow selective or full overwrite for existing output solution folder.
 
 
