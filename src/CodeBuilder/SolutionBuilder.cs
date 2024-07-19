@@ -1,16 +1,17 @@
-﻿namespace CodeBuilder;
+﻿using System.Diagnostics;
+
+namespace CodeBuilder;
 
 public class SolutionBuilder
 {
-    // TASKT: Install Serilog
-    //private object _logger = Log.ForContext<SolutionBuilder>();
+    private readonly ILogger _logger = Log.ForContext<SolutionBuilder>();
 
     /// <summary>
     /// Create a .NET solution with projects.
     /// </summary>
     /// <param name="solutionModel">Model tha defines the solution to create.</param>
     /// <param name="outputLocation">Location to place the generated output. If not specified, the current directory will be used.</param>
-    public Result<CodeBuildInfo> CreateSolution(SolutionModel solutionModel, string? outputLocation = null)
+    public Result<CodeBuildInfo> ScaffoldSolution(SolutionModel solutionModel, string? outputLocation = null, List<ProjectModel>? projectModels = null)
     {
         var template =
             TemplateLoader.LoadFromFile(
@@ -21,7 +22,7 @@ public class SolutionBuilder
         if (Directory.Exists(solutionDirectory))
         {
             return Err<CodeBuildInfo>(
-                $"Solution directory {solutionDirectory} already exists in output location {outputLocation}");
+                $"Solution directory {solutionDirectory} already exists in output location {Path.GetFullPath(outputLocation)}");
         }
         Directory.CreateDirectory(solutionDirectory);
         
@@ -32,6 +33,20 @@ public class SolutionBuilder
         }
         
         File.WriteAllText(filePath, content);
+
+        var sourceLocation = $"{solutionDirectory}/src";
+        var projectBuilder = new ProjectBuilder();
+        foreach (var project in projectModels ?? [])
+        {
+            var result = projectBuilder.ScaffoldProject(project, sourceLocation);
+            if (result.IsError)
+            {
+                var hasErr = result.TryGetError(out var error);
+                // For now, we bail if any project fails to build. We are only concerned with one at tne moment.
+                Debug.Assert(error != null, nameof(error) + " != null");
+                _logger.Error($"Failed to scaffold project {project.ProjectName}", hasErr ? error.Message : "Unable to read error message from result");
+            }
+        }
 
         return Ok(new CodeBuildInfo());
     }

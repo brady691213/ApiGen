@@ -15,24 +15,22 @@ public class ConsoleAppBuilder
         var solutionName = projectName;
         var solutionDirectory = $"{outputDirectory}/{solutionName}";
         
-        var sourceLocation = $"{solutionDirectory}/src";
-
         var progSource = BuildProgramClass(projectName);
         var progModel = new CodeFileModel("Program.cs", progSource);
 
         var projectModel = new ProjectModel(projectName, [progModel]);
         var projectBuilder = new ProjectBuilder();
-        projectBuilder.CreateProject(projectModel, sourceLocation);        
+        //projectBuilder.ScaffoldProject(projectModel, sourceLocation);        
         
         var slnBuilder = new SolutionBuilder();
         var slnModel = new SolutionModel(solutionName, [projectModel]);
         
-        var result = slnBuilder.CreateSolution(slnModel, outputDirectory);
+        var result = slnBuilder.ScaffoldSolution(slnModel, outputDirectory, [projectModel]);
         if (result.IsError)
         {
             var hasErr = result.TryGetError(out var error);
             Debug.Assert(error != null, nameof(error) + " != null");
-            _logger.Error("Failed to generate console app: {ErrorMessage}", hasErr ? error.Message : "Unable to read error message from result");
+            _logger.Error("Failed to scaffold console app: {ErrorMessage}", hasErr ? error.Message : "Unable to read error message from result");
         }
         
         return result.IsOk;

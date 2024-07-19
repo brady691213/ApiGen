@@ -8,7 +8,7 @@ public class ProjectBuilder
     /// <param name="model">Model that defines the project to create.</param>
     /// <param name="outputLocation">Location to place the generated output. If not specified, the current directory will be used.</param>
     /// <exception cref="InvalidOperationException"></exception>
-    public Result<CodeBuildInfo> CreateProject(ProjectModel model, string outputLocation)
+    public Result<CodeBuildInfo> ScaffoldProject(ProjectModel model, string outputLocation)
     {
         var buildInfo = new CodeBuildInfo();
         
