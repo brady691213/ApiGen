@@ -7,10 +7,11 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
+        <RootNamespace>CodeBuilderIntegrationTests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\CodeBuilder\CodeBuilder.csproj" />
+      <ProjectReference Include="..\..\src\CodeScaffolder\CodeScaffolder.csproj" />
     </ItemGroup>
 
 </Project>

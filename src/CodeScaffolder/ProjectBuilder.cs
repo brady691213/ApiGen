@@ -12,7 +12,7 @@ public class ProjectBuilder
     {
         var buildInfo = new CodeBuildInfo();
         
-        var template = TemplateLoader.LoadFromFile(@"C:\Users\brady\projects\ApiGen\src\CodeBuilder\Templates\ProjectFile.csproj.txt");
+        var template = TemplateLoader.LoadFromFile(@"C:\Users\brady\projects\ApiGen\src\CodeScaffolder\Templates\ProjectFile.csproj.txt");
         var content = template.Render(new { model = model });
 
         var projectDirectory = Path.Combine(outputLocation, model.ProjectName);
