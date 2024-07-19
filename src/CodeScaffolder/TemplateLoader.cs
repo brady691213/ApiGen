@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using Scriban;
 
-namespace CodeBuilder;
+namespace CodeScaffolder;
 
 /// <summary>
 /// A helper for preparing <see cref="Scriban"/> templates. 

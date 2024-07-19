@@ -1,6 +1,6 @@
 ﻿using Vogen;
 
-namespace SourceBuilding;
+namespace CodeScaffolder;
 
 /// <summary>
 /// Indicates whether a DTO is used for a Request or a Response.

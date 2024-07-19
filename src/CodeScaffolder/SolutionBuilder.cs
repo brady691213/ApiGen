@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace CodeBuilder;
+namespace CodeScaffolder;
 
 public class SolutionBuilder
 {

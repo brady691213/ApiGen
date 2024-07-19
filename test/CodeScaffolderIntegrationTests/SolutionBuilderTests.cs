@@ -1,4 +1,4 @@
-using CodeBuilder;
+using CodeScaffolder;
 using Shouldly;
 using Xunit;
 

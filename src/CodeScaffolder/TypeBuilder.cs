@@ -1,9 +1,8 @@
 ﻿using System.CodeDom;
 using System.Collections;
 using System.Reflection;
-using SourceBuilding;
 
-namespace CodeBuilder;
+namespace CodeScaffolder;
 
 /// <summary>
 /// General functionality for building CodeDom elements common to most code building tasks.

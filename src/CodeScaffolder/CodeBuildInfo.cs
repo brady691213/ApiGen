@@ -1,4 +1,4 @@
-﻿namespace CodeBuilder;
+﻿namespace CodeScaffolder;
 
 /// <summary>
 /// Info about a code building operation such as 

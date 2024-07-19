@@ -1,4 +1,4 @@
-﻿namespace CodeBuilder;
+﻿namespace CodeScaffolder;
 
 /// <summary>
 /// Represents a source code file to be created as part of a project.

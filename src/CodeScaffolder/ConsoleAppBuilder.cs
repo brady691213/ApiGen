@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
-using Serilog;
 using ILogger = Serilog.ILogger;
-namespace CodeBuilder;
+namespace CodeScaffolder;
 
 public class ConsoleAppBuilder
 {

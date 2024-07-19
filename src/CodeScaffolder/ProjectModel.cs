@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace CodeBuilder;
+﻿namespace CodeScaffolder;
 
 public class ProjectModel(string projectName, List<CodeFileModel>? codeFileModels = null)
 {

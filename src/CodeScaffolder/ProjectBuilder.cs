@@ -1,4 +1,4 @@
-﻿namespace CodeBuilder;
+﻿namespace CodeScaffolder;
 
 public class ProjectBuilder
 {
