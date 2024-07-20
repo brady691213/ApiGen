@@ -5,31 +5,27 @@ namespace CodeGenerators.Applications;
 
 public class ConsoleAppGenerator
 {
+    private const string SolutionName = "HelloWorld";
+    private const string ProjectName = SolutionName;
+    private const string RootNamespace = ProjectName;
+
     private readonly ILogger _logger = Log.ForContext<ConsoleAppGenerator>();
+
+    private readonly ClassGenerator _classBuilder = new();
     private readonly CSharpCodeGenerator _generator = new();
-    
+
+    /// <summary>
+    /// Build a console application that prints "Hello, World!" from the `Main` entry point in class `Program`.
+    /// </summary>
     public bool BuildHelloWorldApp(string outputDirectory)
     {
-        var projectName = "HelloWorld";
-        var appNamespace = projectName;
-
-        // For now, we just use the project name as a solution name and path.
-        var solutionName = projectName;
-        
-        // TASKB: Passes projectName for namespace. Not documented.
-        var classBuilder = new ClassBuilder();
-        var generator = new CSharpCodeGenerator();
-
-        var classModel = new ClassModel("Program");
-        var progClass = classBuilder.BuildClass(classModel);
-        var codeModel = generator.GenerateCodeForClass(progClass, appNamespace);
-
-        var projectModel = new ProjectModel(projectName, [codeModel]);
+        var programModel = GenerateProgramModel();
+        var projectModel = new ProjectModel(ProjectName, [programModel]);
         
         var slnBuilder = new SolutionGenerator();
-        var slnModel = new SolutionModel(solutionName, [projectModel]);
-        
+        var slnModel = new SolutionModel(SolutionName, [projectModel]);
         var result = slnBuilder.GenerateSolution(slnModel, outputDirectory, [projectModel]);
+        
         if (result.IsError)
         {
             var hasErr = result.TryGetError(out var error);
@@ -40,6 +36,12 @@ public class ConsoleAppGenerator
         return result.IsOk;
     }
 
-    // TASKT: Factor into ClassBuilder
 
+    private CodeFileModel GenerateProgramModel()
+    {
+        var model = new ClassModel("Program");
+        var progClass = _classBuilder.GenerateClass(model);
+        var code = _generator.GenerateCodeForType(progClass, RootNamespace);
+        return code;
+    }
 }

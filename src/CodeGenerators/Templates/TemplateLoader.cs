@@ -1,22 +1,49 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using System.Xml.Linq;
+using CodeGenerators.Errors;
 using Scriban;
+using Scriban.Parsing;
 
 namespace CodeGenerators.Templates;
 
 /// <summary>
 /// A helper for preparing <see cref="Scriban"/> templates. 
 /// </summary>
-public static class TemplateLoader
+public class TemplateLoader
 {
+    private const string TemplateDirectory = @"C:\Users\brady\projects\ApiGen\src\CodeGenerators\Templates";
+    
+    private static readonly ILogger _logger = Log.ForContext<TemplateLoader>();
+    
     /// <summary>
     /// Loads template text from a file and returns a parsed template object.
     /// </summary>
-    public static Template LoadFromFile(string filePath)
+    public static Result<Template> LoadFromFile(string templateName)
     {
-        var templateText = File.ReadAllText(filePath);
-        var parsedTemplate = Template.Parse(templateText);
-        return parsedTemplate;
+        var path = GetTemplatePath(templateName);
+        var content = File.ReadAllText(path);
+        _logger.Verbose("Loaded template {TemplateContent} from {TemplatePath}", content, path);
+        
+        var template = Template.Parse(content);
+        if (!template.HasErrors)
+        {
+            _logger.Verbose("Template {TemplateName} parsed with no errors", templateName);
+            return template;
+        }
+
+        var messages = template.Messages
+            .Select(m => m.Message)
+            .ToList();
+        var errString = string.Join(Environment.NewLine, messages);
+        _logger.Error("Template {TemplateName} parsed with error list: {ErrorList}", templateName, errString);
+
+        return new TemplateError("Template {TemplateName} parsed with errors.", messages);
+    }
+
+    private static string GetTemplatePath(string templateName)
+    {
+        return Path.Combine(TemplateDirectory, $"{templateName}.csproj.txt");
     }
 
     private static void LogTemplateErrors(Template tempalte)

@@ -1,11 +1,19 @@
-﻿using CodeGenerators.Templates;
+﻿using CodeGenerators.Errors;
+using CodeGenerators.Templates;
 
 namespace CodeGenerators.Applications;
 
 public class FastEndpointAppGenerator
 {
-    public Result<CodeBuildInfo> GenerateApp(string solutionName)
+    /// <summary>
+    /// Generate the main application for a FastEndpoints web API.
+    /// </summary>
+    /// <param name="solutionName"></param>
+    /// <returns></returns>
+    public Result<GenerationTaskInfo> GenerateApp(string solutionName)
     {
+        var genInfo = new GenerationTaskInfo(Diags.GetCurrentMethod());
+        
         // For now, we just use the solution name as a project name and path.
         var projectName = solutionName;
         var apiNamespace = projectName;
@@ -18,7 +26,7 @@ public class FastEndpointAppGenerator
         
         var projectModel = new ProjectModel(projectName, [programModel, dtoModel]);
 
-        return Err<CodeBuildInfo>("Not fully implemented.");
+        return new NotFinishedError("Not fully implemented.");
     }
     
     private string BuildProgramClass(string @namespace)

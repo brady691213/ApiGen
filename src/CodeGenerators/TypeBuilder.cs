@@ -13,7 +13,7 @@ public class TypeBuilder
 {
     public string BuildDto(string dtoNamespace, Type entityType, DtoDirection? direction, string? operationName = "")
     {
-        var classBuilder = new ClassBuilder();
+        var classBuilder = new ClassGenerator();
         var codeNamespace = new CodeNamespace(dtoNamespace);
 
         var dtoName = BuildDtoName(entityType, direction, operationName);

@@ -15,4 +15,16 @@ public abstract class CodeElementBuilder
         property.Type = new CodeTypeReference(inputInfo.PropertyType);
         return property;
     }
+
+    /// <summary>
+    /// Builds an expression that represents a method call on an existing Type.
+    /// </summary>
+    public static CodeMethodInvokeExpression BuildMethodCallExpression(Type targetType, string methodName, CodeExpression[] parameters)
+    {
+        var call = new CodeMethodInvokeExpression(
+            new CodeTypeReferenceExpression(targetType.Name),
+            methodName,
+            parameters);
+        return call;
+    }
 }

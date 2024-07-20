@@ -1,19 +1,20 @@
 ﻿using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Reflection;
+using CodeGenerators.CodeElements;
 
 namespace CodeGenerators;
 
 /// <summary>
-/// Builds classes and other type defintoions based on input obtained from Reflection.
+/// Builds classes and other type definitions based on Type info obtained via Reflection.
 /// </summary>
-public class ClassBuilder
+public class ClassGenerator
 {
     /// <summary>
     /// Builds a simple C# class without any members.
     /// </summary>
     /// <returns>A <see cref="CodeTypeDeclaration"/> that defines an empty class.</returns>
-    public CodeTypeDeclaration BuildClass(ClassModel model, TypeAttributes classAttributes = TypeAttributes.Public)
+    public CodeTypeDeclaration GenerateClass(ClassModel model, TypeAttributes classAttributes = TypeAttributes.Public)
     {
         var outClass = new CodeTypeDeclaration(model.ClassName)
         {
@@ -21,13 +22,16 @@ public class ClassBuilder
             TypeAttributes = classAttributes
         };
 
-        var allMemebers = model.Members;
-        if (allMemebers.Count == 0)
+        var allMembers = model.Members;
+        
+        // Add a default main method if no other methods provided.
+        if (allMembers.Count == 0)
         {
-            var main = BuildMainMethod();
-            allMemebers.Add(main);
+            var argParam = new ParameterModel(typeof(string[]), "args");
+            var main = BuildMethod("Main", [argParam], [], MemberAttributes.Static | MemberAttributes.Public);
+            allMembers.Add(main);
         }
-        outClass.Members.AddRange(allMemebers);
+        outClass.Members.AddRange(allMembers);
         
         return outClass;
     }
@@ -36,34 +40,26 @@ public class ClassBuilder
     /// Builds a <c>Main</c> method as used an entry point in console apps.
     /// </summary>
     /// <returns>A <see cref="CodeMemberMethod"/> that defines a <c>Main</c> method.</returns>
-    public CodeMemberMethod BuildMainMethod(CodeStatementCollection? statements = null, MemberAttributes? methodAttributes = null)
+    public CodeMemberMethod BuildMethod(string methodName, ParameterModel[] parameters, CodeStatementCollection statements, MemberAttributes methodAttributes)
     {
-        // TASKT: Refgactor into BuildMethod.
-        var mainMethod = new CodeMemberMethod
+        var method = new CodeMemberMethod
         {
-            Name = "Main",
-            Attributes = methodAttributes ?? MemberAttributes.Static | MemberAttributes.Public
+            Name = methodName,
+            // TASKT: Add/override default atts with passed atts 
+            // TASKT: Make internal after quick test
+            Attributes = methodAttributes
         };
-        mainMethod.Parameters.Add(new CodeParameterDeclarationExpression(typeof(string[]), "args"));
+        var paramExpressions = parameters.Select(p => new CodeParameterDeclarationExpression(p.Type, p.Name)).ToArray();
+        method.Parameters.AddRange(paramExpressions);
 
-        if (statements == null)
+        // Add a default HelloWorld statement if no others present.
+        if (statements.Count == 0)
         {
-            mainMethod.Statements.Add(new CodeMethodInvokeExpression(
-                new CodeTypeReferenceExpression("System.Console"),
-                "WriteLine",
-                new CodePrimitiveExpression("Hello world")));
+            var hello = CodeElementBuilder.BuildMethodCallExpression(typeof(Console), "WriteLine",
+                [new CodePrimitiveExpression("Hello world")]);
+            method.Statements.Add(hello);
         }
 
-        return mainMethod;
-    }
-    
-    public CodeTypeDeclaration BuildProgramClass(string @namespace)
-    {
-        var model = new ClassModel("Program");
-        
-        var classBuilder = new ClassBuilder();
-        var programClass = classBuilder.BuildClass(model);
-
-        return programClass;
+        return method;
     }
 }

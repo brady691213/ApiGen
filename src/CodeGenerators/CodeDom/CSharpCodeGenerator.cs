@@ -33,7 +33,7 @@ public class CSharpCodeGenerator
     /// Generates C# code for a class, based on a <see cref="ClassModel"/>.
     /// </summary>
     // TASKT: Pass a ClassModel here.
-    public CodeFileModel GenerateCodeForClass(CodeTypeDeclaration classType, string? classNamespace)
+    public CodeFileModel GenerateCodeForType(CodeTypeDeclaration classType, string? classNamespace)
     {
         var compileUnit = new CodeCompileUnit();
         var compileNamespace = classNamespace ?? classType.Name;

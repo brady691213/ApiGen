@@ -7,17 +7,30 @@ templates.
 
 ## Tasks - Now
 
-- TASKT: Use static where OK
+- TASKT: Detailed and careful logging to console.
+- TASKT: Use staticsx where OK
 - TASKT: Don't use namespaces as containers, rather use a shared namespace name and generate code for classes etc.
 - TASKT: Merge `CodeFileModel` and `ClassModel`
 - TASKT: Merge `TypeBuiler` and `ClassBuilder`
 - TASKT: Tests for builders and scaffolders
+- TASKT: Check all optional params - remove where uncertain.
 
+- TASKT: Logging to other sinks like Windows Event Log and file.
+- TASKT: Look at more stateful classes for builders, cut down on noisy param lists.
+- TASKT: Make builder method params optional and use known defaults
 - TASKT: Make cli app a dotnet tool.
 - TASKT: Element builders for properties
 - TASKT: Element builders for parameters
 - TASKT: Element builders for statements
 - TASKT: Generalize `BuildHelloWorldApp` into `BuildConsoleApp`
+- TASKT: Benchmarks
+
+### Benchmarks
+
+We aren't generating many files by any means, but if this code is to be used in a compile-time source generator 
+then perf is very important. Areas to check:
+
+- `CSharpCodeGenerator` - Probably very expensive to instantiate compile units for each file
 
 ### WebAppScaffolder
 
