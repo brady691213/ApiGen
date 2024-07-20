@@ -21,12 +21,13 @@ public class ClassBuilder
             TypeAttributes = classAttributes
         };
 
-        if (model.Members.Count == 0)
+        var allMemebers = model.Members;
+        if (allMemebers.Count == 0)
         {
             var main = BuildMainMethod();
-            outClass.Members.Add(main);
+            allMemebers.Add(main);
         }
-        outClass.Members.AddRange(model.Members);
+        outClass.Members.AddRange(allMemebers);
         
         return outClass;
     }

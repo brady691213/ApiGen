@@ -38,6 +38,7 @@ public class CSharpCodeGenerator
         var compileUnit = new CodeCompileUnit();
         var compileNamespace = classNamespace ?? classType.Name;
         var ns = BuildNamespace(compileNamespace);
+        ns.Types.Add(classType);
         compileUnit.Namespaces.Add(ns);
         
         using var sourceWriter = new StringWriter();

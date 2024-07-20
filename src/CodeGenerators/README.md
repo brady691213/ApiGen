@@ -13,8 +13,7 @@ templates.
 - TASKT: Merge `TypeBuiler` and `ClassBuilder`
 - TASKT: Tests for builders and scaffolders
 
-## Tasks - Next
-
+- TASKT: Make cli app a dotnet tool.
 - TASKT: Element builders for properties
 - TASKT: Element builders for parameters
 - TASKT: Element builders for statements

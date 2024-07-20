@@ -1,5 +1,4 @@
 ﻿using CodeGenerators.Templates;
-using CodeScaffolding;
 using Shouldly;
 using Xunit;
 

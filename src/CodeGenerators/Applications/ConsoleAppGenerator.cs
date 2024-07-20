@@ -19,11 +19,12 @@ public class ConsoleAppGenerator
         // TASKB: Passes projectName for namespace. Not documented.
         var classBuilder = new ClassBuilder();
         var generator = new CSharpCodeGenerator();
-        
-        var progClass = classBuilder.BuildProgramClass(projectName);
-        var progModel = generator.GenerateCodeForClass(progClass, appNamespace);
 
-        var projectModel = new ProjectModel(projectName, [progModel]);
+        var classModel = new ClassModel("Program");
+        var progClass = classBuilder.BuildClass(classModel);
+        var codeModel = generator.GenerateCodeForClass(progClass, appNamespace);
+
+        var projectModel = new ProjectModel(projectName, [codeModel]);
         
         var slnBuilder = new SolutionGenerator();
         var slnModel = new SolutionModel(solutionName, [projectModel]);

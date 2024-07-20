@@ -1,5 +1,4 @@
 ﻿using CodeGenerators;
-using CodeScaffolding;
 using Shouldly;
 using Xunit;
 
