@@ -30,5 +30,6 @@ public class ClassModel(string className)
 
     public CodeTypeMemberCollection Members { get; set; } = [];
     
+    
     private TypeAttributes classAttributes = TypeAttributes.Public;
 }

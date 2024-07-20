@@ -1,6 +1,7 @@
 ﻿using System.CodeDom;
 using System.Collections;
 using System.Reflection;
+using CodeGenerators.CodeDom;
 using CodeGenerators.CodeElements;
 using CodeGenerators.Next;
 
@@ -57,7 +58,7 @@ public class TypeBuilder
         CodeMemberProperty[] members = [];
         foreach (var info in props)
         {
-            var prop = CodeElementBuilder.BuildAutoProperty(info);
+            var prop = CodeDom.CodeElementBuilder.BuildAutoProperty(info);
             ((IList)members).Add(prop);
         }
         return members.ToList();

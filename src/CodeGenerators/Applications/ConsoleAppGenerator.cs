@@ -40,8 +40,8 @@ public class ConsoleAppGenerator
     private CodeFileModel GenerateProgramModel()
     {
         var model = new ClassModel("Program");
-        var progClass = _classBuilder.GenerateClass(model);
-        var code = _generator.GenerateCodeForType(progClass, RootNamespace);
+        var programClass = _classBuilder.GenerateClass(model);
+        var code = _generator.GenerateCodeForType(programClass, RootNamespace);
         // TASKT: Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
         return code;
     }

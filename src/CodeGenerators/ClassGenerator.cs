@@ -1,6 +1,7 @@
 ﻿using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Reflection;
+using CodeGenerators.CodeDom;
 using CodeGenerators.CodeElements;
 
 namespace CodeGenerators;
@@ -24,6 +25,7 @@ public class ClassGenerator
 
         var allMembers = model.Members;
         
+        // TASKT: Remove this. Far too few classes will have a Main.
         // Add a default main method if no other methods provided.
         if (allMembers.Count == 0)
         {
@@ -55,7 +57,7 @@ public class ClassGenerator
         // Add a default HelloWorld statement if no others present.
         if (statements.Count == 0)
         {
-            var hello = CodeElementBuilder.BuildMethodCallExpression(typeof(Console), "WriteLine",
+            var hello = CodeDom.CodeElementBuilder.BuildMethodCallExpression(typeof(Console), "WriteLine",
                 [new CodePrimitiveExpression("Hello world")]);
             method.Statements.Add(hello);
         }
