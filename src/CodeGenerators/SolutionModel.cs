@@ -1,4 +1,4 @@
-﻿namespace CodeScaffolding;
+﻿namespace CodeGenerators;
 
 public class SolutionModel(string solutionName, List<ProjectModel>? projectModels = null)
 {

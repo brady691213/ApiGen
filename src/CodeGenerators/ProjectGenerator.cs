@@ -1,6 +1,8 @@
-﻿namespace CodeScaffolding;
+﻿using CodeGenerators.Templates;
 
-public class ProjectScaffolder
+namespace CodeGenerators;
+
+public class ProjectGenerator
 {
     /// <summary>
     /// Create a .NET project with source code files.
@@ -8,11 +10,11 @@ public class ProjectScaffolder
     /// <param name="model">Model that defines the project to create.</param>
     /// <param name="outputLocation">Location to place the generated output. If not specified, the current directory will be used.</param>
     /// <exception cref="InvalidOperationException"></exception>
-    public Result<CodeBuildInfo> ScaffoldProject(ProjectModel model, string outputLocation)
+    public Result<CodeBuildInfo> GenerateProject(ProjectModel model, string outputLocation)
     {
         var buildInfo = new CodeBuildInfo();
         
-        var template = TemplateLoader.LoadFromFile(@"C:\Users\brady\projects\ApiGen\src\CodeScaffolding\Templates\ProjectFile.csproj.txt");
+        var template = TemplateLoader.LoadFromFile(@"C:\Users\brady\projects\ApiGen\src\CodeGenerators\Templates\ProjectFile.csproj.txt");
         var content = template.Render(new { model = model });
 
         var projectDirectory = Path.Combine(outputLocation, model.ProjectName);

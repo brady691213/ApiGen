@@ -1,4 +1,4 @@
-﻿namespace CodeScaffolding;
+﻿namespace CodeGenerators;
 
 public record PackageReferenceModel(string Name, string Version)
 {

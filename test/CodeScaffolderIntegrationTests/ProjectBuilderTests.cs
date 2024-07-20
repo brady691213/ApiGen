@@ -1,4 +1,5 @@
-﻿using CodeScaffolding;
+﻿using CodeGenerators;
+using CodeScaffolding;
 using Shouldly;
 using Xunit;
 
@@ -16,11 +17,11 @@ public class ProjectBuilderTests
         var projDir = GetProjectDirectory(ProjectName);
         FileSystemTools.EnsureDirectoryExists(projDir);
         var model = new ProjectModel(ProjectName);
-        var builder = new ProjectScaffolder();
+        var builder = new ProjectGenerator();
 
         Should.Throw<InvalidOperationException>(() =>
         {
-            builder.ScaffoldProject(model, TestConstants.OutputDirectory);
+            builder.GenerateProject(model, TestConstants.OutputDirectory);
         });
     }
 
@@ -29,9 +30,9 @@ public class ProjectBuilderTests
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new ProjectModel(ProjectName);
-        var builder = new ProjectScaffolder();
+        var builder = new ProjectGenerator();
         
-        builder.ScaffoldProject(model, TestConstants.OutputDirectory);
+        builder.GenerateProject(model, TestConstants.OutputDirectory);
 
         var projDir = GetProjectDirectory(ProjectName);
         var exists = Directory.Exists(projDir);
@@ -43,9 +44,9 @@ public class ProjectBuilderTests
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new ProjectModel(ProjectName);
-        var builder = new ProjectScaffolder();
+        var builder = new ProjectGenerator();
         
-        builder.ScaffoldProject(model, TestConstants.OutputDirectory);
+        builder.GenerateProject(model, TestConstants.OutputDirectory);
 
         var filePath = Path.Combine(GetProjectDirectory(ProjectName), $"{ProjectName}.csproj");
         var exists = File.Exists(filePath);

@@ -1,17 +1,14 @@
-﻿using System.CodeDom;
-using System.CodeDom.Compiler;
+﻿using System.CodeDom.Compiler;
+using CodeGenerators.Templates;
 
-namespace CodeScaffolding;
+namespace CodeGenerators;
 
 public class DtoGenerator
 {
-    private CodeDomProvider _provider = CodeDomProvider.CreateProvider("CSharp");
-    private CodeGeneratorOptions _generateOptions = new();
-    
     public string GenerateDto()
     {
         var template =
-            TemplateLoader.LoadFromFile(@"C:\Users\brady\projects\ApiGen\src\CodeScaffolding\Templates\ApiDto.cs.txt");
+            TemplateLoader.LoadFromFile(@"C:\Users\brady\projects\ApiGen\src\CodeGenerators\Templates\ApiDto.cs.txt");
         var model = new DtoModel();
         
         model.Properties.Add(new PropertyModel("string", "FirstName"));

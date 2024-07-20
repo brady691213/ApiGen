@@ -1,8 +1,10 @@
-﻿namespace CodeScaffolding.Applications;
+﻿using CodeGenerators.Templates;
 
-public class FastEndpointAppScaffolder
+namespace CodeGenerators.Applications;
+
+public class FastEndpointAppGenerator
 {
-    public Result<CodeBuildInfo> GenerateFastEndPointsApp(string solutionName)
+    public Result<CodeBuildInfo> GenerateApp(string solutionName)
     {
         // For now, we just use the solution name as a project name and path.
         var projectName = solutionName;
@@ -23,7 +25,7 @@ public class FastEndpointAppScaffolder
     {
         var template =
             TemplateLoader.LoadFromFile(
-                @"C:\Users\brady\projects\ApiGen\src\CodeScaffolding\Templates\FastEndpointsProgramClass.cs.txt");
+                @"C:\Users\brady\projects\ApiGen\src\CodeGenerators\Templates\FastEndpointsProgramClass.cs.txt");
         var code = template.Render();
 
         return code;

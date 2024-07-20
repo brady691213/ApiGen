@@ -11,7 +11,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\CodeScaffolding\CodeScaffolding.csproj" />
+      <ProjectReference Include="..\..\src\CodeGenerators\CodeGenerators.csproj" />
     </ItemGroup>
 
 </Project>

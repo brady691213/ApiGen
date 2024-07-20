@@ -1,6 +1,6 @@
-﻿using CodeScaffolding.Next;
+﻿using CodeGenerators.Next;
 
-namespace CodeScaffolding;
+namespace CodeGenerators;
 
 public class DtoModel
 {

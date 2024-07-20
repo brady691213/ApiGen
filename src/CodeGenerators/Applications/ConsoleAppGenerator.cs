@@ -1,28 +1,34 @@
 ﻿using System.Diagnostics;
+using CodeGenerators.CodeElements;
 using ILogger = Serilog.ILogger;
-namespace CodeScaffolding.Applications;
+namespace CodeGenerators.Applications;
 
-public class ConsoleAppScaffolder
+public class ConsoleAppGenerator
 {
-    private readonly ILogger _logger = Log.ForContext<ConsoleAppScaffolder>();
+    private readonly ILogger _logger = Log.ForContext<ConsoleAppGenerator>();
+    private readonly CSharpCodeGenerator _generator = new();
     
     public bool BuildHelloWorldApp(string outputDirectory)
     {
         var projectName = "HelloWorld";
+        var appNamespace = projectName;
 
         // For now, we just use the project name as a solution name and path.
         var solutionName = projectName;
         
         // TASKB: Passes projectName for namespace. Not documented.
-        var progSource = BuildProgramClass(projectName);
-        var progModel = new CodeFileModel("Program.cs", progSource);
+        var classBuilder = new ClassBuilder();
+        var generator = new CSharpCodeGenerator();
+        
+        var progClass = classBuilder.BuildProgramClass(projectName);
+        var progModel = generator.GenerateCodeForClass(progClass, appNamespace);
 
         var projectModel = new ProjectModel(projectName, [progModel]);
         
-        var slnBuilder = new SolutionScaffolder();
+        var slnBuilder = new SolutionGenerator();
         var slnModel = new SolutionModel(solutionName, [projectModel]);
         
-        var result = slnBuilder.ScaffoldSolution(slnModel, outputDirectory, [projectModel]);
+        var result = slnBuilder.GenerateSolution(slnModel, outputDirectory, [projectModel]);
         if (result.IsError)
         {
             var hasErr = result.TryGetError(out var error);
@@ -34,18 +40,5 @@ public class ConsoleAppScaffolder
     }
 
     // TASKT: Factor into ClassBuilder
-    private string BuildProgramClass(string @namespace)
-    {
-        var classBuilder = new ClassBuilder();
 
-        var rootNamespace = classBuilder.BuildNamespace(@namespace);
-        var programClass = classBuilder.BuildClass("Program");
-        var mainMethod = classBuilder.BuildMainMethod();
-        
-        programClass.Members.Add(mainMethod);
-        rootNamespace.Types.Add(programClass);
-
-        var code = classBuilder.GenerateCSharpCode([rootNamespace]);
-        return code;
-    }
 }

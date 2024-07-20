@@ -1,7 +1,7 @@
 ﻿using System.CodeDom;
 using Microsoft.AspNetCore.Builder;
 
-namespace CodeScaffolding.Applications;
+namespace CodeGenerators.Applications;
 
 /// <summary>
 /// Work in progress: Using templates for non-reflection classes.

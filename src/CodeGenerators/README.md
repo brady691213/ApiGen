@@ -7,6 +7,8 @@ templates.
 
 ## Tasks - Now
 
+- TASKT: Use static where OK
+- TASKT: Don't use namespaces as containers, rather use a shared namespace name and generate code for classes etc.
 - TASKT: Merge `CodeFileModel` and `ClassModel`
 - TASKT: Merge `TypeBuiler` and `ClassBuilder`
 - TASKT: Tests for builders and scaffolders
@@ -28,8 +30,8 @@ templates.
 
 ### Scaffolding
 
-I use the term scaffolding because _generation_ may be mistaken to refer to source generators,
-and _building_ may be mistaken for the context of compiling.
+I use the term scaffolding to distinguish static, on-demand code generation from the dynamic, real time work of 
+source generators.
 
 ## Classes
 

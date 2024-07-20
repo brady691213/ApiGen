@@ -1,21 +1,22 @@
 ﻿using System.Diagnostics;
+using CodeGenerators.Templates;
 
-namespace CodeScaffolding;
+namespace CodeGenerators;
 
-public class SolutionScaffolder
+public class SolutionGenerator
 {
-    private readonly ILogger _logger = Log.ForContext<SolutionScaffolder>();
+    private readonly ILogger _logger = Log.ForContext<SolutionGenerator>();
 
     /// <summary>
-    /// Create a .NET solution with projects.
+    /// Create a .NET solution file and directory.
     /// </summary>
     /// <param name="solutionModel">Model tha defines the solution to create.</param>
     /// <param name="outputLocation">Location to place the generated output. If not specified, the current directory will be used.</param>
-    public Result<CodeBuildInfo> ScaffoldSolution(SolutionModel solutionModel, string outputLocation, List<ProjectModel>? projectModels = null)
+    public Result<CodeBuildInfo> GenerateSolution(SolutionModel solutionModel, string outputLocation, List<ProjectModel>? projectModels = null)
     {
         var template =
             TemplateLoader.LoadFromFile(
-                @"C:\Users\brady\projects\ApiGen\src\CodeScaffolding\Templates\SolutionFile.sln.txt");
+                @"C:\Users\brady\projects\ApiGen\src\CodeGenerators\Templates\SolutionFile.sln.txt");
         var content = template.Render(new { model = solutionModel });
         
         var solutionDirectory = $"{outputLocation}/{solutionModel.SolutionName}";
@@ -35,10 +36,10 @@ public class SolutionScaffolder
         File.WriteAllText(filePath, content);
 
         var sourceLocation = $"{solutionDirectory}/src";
-        var projectBuilder = new ProjectScaffolder();
+        var projectBuilder = new ProjectGenerator();
         foreach (var project in projectModels ?? [])
         {
-            var result = projectBuilder.ScaffoldProject(project, sourceLocation);
+            var result = projectBuilder.GenerateProject(project, sourceLocation);
             if (result.IsError)
             {
                 var hasErr = result.TryGetError(out var error);

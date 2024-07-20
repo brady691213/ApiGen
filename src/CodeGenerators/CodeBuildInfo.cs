@@ -1,4 +1,4 @@
-﻿namespace CodeScaffolding;
+﻿namespace CodeGenerators;
 
 /// <summary>
 /// Info about a code building operation such as 

@@ -1,3 +1,4 @@
+using CodeGenerators;
 using CodeScaffolding;
 using Shouldly;
 using Xunit;
@@ -14,9 +15,9 @@ public class SolutionBuilderTests
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new SolutionModel(SolutionName);
-        var builder = new SolutionScaffolder();
+        var builder = new SolutionGenerator();
         
-        builder.ScaffoldSolution(model, TestConstants.OutputDirectory, null);
+        builder.GenerateSolution(model, TestConstants.OutputDirectory, null);
 
         var solDir = FileSystemTools.GetSolutionDirectory(SolutionName);
         var exists = Directory.Exists(solDir);
@@ -28,9 +29,9 @@ public class SolutionBuilderTests
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new SolutionModel(SolutionName);
-        var builder = new SolutionScaffolder();
+        var builder = new SolutionGenerator();
         
-        builder.ScaffoldSolution(model, TestConstants.OutputDirectory, null);
+        builder.GenerateSolution(model, TestConstants.OutputDirectory, null);
         
         var solDir = FileSystemTools.GetSolutionDirectory(SolutionName);
         var exists = File.Exists($"{solDir}/{SolutionName}.sln");
@@ -43,11 +44,11 @@ public class SolutionBuilderTests
         var solDir = FileSystemTools.GetSolutionDirectory(SolutionName);
         FileSystemTools.EnsureDirectoryExists(solDir);
         var model = new SolutionModel(SolutionName);
-        var builder = new SolutionScaffolder();
+        var builder = new SolutionGenerator();
 
         Should.Throw<InvalidOperationException>(() =>
         {
-            builder.ScaffoldSolution(model, Directory.GetCurrentDirectory());
+            builder.GenerateSolution(model, Directory.GetCurrentDirectory());
         });
     }
     

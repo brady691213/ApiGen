@@ -1,4 +1,4 @@
-﻿namespace CodeScaffolding;
+﻿namespace CodeGenerators;
 
 public record PropertyModel(string typeAlias, string name)
 {

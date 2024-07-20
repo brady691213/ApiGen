@@ -1,4 +1,7 @@
-﻿namespace CodeScaffolding;
+﻿using System.CodeDom;
+using System.Reflection;
+
+namespace CodeGenerators;
 
 /// <summary>
 /// A facade that simplifies defining classes for building code with the <see cref="System.CodeDom"/> namespace.  
@@ -24,4 +27,8 @@ public class ClassModel(string className)
     /// because implicit usings depend on how this code is compiled.
     /// </remarks>
     public List<string> Imports { get; set; } = ["System"];
+
+    public CodeTypeMemberCollection Members { get; set; } = [];
+    
+    private TypeAttributes classAttributes = TypeAttributes.Public;
 }
