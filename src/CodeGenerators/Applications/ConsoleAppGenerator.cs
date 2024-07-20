@@ -42,6 +42,7 @@ public class ConsoleAppGenerator
         var model = new ClassModel("Program");
         var progClass = _classBuilder.GenerateClass(model);
         var code = _generator.GenerateCodeForType(progClass, RootNamespace);
+        // TASKT: Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
         return code;
     }
 }

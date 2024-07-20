@@ -5,18 +5,21 @@ namespace CodeGenerators;
 
 public class DtoGenerator
 {
-    public string GenerateDto()
+    public string? GenerateDto()
     {
-        var template =
-            TemplateLoader.LoadFromFile(@"C:\Users\brady\projects\ApiGen\src\CodeGenerators\Templates\ApiDto.cs.txt");
+        var result = TemplateLoader.LoadApiDtoTemplate();
         var model = new DtoModel();
         
         model.Properties.Add(new PropertyModel("string", "FirstName"));
         model.Properties.Add(new PropertyModel("string", "LastName"));
         model.Properties.Add(new PropertyModel("int", "Age"));
 
-        var code = template.Render(new { model = model });
+        if (result.IsOk)
+        {
+            var okValue = result.TryGetValue(out var template);
+            return okValue ? template!.Render(model) : null;
+        }
 
-        return code;
+        return null;
     }
 }

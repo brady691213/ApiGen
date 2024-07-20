@@ -15,15 +15,18 @@ public class ProjectGenerator
     /// <param name="outputLocation">Location to place the generated output. The parent directory for the created project directory.</param>
     public Result<GenerationTaskInfo> GenerateProject(ProjectModel model, string outputLocation)
     {
+        var genInfo = new GenerationTaskInfo(Diags.GetCurrentMethod(), outputLocation);
         _logger.Information("Generating project {ProjectName} into location {OutputLocation}", model, outputLocation);
-        
-        var buildInfo = new GenerationTaskInfo(Diags.GetCurrentMethod());
-        
-        var template = TemplateLoader.LoadFromFile(TemplateName);
+
+        var template = TemplateLoader.LoadProjectFileTemplate();
         _logger.Information("Using template {TemplateName} from file.", TemplateName);
-        
-        var content = template.Render(new { model = model });
-        _logger.Debug("Template rendered {ProejctFileContent}", content);
+
+        var projContent = RenderTemplate(model);
+        if (projContent is null)
+        {
+            return Err<GenerationTaskInfo>("Failed to render project file template");
+        }
+        _logger.Debug("Project template rendered {ProjectFileContent}", projContent);
         
         var projectPath = Path.Combine(outputLocation, model.ProjectName);
         if (Directory.Exists(projectPath))
@@ -39,16 +42,33 @@ public class ProjectGenerator
         {
             var codePath = Path.Combine(projectPath, codeFile.FileName);
             File.WriteAllText(codePath, codeFile.Content);
-            buildInfo.FilesCreated.Add(codePath);
+            genInfo.FilesCreated.Add(codePath);
         }
-        _logger.Debug("{SourceCount} source files written to {ProjectPath}", buildInfo.FilesCreated.Count, projectPath);
+        _logger.Debug("{SourceCount} source files written to {ProjectPath}", genInfo.FilesCreated.Count, projectPath);
         
         // Finally write the project file once all source files have been written.
         var filePath = Path.Combine(projectPath, $"{model.ProjectName}.csproj");
-        File.WriteAllText(filePath, content);
-        buildInfo.FilesCreated.Add(filePath);
+        File.WriteAllText(filePath, projContent);
+        genInfo.FilesCreated.Add(filePath);
         _logger.Debug("Created project file at {FilePath}", filePath);
         
-        return Ok(buildInfo);
+        return Ok(genInfo);
+    }
+    
+    private string? RenderTemplate(ProjectModel model)
+    {
+        var templateName = "ProjectFile";
+        var result = TemplateLoader.LoadProjectFileTemplate();
+        if (result.IsError)
+        {
+            var hasErr = result.TryGetError(out var templateError);
+            _logger.Error("Error rendering project file template {TemplateName}: {Error}", templateName,templateError);
+            return null;
+        }
+
+        var template = result.Unwrap();
+        var content = template.Render(new {model = model});
+
+        return content;
     }
 }

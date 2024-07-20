@@ -15,20 +15,34 @@ public class TemplateLoader
     private const string TemplateDirectory = @"C:\Users\brady\projects\ApiGen\src\CodeGenerators\Templates";
     
     private static readonly ILogger _logger = Log.ForContext<TemplateLoader>();
+
+    public static Result<Template> LoadProjectFileTemplate()
+    {
+        return LoadFromFile(GetTemplatePath("ProjectFile.csproj"));
+    }
+
+    public static Result<Template> LoadApiDtoTemplate()
+    {
+        return LoadFromFile(GetTemplatePath("ApiDto.cs"));
+    }
+    
+    public static Result<Template> LoadSolutionTemplate()
+    {
+        return LoadFromFile(GetTemplatePath("SolutionFile.sln"));
+    }
     
     /// <summary>
     /// Loads template text from a file and returns a parsed template object.
     /// </summary>
-    public static Result<Template> LoadFromFile(string templateName)
+    public static Result<Template> LoadFromFile(string templatePath)
     {
-        var path = GetTemplatePath(templateName);
-        var content = File.ReadAllText(path);
-        _logger.Verbose("Loaded template {TemplateContent} from {TemplatePath}", content, path);
+        var content = File.ReadAllText(templatePath);
+        _logger.Verbose("Loaded template {TemplateContent} from {TemplatePath}", content, templatePath);
         
         var template = Template.Parse(content);
         if (!template.HasErrors)
         {
-            _logger.Verbose("Template {TemplateName} parsed with no errors", templateName);
+            _logger.Verbose("Template {TemplateName} parsed with no errors", templatePath);
             return template;
         }
 
@@ -36,14 +50,14 @@ public class TemplateLoader
             .Select(m => m.Message)
             .ToList();
         var errString = string.Join(Environment.NewLine, messages);
-        _logger.Error("Template {TemplateName} parsed with error list: {ErrorList}", templateName, errString);
+        _logger.Error("Template {TemplateName} parsed with error list: {ErrorList}", templatePath, errString);
 
         return new TemplateError("Template {TemplateName} parsed with errors.", messages);
     }
 
     private static string GetTemplatePath(string templateName)
     {
-        return Path.Combine(TemplateDirectory, $"{templateName}.csproj.txt");
+        return Path.Combine(TemplateDirectory, $"{templateName}.txt");
     }
 
     private static void LogTemplateErrors(Template tempalte)
