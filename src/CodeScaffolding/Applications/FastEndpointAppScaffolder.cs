@@ -2,7 +2,7 @@
 
 public class FastEndpointAppScaffolder
 {
-    public Result<CodeBuildInfo> ScaffoldFastEndPointsApi(string solutionName)
+    public Result<CodeBuildInfo> GenerateFastEndPointsApp(string solutionName)
     {
         // For now, we just use the solution name as a project name and path.
         var projectName = solutionName;
@@ -15,6 +15,8 @@ public class FastEndpointAppScaffolder
         var dtoModel = new CodeFileModel("Request.cs", dto);
         
         var projectModel = new ProjectModel(projectName, [programModel, dtoModel]);
+
+        return Err<CodeBuildInfo>("Not fully implemented.");
     }
     
     private string BuildProgramClass(string @namespace)
@@ -23,6 +25,8 @@ public class FastEndpointAppScaffolder
             TemplateLoader.LoadFromFile(
                 @"C:\Users\brady\projects\ApiGen\src\CodeScaffolding\Templates\FastEndpointsProgramClass.cs.txt");
         var code = template.Render();
+
+        return code;
     }
 
     private string BuildRequestDto()
