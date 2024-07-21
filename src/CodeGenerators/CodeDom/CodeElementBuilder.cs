@@ -1,12 +1,13 @@
 ﻿using System.CodeDom;
 using System.Reflection;
+using System.Xml.Linq;
 using Microsoft.AspNetCore.Builder;
 
 namespace CodeGenerators.CodeDom;
 
 public class CodeElementBuilder
 {
-    public static CodeVariableDeclarationStatement WebAppBuilderVariable(string builderName)
+    public static CodeVariableDeclarationStatement WebAppBuilderDec(string builderName)
     {
         var valueExp = BuildMethodCallExpression(typeof(WebApplication), "CreateBuilder", []);
         var dec = new CodeVariableDeclarationStatement(typeof(WebApplicationBuilder), builderName, valueExp);
@@ -27,28 +28,37 @@ public class CodeElementBuilder
         return mxs;
     }
 
+    public static CodeVariableReferenceExpression GetAppExpression(string appName)
+    {
+        var appExp = new CodeVariableReferenceExpression(appName);
+        return appExp;
+    }
     
-    public CodeVariableDeclarationStatement BuilderInvokeBuild(string appVarName)
+    public static CodeMethodInvokeExpression InvokeAppMethod(string appVar, string methodName)
+    {
+        var ax = GetAppExpression(appVar);
+        var mxs = new CodeMethodInvokeExpression(ax, methodName);
+        return mxs;
+    }
+
+    
+    public CodeVariableDeclarationStatement WebAppDec(string appVarName)
     {
         var valueExp = BuildMethodCallExpression(typeof(WebApplication), "Build", []);
         var dec = new CodeVariableDeclarationStatement(typeof(WebApplication), appVarName, valueExp);
         return dec;
     }
-
-    public CodeVariableReferenceExpression AppUse(string appVarName)
+    
+    public CodeVariableDeclarationStatement WebAppDec(string builderName, string appName)
     {
-        var appRef = new CodeVariableReferenceExpression(appVarName);
-        var meth = BuildMethodCallExpression(appRef, "UseFastEndpoints", []);
-    }
-
-    public CodeVariableDeclarationStatement WebApplicationBuilderInvokeBuild()
-    {
-        var valueExp = BuildMethodCallExpression(
-            typeof(WebApplication), "CreateBuilder", []);
+        var builderExp = new CodeVariableReferenceExpression(builderName);
+        var exp = new CodeMethodInvokeExpression(builderExp, "Build");
+        var dec = new CodeVariableDeclarationStatement(typeof(WebApplication), appName, exp);
+        return dec;
     }
 
     
-    public CodeMemberProperty BuildAutoProperty(PropertyInfo inputInfo)
+    public static CodeMemberProperty BuildAutoProperty(PropertyInfo inputInfo)
     {
         var property = new CodeMemberProperty();
         property.Attributes = MemberAttributes.Final | MemberAttributes.Public;
@@ -69,6 +79,10 @@ public class CodeElementBuilder
             methodName,
             parameters);
         return call;
+        
+        var hello = CodeDom.CodeElementBuilder
+            .BuildMethodCallExpression(typeof(Console), "WriteLine",
+            [new CodePrimitiveExpression("Hello world")]);
     }
 
     public CodeMethodInvokeExpression BuildMethodCallExpression(CodeExpression targetObject, string methodName, CodeExpression[] parameters)

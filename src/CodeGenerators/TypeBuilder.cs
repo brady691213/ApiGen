@@ -58,7 +58,7 @@ public class TypeBuilder
         CodeMemberProperty[] members = [];
         foreach (var info in props)
         {
-            var prop = CodeDom.CodeElementBuilder.BuildAutoProperty(info);
+            var prop = CodeElementBuilder.BuildAutoProperty(info);
             ((IList)members).Add(prop);
         }
         return members.ToList();

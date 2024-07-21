@@ -13,8 +13,7 @@ public class SolutionGenerator
     /// <param name="solutionModel">Model tha defines the solution to create.</param>
     /// <param name="outputLocation">Location to place the generated output. If not specified, the current directory will be used.</param>
     /// <param name="projectModels">Collection of models defining the projects to include in the solution.</param>
-    public Result<GenerationTaskInfo> GenerateSolution(SolutionModel solutionModel, string outputLocation,
-        List<ProjectModel>? projectModels = null)
+    public Result<GenerationTaskInfo> GenerateSolution(SolutionModel solutionModel, string outputLocation, bool skipWrite)
     {
         var genInfo = new GenerationTaskInfo(Diags.GetCurrentMethod(), outputLocation);
 
@@ -30,7 +29,7 @@ public class SolutionGenerator
         _logger.Debug("Solution file template rendered as {SolutionFileContent}", slnContent);
 
         var solutionDirectory = $"{outputLocation}/{solutionModel.Name}";
-        if (Directory.Exists(solutionDirectory))
+        if (!skipWrite && Directory.Exists(solutionDirectory))
         {
             return Err<GenerationTaskInfo>(
                 $"Solution directory {solutionDirectory} already exists in output location {Path.GetFullPath(outputLocation)}");
@@ -46,14 +45,17 @@ public class SolutionGenerator
                 $"Solution file {filePath} already exists. This module may not overwrite existing files");
         }
 
-        File.WriteAllText(filePath, slnContent);
-        _logger.Debug("Created solution file {SolutionFilePath}", solutionDirectory);
+        if (!skipWrite && !File.Exists(filePath))
+        {
+            File.WriteAllText(filePath, slnContent);
+            _logger.Debug("Created solution file {SolutionFilePath}", solutionDirectory);
+        }
 
         var sourceLocation = $"{solutionDirectory}/src";
-        var projectBuilder = new ProjectGenerator();
-        foreach (var project in projectModels ?? [])
+        var projectGenerator = new ProjectGenerator();
+        foreach (var project in solutionModel.ProjectModels)
         {
-            var result = projectBuilder.GenerateProject(project, sourceLocation);
+            var result = projectGenerator.GenerateProject(project, sourceLocation, skipWrite);
             if (result.IsError)
             {
                 var hasErr = result.TryGetError(out var error);
@@ -75,7 +77,7 @@ public class SolutionGenerator
     private string? RenderTemplate(SolutionModel model)
     {
         var templateName = "SolutionFile";
-        var result = TemplateLoader.LoadSolutionTemplate();
+        var result = TemplateLoader.LoadSolutionTemplate("SolutionFile.sln");
         if (result.IsError)
         {
             var hasErr = result.TryGetError(out var templateError);

@@ -20,7 +20,7 @@ public class ProjectBuilderTests
 
         Should.Throw<InvalidOperationException>(() =>
         {
-            builder.GenerateProject(model, TestConstants.OutputDirectory);
+            builder.GenerateProject(model, TestConstants.OutputDirectory, false);
         });
     }
 
@@ -31,7 +31,7 @@ public class ProjectBuilderTests
         var model = new ProjectModel(ProjectName);
         var builder = new ProjectGenerator();
         
-        builder.GenerateProject(model, TestConstants.OutputDirectory);
+        builder.GenerateProject(model, TestConstants.OutputDirectory, false);
 
         var projDir = GetProjectDirectory(ProjectName);
         var exists = Directory.Exists(projDir);
@@ -45,7 +45,7 @@ public class ProjectBuilderTests
         var model = new ProjectModel(ProjectName);
         var builder = new ProjectGenerator();
         
-        builder.GenerateProject(model, TestConstants.OutputDirectory);
+        builder.GenerateProject(model, TestConstants.OutputDirectory, false);
 
         var filePath = Path.Combine(GetProjectDirectory(ProjectName), $"{ProjectName}.csproj");
         var exists = File.Exists(filePath);

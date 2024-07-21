@@ -16,7 +16,7 @@ public class SolutionBuilderTests
         var model = new SolutionModel(SolutionName);
         var builder = new SolutionGenerator();
         
-        builder.GenerateSolution(model, TestConstants.OutputDirectory, null);
+        builder.GenerateSolution(model, TestConstants.OutputDirectory, false);
 
         var solDir = FileSystemTools.GetSolutionDirectory(SolutionName);
         var exists = Directory.Exists(solDir);
@@ -30,7 +30,7 @@ public class SolutionBuilderTests
         var model = new SolutionModel(SolutionName);
         var builder = new SolutionGenerator();
         
-        builder.GenerateSolution(model, TestConstants.OutputDirectory, null);
+        builder.GenerateSolution(model, TestConstants.OutputDirectory, false);
         
         var solDir = FileSystemTools.GetSolutionDirectory(SolutionName);
         var exists = File.Exists($"{solDir}/{SolutionName}.sln");
@@ -47,9 +47,7 @@ public class SolutionBuilderTests
 
         Should.Throw<InvalidOperationException>(() =>
         {
-            builder.GenerateSolution(model, Directory.GetCurrentDirectory());
+            builder.GenerateSolution(model, Directory.GetCurrentDirectory(), false);
         });
     }
-    
-
 }

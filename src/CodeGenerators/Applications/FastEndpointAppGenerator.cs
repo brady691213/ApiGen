@@ -1,5 +1,7 @@
 ﻿using System.CodeDom;
+using System.Xml.Xsl;
 using CodeGenerators.CodeDom;
+using CodeGenerators.CodeElements;
 using CodeGenerators.Errors;
 using CodeGenerators.Templates;
 
@@ -8,7 +10,12 @@ namespace CodeGenerators.Applications;
 public class FastEndpointAppGenerator
 {
     private readonly ILogger _logger = Log.ForContext<FastEndpointAppGenerator>();
+    
+    private const string SolutionName = "HelloWorld";
+    private const string ProjectName = SolutionName;
+    private const string RootNamespace = ProjectName;
 
+    private CSharpCodeGenerator _codeGenerator = new();
     private ClassGenerator _classGenerator = new();
     
     /// <summary>
@@ -16,59 +23,65 @@ public class FastEndpointAppGenerator
     /// </summary>
     /// <param name="solutionName"></param>
     /// <returns></returns>
-    public Result<GenerationTaskInfo> GenerateApp(string solutionName, string outputLocation)
+    public Result<GenerationTaskInfo> GenerateApiSolution(string solutionName, string outputLocation, bool skipWrite = true)
     {
-        // var genInfo = new GenerationTaskInfo(Diags.GetCurrentMethod(), outputLocation);
-        //
-        // // For now, we just use the solution name as a project name and path.
-        // var projectName = solutionName;
-        // var apiNamespace = projectName;
-        //
-        // var progSource = BuildProgramClass(apiNamespace);
-        // var programModel = new CodeFileModel("Program.cs", progSource);
-        //
-        // var dto = BuildRequestDto();
-        // var dtoModel = new CodeFileModel("Request.cs", dto);
-        //
-        // var projectModel = new ProjectModel(projectName, [programModel, dtoModel]);
-        //
-        // return new NotFinishedError("Not fully implemented.");
-        return new NotFinishedError("Not finished");
+        var slnBuilder = new SolutionGenerator();
+        
+        var genInfo = new GenerationTaskInfo(Diags.GetCurrentMethod(), outputLocation);
+        
+        // For now, we just use the solution name as a project name and path.
+        var projectName = solutionName;
+        var apiNamespace = projectName;
+        
+        var progModel = BuildProgramClass();
+        
+        var dto = BuildRequestDto();
+        var dtoModel = new CodeFileModel("Request.cs", dto);
+        
+        var projectModel = new ProjectModel(projectName, [progModel, dtoModel]);
+        var slnModel = new SolutionModel(SolutionName, [projectModel]);
+
+        var slnResult = slnBuilder.GenerateSolution(slnModel, outputLocation, skipWrite);
+
+        return slnResult;
     }
 
     private CodeFileModel BuildProgramClass()
     {
-        var builderVarName = "builder";
-        CodeVariableDeclarationStatement builderDec;
-        CodePropertyReferenceExpression servicesExp;
-    
         var model = new ClassModel("Program");
-
-        builderDec = CodeElementBuilder.WebAppBuilderVariable(builderVarName);
-
-        var services = CodeElementBuilder.GetServicesExpression(builderVarName);
-
-        var addFastEndpoints = CodeElementBuilder.InvokeServicesExtension("AddFastEndpointsx");
+        var main = BuildMainMethod();
         
-        var appDec = CodeDom.CodeElementBuilder.BuilderInvokeBuild("app");
-        
-        var statements = new CodeStatementCollection { builderDec, addFastEndpoints, appDec };
-        
-        var main = _classGenerator.BuildMethod("Main", [], statements, MemberAttributes.Abstract);
+        model.Members.Add(main);
         
         var programClass = _classGenerator.GenerateClass(model);
+
+        var ns = new CodeNamespace();
+        ns.Types.Add(programClass);
+        var code = _codeGenerator.GenerateCodeForNamespaces([ns]);
+           
+        return new CodeFileModel($"{model.ClassName}.cs", code);
     }
     
-    
-
-    private void BuildMainMethod()
+    private CodeMemberMethod BuildMainMethod()
     {
+        var builderVarName = "builder";
+        var appVarName = "app";
+        
         var argParam = new ParameterModel(typeof(string[]), "args");
+        var builderDec = CodeElementBuilder.WebAppBuilderDec(builderVarName);
+        var addFastEndpoints = CodeElementBuilder.InvokeServicesExtension(builderVarName,"AddFastEndpoints");
+        var appDec = CodeDom.CodeElementBuilder.WebAppBuilderDec(builderVarName);
+        var useFastEndpoints = CodeElementBuilder.InvokeAppMethod(appVarName, "UseFastEndpointssx");
+        var run = CodeElementBuilder.InvokeAppMethod(appVarName, "Run");
 
+        ParameterModel[] parameters = [new ParameterModel(typeof(string[]), "args")];
+        var statements = new CodeStatementCollection { builderDec, addFastEndpoints, appDec, useFastEndpoints, run };
+        
+        var main = _classGenerator.BuildMethod("Main", parameters, statements, MemberAttributes.Abstract | MemberAttributes.Public);
+
+        return main;
     }
     
-
-
     private string BuildRequestDto()
     {
         var code = """

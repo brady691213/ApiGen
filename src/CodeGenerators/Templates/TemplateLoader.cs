@@ -16,9 +16,9 @@ public class TemplateLoader
     
     private static readonly ILogger _logger = Log.ForContext<TemplateLoader>();
 
-    public static Result<Template> LoadProjectFileTemplate()
+    public static Result<Template> LoadProjectFileTemplate(string templateName)
     {
-        return LoadFromFile(GetTemplatePath("ProjectFile.csproj"));
+        return LoadFromFile(GetTemplatePath(templateName));
     }
 
     public static Result<Template> LoadApiDtoTemplate()
@@ -26,9 +26,9 @@ public class TemplateLoader
         return LoadFromFile(GetTemplatePath("ApiDto.cs"));
     }
     
-    public static Result<Template> LoadSolutionTemplate()
+    public static Result<Template> LoadSolutionTemplate(string templateName)
     {
-        return LoadFromFile(GetTemplatePath("SolutionFile.sln"));
+        return LoadFromFile(GetTemplatePath(templateName));
     }
     
     /// <summary>
