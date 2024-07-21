@@ -1,14 +1,16 @@
 ﻿# Code Scaffolding
 
-Code responsible for [scaffolding](#Scaffolding) the code artifacts required for a complete C# solution.
+Code responsible for generating the code artifacts required for a complete C# solution.
 Builders for C# code rely on the Code Document Object Model, or [CodeDom](https://learn.microsoft.com/en-us/dotnet/framework/reflection-and-codedom/dynamic-source-code-generation-and-compilation)
 mechanism, and other builders, such as for projects, solutions, and other non-code artifacts, use [Scriban](https://github.com/scriban/scriban) 
 templates. 
 
 ## Bugs
 
+- Solution file not written at all.
 - No extension on `Program`
 - No content in `Program`
+- DryRun still failing on existing dir
 
 
 ## Targets
@@ -34,6 +36,7 @@ templates.
 - TASKT: Check all optional params - remove where uncertain.\
 - TASKT: Proofread MD and XML documentation. 
 
+- TASKT: Store real file paths in project and solution models and use models as types for Result.
 - TASKT: Compiler suggestion at `CodeExpression[] parameters = ParameterBuilder.ModelsToExpressions(paramModels);`
 - TASKT: Use facade models more.
 - TASKT: Logging to other sinks like Windows Event Log and file.
@@ -60,11 +63,6 @@ then perf is very important. Areas to check:
   - Endpoint
   - Request and Response DTOs
   - Validators
-
-### Scaffolding
-
-I use the term scaffolding to distinguish static, on-demand code generation from the dynamic, real time work of 
-source generators.
 
 ## Classes
 

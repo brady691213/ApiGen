@@ -4,7 +4,7 @@ using CodeGenerators.Templates;
 
 namespace CodeGenerators;
 
-public class DtoGenerator
+public class DtoBuilder
 {
     public string? GenerateDto()
     {

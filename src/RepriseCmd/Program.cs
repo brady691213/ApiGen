@@ -1,13 +1,15 @@
 ﻿using Oakton;
 using RepriseCmd.Commands;
 using Serilog;
+using Serilog.Events;
 
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console() // + file or centralized logging
+    .MinimumLevel.Verbose()
+    .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Verbose)
     .CreateLogger();
 
 
-return CommandExecutor.ExecuteCommand<BuildWebApiCommand>(args);
+return CommandExecutor.ExecuteCommand<BuildConsoleAppCommand>(args);
 
 
 

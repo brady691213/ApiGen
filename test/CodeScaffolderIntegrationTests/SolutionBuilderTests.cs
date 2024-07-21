@@ -1,4 +1,5 @@
 using CodeGenerators;
+using Serilog;
 using Shouldly;
 using Xunit;
 
@@ -8,13 +9,14 @@ public class SolutionBuilderTests
 {
     private const string SolutionName = "SolutionForTests";
     private const string ProjectName = "ProjectForTests";
+    private ILogger _logger = Log.Logger;
 
     [Fact]
     public void CreateSolutionCreatesSolutionDir()
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new SolutionModel(SolutionName);
-        var builder = new SolutionGenerator();
+        var builder = new SolutionGenerator(_logger);
         
         builder.GenerateSolution(model, TestConstants.OutputDirectory, false);
 
@@ -28,7 +30,7 @@ public class SolutionBuilderTests
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new SolutionModel(SolutionName);
-        var builder = new SolutionGenerator();
+        var builder = new SolutionGenerator(_logger);
         
         builder.GenerateSolution(model, TestConstants.OutputDirectory, false);
         
@@ -43,7 +45,7 @@ public class SolutionBuilderTests
         var solDir = FileSystemTools.GetSolutionDirectory(SolutionName);
         FileSystemTools.EnsureDirectoryExists(solDir);
         var model = new SolutionModel(SolutionName);
-        var builder = new SolutionGenerator();
+        var builder = new SolutionGenerator(_logger);
 
         Should.Throw<InvalidOperationException>(() =>
         {

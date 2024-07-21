@@ -2,11 +2,9 @@
 
 namespace CodeGenerators;
 
-public class ProjectGenerator
+public class ProjectGenerator(ILogger logger)
 {
     private const string TemplateName = "ProjectFile.csproj";
-    
-    private readonly ILogger _logger = Log.ForContext<ProjectGenerator>();
 
     /// <summary>
     /// Create a .NET project with a project (.csproj) file and C# source code (.cs) files.
@@ -16,17 +14,17 @@ public class ProjectGenerator
     public Result<GenerationTaskInfo> GenerateProject(ProjectModel model, string outputLocation, bool skipWrite)
     {
         var genInfo = new GenerationTaskInfo(Diags.GetCurrentMethod(), outputLocation);
-        _logger.Information("Generating project {ProjectName} into location {OutputLocation}", model.ProjectName, outputLocation);
+        logger.Information("Generating project {ProjectName} at location {OutputLocation}", model.ProjectName, outputLocation);
 
         var template = TemplateLoader.LoadProjectFileTemplate(TemplateName);
-        _logger.Information("Using template {TemplateName}", TemplateName);
+        logger.Information("Using template {TemplateName}", TemplateName);
 
         var projContent = RenderTemplate(model);
         if (projContent is null)
         {
             return Err<GenerationTaskInfo>("Failed to render project file template");
         }
-        _logger.Debug("Project template rendered {ProjectFileContent}", projContent);
+        logger.Debug("Project template rendered {ProjectFileContent}", projContent);
         
         var projectPath = Path.Combine(outputLocation, model.ProjectName);
         if (Directory.Exists(projectPath))
@@ -38,8 +36,8 @@ public class ProjectGenerator
         if (!skipWrite)
         {
             Directory.CreateDirectory(projectPath);
-            _logger.Debug("Created project directory at {ProjectPath}", projectPath);
         }
+        logger.Debug("Created project directory at {ProjectPath}", projectPath);
 
         // Write code files before project file, so we don't create an invalid project file in case a code file write fails.
         foreach (var codeFile in model.CodeFileModels)
@@ -49,10 +47,11 @@ public class ProjectGenerator
             {
                 File.WriteAllText(codePath, codeFile.Content);
             }
+            logger.Debug("Created code file at {codePath}", codePath);
 
             genInfo.FilesCreated.Add(codePath);
         }
-        _logger.Debug("{SourceCount} source files written to {ProjectPath}", genInfo.FilesCreated.Count, projectPath);
+        logger.Debug("{SourceCount} source files written to {ProjectPath}", genInfo.FilesCreated.Count, projectPath);
         
         // Finally write the project file once all source files have been written.
         var filePath = Path.Combine(projectPath, $"{model.ProjectName}.csproj");
@@ -60,9 +59,7 @@ public class ProjectGenerator
         {
             File.WriteAllText(filePath, projContent);
         }
-
-        genInfo.FilesCreated.Add(filePath);
-        _logger.Debug("Created project file at {FilePath}", filePath);
+        logger.Debug("Created project file at {FilePath}", filePath);
         
         return Ok(genInfo);
     }
@@ -73,7 +70,7 @@ public class ProjectGenerator
         if (result.IsError)
         {
             var hasErr = result.TryGetError(out var templateError);
-            _logger.Error("Error rendering project file template {TemplateName}: {Error}", TemplateName,templateError);
+            logger.Error("Error rendering project file template {TemplateName}: {Error}", TemplateName,templateError);
             return null;
         }
 

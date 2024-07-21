@@ -7,34 +7,32 @@ using ILogger = Serilog.ILogger;
 
 namespace CodeGenerators.Applications;
 
-public class ConsoleAppGenerator
+public class ConsoleAppGenerator(ILogger logger)
 {
-    private readonly ILogger _logger = Log.ForContext<ConsoleAppGenerator>();
-
     private readonly ClassBuilder _classBuilder = new();
 
     /// <summary>
     /// Build a console application that prints "Hello, World!" from the `Main` entry point in class `Program`.
     /// </summary>
-    public bool BuildHelloWorldApp(string outputDirectory, bool dryRun = false)
+    public Result<SolutionModel> BuildHelloWorldApp(string outputDirectory, bool dryRun = false)
     {
         var solutionName = "HelloWorld";
         var programModel = GenerateProgramClass(solutionName);
         var projectModel = new ProjectModel($"{solutionName}.Console", [programModel]);
 
-        var slnGenerator = new SolutionGenerator();
-        var slnModel = new SolutionModel(solutionName, [projectModel]);
-        var result = slnGenerator.GenerateSolution(slnModel, outputDirectory, dryRun);
+        var solutionGenerator = new SolutionGenerator(logger);
+        var solutionModel = new SolutionModel(solutionName, [projectModel]);
+        var result = solutionGenerator.GenerateSolution(solutionModel, outputDirectory, dryRun);
 
         if (result.IsError)
         {
             var hasErr = result.TryGetError(out var error);
             Debug.Assert(error != null, nameof(error) + " != null");
-            _logger.Error("Failed to scaffold console app: {ErrorMessage}",
-                hasErr ? error.Message : "Unable to read error message from result");
+            logger.Error("Failed to generate Hello World app: {ErrorMessage}", error.Message);
+            return error;
         }
 
-        return result.IsOk;
+        return solutionModel;
     }
     
     private CodeFileModel GenerateProgramClass(string mainNamespace)

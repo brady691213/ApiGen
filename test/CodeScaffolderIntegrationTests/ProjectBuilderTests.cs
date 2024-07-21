@@ -1,4 +1,5 @@
 ﻿using CodeGenerators;
+using Serilog;
 using Shouldly;
 using Xunit;
 
@@ -8,7 +9,7 @@ public class ProjectBuilderTests
 {
     private const string SolutionName = "SolutionForTests";
     private const string ProjectName = "ProjectForTests";
-    
+    private ILogger _logger = Log.Logger;
     
     [Fact]
     public void CreateProjectThrowsOnDirExists()
@@ -16,7 +17,7 @@ public class ProjectBuilderTests
         var projDir = GetProjectDirectory(ProjectName);
         FileSystemTools.EnsureDirectoryExists(projDir);
         var model = new ProjectModel(ProjectName);
-        var builder = new ProjectGenerator();
+        var builder = new ProjectGenerator(_logger);
 
         Should.Throw<InvalidOperationException>(() =>
         {
@@ -29,7 +30,7 @@ public class ProjectBuilderTests
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new ProjectModel(ProjectName);
-        var builder = new ProjectGenerator();
+        var builder = new ProjectGenerator(_logger);
         
         builder.GenerateProject(model, TestConstants.OutputDirectory, false);
 
@@ -43,7 +44,7 @@ public class ProjectBuilderTests
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new ProjectModel(ProjectName);
-        var builder = new ProjectGenerator();
+        var builder = new ProjectGenerator(_logger);
         
         builder.GenerateProject(model, TestConstants.OutputDirectory, false);
 

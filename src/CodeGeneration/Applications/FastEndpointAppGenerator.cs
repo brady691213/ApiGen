@@ -24,9 +24,9 @@ public class FastEndpointAppGenerator
     /// </summary>
     /// <param name="solutionName"></param>
     /// <returns></returns>
-    public Result<GenerationTaskInfo> GenerateApiSolution(string solutionName, string outputLocation, bool skipWrite = true)
+    public Result<SolutionModel> GenerateApiSolution(string solutionName, string outputLocation, bool skipWrite = true)
     {
-        var slnBuilder = new SolutionGenerator();
+        var slnBuilder = new SolutionGenerator(Log.Logger);
         
         var genInfo = new GenerationTaskInfo(Diags.GetCurrentMethod(), outputLocation);
         
