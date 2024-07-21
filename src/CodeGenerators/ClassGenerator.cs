@@ -24,7 +24,7 @@ public class ClassGenerator
         };
 
         var allMembers = model.Members;
-        
+
         // TASKT: Remove this. Far too few classes will have a Main.
         // Add a default main method if no other methods provided.
         if (allMembers.Count == 0)
@@ -33,8 +33,9 @@ public class ClassGenerator
             var main = BuildMethod("Main", [argParam], [], MemberAttributes.Static | MemberAttributes.Public);
             allMembers.Add(main);
         }
+
         outClass.Members.AddRange(allMembers);
-        
+
         return outClass;
     }
 
@@ -42,7 +43,8 @@ public class ClassGenerator
     /// Builds a <c>Main</c> method as used an entry point in console apps.
     /// </summary>
     /// <returns>A <see cref="CodeMemberMethod"/> that defines a <c>Main</c> method.</returns>
-    public CodeMemberMethod BuildMethod(string methodName, ParameterModel[] parameters, CodeStatementCollection statements, MemberAttributes methodAttributes)
+    public CodeMemberMethod BuildMethod(string methodName, ParameterModel[] parameters,
+        CodeStatementCollection statements, MemberAttributes methodAttributes)
     {
         var method = new CodeMemberMethod
         {
@@ -53,14 +55,7 @@ public class ClassGenerator
         };
         var paramExpressions = parameters.Select(p => new CodeParameterDeclarationExpression(p.Type, p.Name)).ToArray();
         method.Parameters.AddRange(paramExpressions);
-
-        // Add a default HelloWorld statement if no others present.
-        if (statements.Count == 0)
-        {
-            var hello = CodeDom.CodeElementBuilder.BuildMethodCallExpression(typeof(Console), "WriteLine",
-                [new CodePrimitiveExpression("Hello world")]);
-            method.Statements.Add(hello);
-        }
+        method.Statements.AddRange(statements);
 
         return method;
     }

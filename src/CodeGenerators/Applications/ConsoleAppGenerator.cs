@@ -42,10 +42,9 @@ public class ConsoleAppGenerator
     
     private CodeFileModel GenerateProgramModel()
     {
-        var hello = GenerateHelloWorldStatement();
-
+        var helloWorld = GenerateHelloWorldStatement();
         ParameterModel[] parameters = [new ParameterModel(typeof(string[]), "args")];
-        var main = _classBuilder.BuildMethod("Main", parameters, [hello], MemberAttributes.Static | MemberAttributes.Public);
+        var main = _classBuilder.BuildMethod("Main", parameters, [helloWorld], MemberAttributes.Static | MemberAttributes.Public);
         var model = new ClassModel("Program");
         model.Members.Add(main);
         var programClass = _classBuilder.GenerateClass(model);
