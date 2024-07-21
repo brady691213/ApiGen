@@ -1,6 +1,5 @@
 ﻿using System.CodeDom;
 using System.Diagnostics;
-using System.Reflection;
 using CodeGenerators.Builders;
 using CodeGenerators.CodeDom;
 using CodeGenerators.Models;
@@ -10,25 +9,21 @@ namespace CodeGenerators.Applications;
 
 public class ConsoleAppGenerator
 {
-    private const string SolutionName = "HelloWorld";
-    private const string ProjectName = SolutionName;
-    private const string RootNamespace = ProjectName;
-
     private readonly ILogger _logger = Log.ForContext<ConsoleAppGenerator>();
 
     private readonly ClassBuilder _classBuilder = new();
-    private readonly CodeDomSourceGenerator _generator = new();
 
     /// <summary>
     /// Build a console application that prints "Hello, World!" from the `Main` entry point in class `Program`.
     /// </summary>
     public bool BuildHelloWorldApp(string outputDirectory, bool dryRun = false)
     {
-        var programModel = GenerateProgramClass();
-        var projectModel = new ProjectModel(ProjectName, [programModel]);
+        var solutionName = "HelloWorld";
+        var programModel = GenerateProgramClass(solutionName);
+        var projectModel = new ProjectModel($"{solutionName}.Console", [programModel]);
 
         var slnGenerator = new SolutionGenerator();
-        var slnModel = new SolutionModel(SolutionName, [projectModel]);
+        var slnModel = new SolutionModel(solutionName, [projectModel]);
         var result = slnGenerator.GenerateSolution(slnModel, outputDirectory, dryRun);
 
         if (result.IsError)
@@ -42,20 +37,21 @@ public class ConsoleAppGenerator
         return result.IsOk;
     }
     
-    // TASKT: Factor out into shared, more generic. Only leave HelloWorld here.
-    private CodeFileModel GenerateProgramClass()
+    private CodeFileModel GenerateProgramClass(string mainNamespace)
     {
         var classModel = new ClassModel("Program");
 
         var helloStatement = BuildHelloWorldStatement();
         var main = BuildMainMethod([helloStatement]);
         classModel.Members.Add(main);
-        
-        var programClassType = _classBuilder.BuildTypeForClass(classModel);
+
+        var programDec = _classBuilder.BuildTypeForClass(classModel);
 
         var codeNamespace = new CodeNamespace();
-        codeNamespace.Types.Add(programClassType);
-        var fileModel = _generator.GenerateCodeForType(programClassType, RootNamespace);
+        codeNamespace.Types.Add(programDec);
+
+        var generator = new CodeDomSourceGenerator();
+        var fileModel = generator.GenerateCodeForType(programDec, mainNamespace);
 
         return fileModel;
     }

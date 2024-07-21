@@ -31,7 +31,7 @@ public class TypeBuilder
         }
 
         codeNamespace.Types.Add(dtoClass);
-        var generator = new CSharpCodeGenerator();
+        var generator = new CodeDomSourceGenerator();
         var dtoFile = generator.GenerateCodeForType(dtoClass, dtoNamespace);
         return dtoFile;
     }

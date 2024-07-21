@@ -5,6 +5,12 @@ Builders for C# code rely on the Code Document Object Model, or [CodeDom](https:
 mechanism, and other builders, such as for projects, solutions, and other non-code artifacts, use [Scriban](https://github.com/scriban/scriban) 
 templates. 
 
+## Targets
+
+- 14:00 - Refactor finished and HellowWorld finished enough for more effort on FE API:
+  - Finished enough is Result patterns tidied up and no chance of exceptions.
+  - DryRun must provide full reporting on all outcomes via Serilog.
+
 ## Tasks - Now
 
 - TASKT: Get `Type` without needing a reference and `typeof` etc.

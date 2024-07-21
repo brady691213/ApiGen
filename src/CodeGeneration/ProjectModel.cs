@@ -1,4 +1,6 @@
-﻿namespace CodeGenerators;
+﻿using System.Reflection;
+
+namespace CodeGenerators;
 
 public class ProjectModel(string projectName, List<CodeFileModel>? codeFileModels = null)
 {
@@ -14,5 +16,10 @@ public class ProjectModel(string projectName, List<CodeFileModel>? codeFileModel
     public string ProjectFrameworkMoniker { get; set; } = "net9.0";
     
     // Just a default for now.
-    public string RepriseVersion { get; set; } = "0.0.1";
+    public string RepriseVersion { get; } = GetExecutingVersion();
+
+    private static string GetExecutingVersion()
+    {
+        return Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0";
+    }
 }
