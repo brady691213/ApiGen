@@ -7,6 +7,8 @@ templates.
 
 ## Tasks - Now
 
+- TASKT: StatementModel and BuildCodeStatement.
+- TASKT: Move app specific CodeDom functions into `Application` namespace then make CodeDom functions more generic.
 - TASKT: Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
 - TASKT: Use Rascal Errors as much as possible.
 - TASKT: Guard clauses all over, anywhere a param can go wrong.

@@ -12,7 +12,7 @@ namespace CodeGenerators.Templates;
 /// </summary>
 public class TemplateLoader
 {
-    private const string TemplateDirectory = @"C:\Users\brady\projects\ApiGen\src\CodeGenerators\Templates";
+    private const string TemplateDirectory = @"C:\Users\brady\projects\ApiGen\src\CodeGeneration\Templates";
     
     private static readonly ILogger _logger = Log.ForContext<TemplateLoader>();
 

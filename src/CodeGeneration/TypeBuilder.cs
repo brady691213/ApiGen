@@ -1,6 +1,7 @@
 ﻿using System.CodeDom;
 using System.Collections;
 using System.Reflection;
+using CodeGenerators.Builders;
 using CodeGenerators.CodeDom;
 using CodeGenerators.Next;
 
@@ -13,7 +14,7 @@ public class TypeBuilder
 {
     public CodeFileModel BuildDto(string dtoNamespace, Type entityType, DtoDirection? direction, string? operationName = "")
     {
-        var classBuilder = new ClassGenerator();
+        var classBuilder = new ClassBuilder();
         var codeNamespace = new CodeNamespace(dtoNamespace);
 
         var dtoName = BuildDtoName(entityType, direction, operationName);

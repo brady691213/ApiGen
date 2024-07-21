@@ -6,7 +6,7 @@ namespace CodeGenerators.CodeDom;
 /// <summary>
 /// Uses the <seealso cref="CodeDom"/> namespace functionality to generate C# code.
 /// </summary>
-public class CSharpCodeGenerator
+public class CodeDomSourceGenerator
 {
     private readonly CodeDomProvider _provider = CodeDomProvider.CreateProvider("CSharp");
     private readonly CodeGeneratorOptions _generatorOptions = new()

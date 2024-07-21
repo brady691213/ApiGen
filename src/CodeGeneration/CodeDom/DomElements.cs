@@ -1,6 +1,5 @@
 ﻿using System.CodeDom;
 using System.Reflection;
-using System.Xml.Linq;
 using Microsoft.AspNetCore.Builder;
 
 namespace CodeGenerators.CodeDom;
@@ -45,11 +44,13 @@ public class CodeElements
         var appExp = new CodeVariableReferenceExpression(appName);
         return appExp;
     }
-    
+
     /// <summary>
     /// Builds an invocation expression for a method on a variable.
     /// </summary>
-    /// <param name="targetVariable"></param>
+    /// <param name="targetVariable">Name of a variable that holds a reference to the object on which to call method <paramref name="methodName"/> </param>
+    /// <param name="methodName">Name of a method to call on an object referenced by variable <paramref name="targetVariable"/> </param>.
+    /// .
     public static CodeMethodInvokeExpression GetMethodInvocation(string targetVariable, string methodName)
     {
         var variableExprression = GetWebApplicationExpression(targetVariable);

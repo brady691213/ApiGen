@@ -1,5 +1,6 @@
 ﻿using System.CodeDom;
 using System.Xml.Xsl;
+using CodeGenerators.Builders;
 using CodeGenerators.CodeDom;
 using CodeGenerators.Errors;
 using CodeGenerators.Templates;
@@ -14,8 +15,8 @@ public class FastEndpointAppGenerator
     private const string ProjectName = SolutionName;
     private const string RootNamespace = ProjectName;
 
-    private CSharpCodeGenerator _codeGenerator = new();
-    private ClassGenerator _classGenerator = new();
+    private CodeDomSourceGenerator _generator = new();
+    private ClassBuilder _classGenerator = new();
     
     /// <summary>
     /// Generate the main application for a FastEndpoints web API.
@@ -52,11 +53,11 @@ public class FastEndpointAppGenerator
         
         model.Members.Add(main);
         
-        var programClass = _classGenerator.GenerateClass(model);
+        var programClass = _classGenerator.BuildTypeForClass(model);
 
         var ns = new CodeNamespace();
         ns.Types.Add(programClass);
-        var code = _codeGenerator.GenerateCodeForType(programClass, RootNamespace);
+        var code = _generator.GenerateCodeForType(programClass, RootNamespace);
 
         return code;
     }

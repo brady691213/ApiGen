@@ -1,18 +1,17 @@
 ﻿using System.CodeDom;
 using System.Reflection;
 
-namespace CodeGenerators;
+namespace CodeGenerators.Builders;
 
 /// <summary>
 /// Builds classes and other type definitions based on Type info obtained via Reflection.
 /// </summary>
-public class ClassGenerator
+public class ClassBuilder
 {
     /// <summary>
-    /// Builds a simple C# class without any members.
+    /// Builds a declaration for a C# class.
     /// </summary>
-    /// <returns>A <see cref="CodeTypeDeclaration"/> that defines an empty class.</returns>
-    public CodeTypeDeclaration GenerateClass(ClassModel model, TypeAttributes classAttributes = TypeAttributes.Public)
+    public CodeTypeDeclaration BuildTypeForClass(ClassModel model, TypeAttributes classAttributes = TypeAttributes.Public)
     {
         var outClass = new CodeTypeDeclaration(model.ClassName)
         {

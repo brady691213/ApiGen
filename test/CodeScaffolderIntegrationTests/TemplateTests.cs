@@ -22,7 +22,7 @@ public class TemplatesTheoryData: TheoryData<string>
 {
     public TemplatesTheoryData()
     {
-        var files = Directory.GetFiles(@"src/CodeGenerators/Templates");
+        var files = Directory.GetFiles(@"src/CodeGeneration/Templates");
         foreach (var file in files)
         {
             Add(Path.GetFullPath(file));
