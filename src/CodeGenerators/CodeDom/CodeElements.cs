@@ -5,8 +5,11 @@ using Microsoft.AspNetCore.Builder;
 
 namespace CodeGenerators.CodeDom;
 
-public class CodeElementBuilder
+public class CodeElements
 {
+    /// <summary>
+    /// Builds a declaration statement for a WebApplicationBuilder.
+    /// </summary>
     public static CodeVariableDeclarationStatement WebAppBuilderDec(string builderName)
     {
         var valueExp = BuildMethodCallExpression(typeof(WebApplication), "CreateBuilder", []);
@@ -14,34 +17,49 @@ public class CodeElementBuilder
         return dec;
     }
     
-    public static CodePropertyReferenceExpression GetServicesExpression(string builderName)
+    /// <summary>
+    /// Builds an expression to access the <c>Services</c> property of the variable referenced by <paramref name="builderVariable"/>
+    /// </summary>
+    public static CodePropertyReferenceExpression GetServicesExpression(string builderVariable)
     {
-        var builderExp = new CodeVariableReferenceExpression(builderName);
+        var builderExp = new CodeVariableReferenceExpression(builderVariable);
         var servicesExp = new CodePropertyReferenceExpression(builderExp, "Services");
         return servicesExp;
     }
     
-    public static CodeMethodInvokeExpression InvokeServicesExtension(string builderVar, string methodName)
+    /// <summary>
+    /// Builds an invocation expression for a given method on the <c>Services</c> property of a <c>WebApplicationBuilder</c>.
+    /// </summary>
+    public static CodeMethodInvokeExpression InvokeServiceCollectionMethod(string builderVar, string methodName)
     {
-        var sx = GetServicesExpression(builderVar);
-        var mxs = new CodeMethodInvokeExpression(sx, methodName);
-        return mxs;
+        var services = GetServicesExpression(builderVar);
+        var method = new CodeMethodInvokeExpression(services, methodName);
+        return method;
     }
 
-    public static CodeVariableReferenceExpression GetAppExpression(string appName)
+    /// <summary>
+    /// Builds an expression for the WebApplication instance variable used in startup code.
+    /// </summary>
+    public static CodeVariableReferenceExpression GetWebApplicationExpression(string appName)
     {
         var appExp = new CodeVariableReferenceExpression(appName);
         return appExp;
     }
     
-    public static CodeMethodInvokeExpression InvokeAppMethod(string appVar, string methodName)
+    /// <summary>
+    /// Builds an invocation expression for a method on a variable.
+    /// </summary>
+    /// <param name="targetVariable"></param>
+    public static CodeMethodInvokeExpression GetMethodInvocation(string targetVariable, string methodName)
     {
-        var ax = GetAppExpression(appVar);
-        var mxs = new CodeMethodInvokeExpression(ax, methodName);
+        var variableExprression = GetWebApplicationExpression(targetVariable);
+        var mxs = new CodeMethodInvokeExpression(variableExprression, methodName);
         return mxs;
     }
-
     
+    /// <summary>
+    /// Builds a statement that declares the WebApplication instance used in startup code.
+    /// </summary>
     public CodeVariableDeclarationStatement WebAppDec(string appVarName)
     {
         var valueExp = BuildMethodCallExpression(typeof(WebApplication), "Build", []);
@@ -49,6 +67,9 @@ public class CodeElementBuilder
         return dec;
     }
     
+    /// <summary>
+    /// Builds a statement that declares the WebApplication instance used in startup code.
+    /// </summary>
     public CodeVariableDeclarationStatement WebAppDec(string builderName, string appName)
     {
         var builderExp = new CodeVariableReferenceExpression(builderName);
@@ -80,7 +101,7 @@ public class CodeElementBuilder
             parameters);
         return call;
         
-        var hello = CodeDom.CodeElementBuilder
+        var hello = CodeDom.CodeElements
             .BuildMethodCallExpression(typeof(Console), "WriteLine",
             [new CodePrimitiveExpression("Hello world")]);
     }

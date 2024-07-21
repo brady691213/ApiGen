@@ -1,7 +1,6 @@
 ﻿using System.CodeDom;
 using System.Xml.Xsl;
 using CodeGenerators.CodeDom;
-using CodeGenerators.CodeElements;
 using CodeGenerators.Errors;
 using CodeGenerators.Templates;
 
@@ -68,11 +67,11 @@ public class FastEndpointAppGenerator
         var appVarName = "app";
         
         var argParam = new ParameterModel(typeof(string[]), "args");
-        var builderDec = CodeElementBuilder.WebAppBuilderDec(builderVarName);
-        var addFastEndpoints = CodeElementBuilder.InvokeServicesExtension(builderVarName,"AddFastEndpoints");
-        var appDec = CodeDom.CodeElementBuilder.WebAppBuilderDec(builderVarName);
-        var useFastEndpoints = CodeElementBuilder.InvokeAppMethod(appVarName, "UseFastEndpointssx");
-        var run = CodeElementBuilder.InvokeAppMethod(appVarName, "Run");
+        var builderDec = CodeElements.WebAppBuilderDec(builderVarName);
+        var addFastEndpoints = CodeElements.InvokeServiceCollectionMethod(builderVarName,"AddFastEndpoints");
+        var appDec = CodeDom.CodeElements.WebAppBuilderDec(builderVarName);
+        var useFastEndpoints = CodeElements.GetMethodInvocation(appVarName, "UseFastEndpointssx");
+        var run = CodeElements.GetMethodInvocation(appVarName, "Run");
 
         ParameterModel[] parameters = [new ParameterModel(typeof(string[]), "args")];
         var statements = new CodeStatementCollection { builderDec, addFastEndpoints, appDec, useFastEndpoints, run };

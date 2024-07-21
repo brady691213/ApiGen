@@ -1,43 +1,48 @@
 ﻿using System.CodeDom;
 using System.CodeDom.Compiler;
 
-namespace CodeGenerators.CodeElements;
+namespace CodeGenerators.CodeDom;
 
+/// <summary>
+/// Uses the <seealso cref="CodeDom"/> namespace functionality to generate C# code.
+/// </summary>
 public class CSharpCodeGenerator
 {
-    private CodeDomProvider _provider = CodeDomProvider.CreateProvider("CSharp");
-    private CodeGeneratorOptions _generatorOptions = new();
-
-    public CSharpCodeGenerator()
+    private readonly CodeDomProvider _provider = CodeDomProvider.CreateProvider("CSharp");
+    private readonly CodeGeneratorOptions _generatorOptions = new()
     {
-        _generatorOptions = new()
-        {
-            BracingStyle = "C"
-        };
-    }
-    
+        IndentString = null,
+        BracingStyle = "C",
+        ElseOnClosing = false,
+        BlankLinesBetweenMembers = false,
+        VerbatimOrder = false
+    };
+
     /// <summary>
-    /// Generates C# code for a Type, based on a <see cref="CodeTypeDeclaration"/>.
+    /// Generates C# code for a <see cref="CodeTypeDeclaration"/>.
     /// </summary>
-    public CodeFileModel GenerateCodeForType(CodeTypeDeclaration classType, string? classNamespace)
+    public CodeFileModel GenerateCodeForType(CodeTypeDeclaration classType, string? namespaceName)
     {
         var compileUnit = new CodeCompileUnit();
-        var compileNamespace = classNamespace ?? classType.Name;
-        var ns = BuildNamespace(compileNamespace);
-        ns.Types.Add(classType);
+        var compileNamespace = namespaceName ?? classType.Name;
+        var codeNamespace = BuildNamespace(compileNamespace);
+        codeNamespace.Types.Add(classType);
         
         using var sourceWriter = new StringWriter();
         _provider.GenerateCodeFromCompileUnit(compileUnit, sourceWriter, _generatorOptions);
         return new CodeFileModel(classType.Name, sourceWriter.ToString());
     }
-    
-    public CodeNamespace BuildNamespace(string name, List<string>? addImports = null)
+
+    /// <summary>
+    /// Builds a containing <seealso cref="CodeNamespace"/> for use in code generation.
+    /// </summary>
+    private CodeNamespace BuildNamespace(string name, List<string>? addImports = null)
     {
-        var ns = new CodeNamespace(name);
+        var codeNamespace = new CodeNamespace(name);
         var imports = addImports ?? ["System"];
-        ns.Imports.AddRange(imports
+        codeNamespace.Imports.AddRange(imports
             .Where(i => i != "System").Select(i => new CodeNamespaceImport(i))
             .ToArray());
-        return ns;
+        return codeNamespace;
     }
 }

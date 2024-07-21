@@ -1,7 +1,7 @@
 ﻿using System.CodeDom;
 using System.Diagnostics;
 using System.Reflection;
-using CodeGenerators.CodeElements;
+using CodeGenerators.CodeDom;
 using ILogger = Serilog.ILogger;
 
 namespace CodeGenerators.Applications;
@@ -22,7 +22,7 @@ public class ConsoleAppGenerator
     /// </summary>
     public bool BuildHelloWorldApp(string outputDirectory, bool dryRun = false)
     {
-        var programModel = GenerateProgramModel();
+        var programModel = GenerateProgramFile();
         var projectModel = new ProjectModel(ProjectName, [programModel]);
 
         var slnGenerator = new SolutionGenerator();
@@ -40,27 +40,25 @@ public class ConsoleAppGenerator
         return result.IsOk;
     }
     
-    private CodeFileModel GenerateProgramModel()
+    private CodeFileModel GenerateProgramFile()
     {
         var helloWorld = GenerateHelloWorldStatement();
         ParameterModel[] parameters = [new ParameterModel(typeof(string[]), "args")];
         var main = _classBuilder.BuildMethod("Main", parameters, [helloWorld], MemberAttributes.Static | MemberAttributes.Public);
-        var model = new ClassModel("Program");
-        model.Members.Add(main);
-        var programClass = _classBuilder.GenerateClass(model);
+        var classModel = new ClassModel("Program");
+        classModel.Members.Add(main);
+        var programClassType = _classBuilder.GenerateClass(classModel);
 
-        var ns = new CodeNamespace();
-        ns.Types.Add(programClass);
-        var fileModel = _generator.GenerateCodeForType(programClass, RootNamespace);
+        var codeNamespace = new CodeNamespace();
+        codeNamespace.Types.Add(programClassType);
+        var fileModel = _generator.GenerateCodeForType(programClassType, RootNamespace);
 
         return fileModel;
-
-        // TASKT: Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
     }
     
     private CodeMethodInvokeExpression GenerateHelloWorldStatement()
     {
-        var helloStatement = CodeDom.CodeElementBuilder.BuildMethodCallExpression(typeof(Console), "WriteLine",
+        var helloStatement = CodeDom.CodeElements.BuildMethodCallExpression(typeof(Console), "WriteLine",
             [new CodePrimitiveExpression("Hello world")]);
         return helloStatement;
         

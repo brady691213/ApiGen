@@ -7,14 +7,19 @@ templates.
 
 ## Tasks - Now
 
+- TASKT: Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
+- TASKT: Use Rascal Errors as much as possible.
+- TASKT: Guard clauses all over, anywhere a param can go wrong.
 - TASKT: Detailed and careful logging to console.
 - TASKT: Use staticsx where OK
 - TASKT: Don't use namespaces as containers, rather use a shared namespace name and generate code for classes etc.
 - TASKT: Merge `CodeFileModel` and `ClassModel`
 - TASKT: Merge `TypeBuiler` and `ClassBuilder`
 - TASKT: Tests for builders and scaffolders
-- TASKT: Check all optional params - remove where uncertain.
+- TASKT: Check all optional params - remove where uncertain.\
+- TASKT: Proofread MD and XML documentation. 
 
+- TASKT: Use facade models more.
 - TASKT: Logging to other sinks like Windows Event Log and file.
 - TASKT: Look at more stateful classes for builders, cut down on noisy param lists.
 - TASKT: Make builder method params optional and use known defaults

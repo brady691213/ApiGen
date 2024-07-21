@@ -1,8 +1,5 @@
 ﻿using System.CodeDom;
-using System.CodeDom.Compiler;
 using System.Reflection;
-using CodeGenerators.CodeDom;
-using CodeGenerators.CodeElements;
 
 namespace CodeGenerators;
 
@@ -23,37 +20,25 @@ public class ClassGenerator
             TypeAttributes = classAttributes
         };
 
-        var allMembers = model.Members;
-
-        // TASKT: Remove this. Far too few classes will have a Main.
-        // Add a default main method if no other methods provided.
-        if (allMembers.Count == 0)
-        {
-            var argParam = new ParameterModel(typeof(string[]), "args");
-            var main = BuildMethod("Main", [argParam], [], MemberAttributes.Static | MemberAttributes.Public);
-            allMembers.Add(main);
-        }
-
-        outClass.Members.AddRange(allMembers);
+        outClass.Members.AddRange(model.Members);
 
         return outClass;
     }
 
     /// <summary>
-    /// Builds a <c>Main</c> method as used an entry point in console apps.
+    /// Builds a class method.
     /// </summary>
-    /// <returns>A <see cref="CodeMemberMethod"/> that defines a <c>Main</c> method.</returns>
     public CodeMemberMethod BuildMethod(string methodName, ParameterModel[] parameters,
         CodeStatementCollection statements, MemberAttributes methodAttributes)
     {
         var method = new CodeMemberMethod
         {
             Name = methodName,
-            // TASKT: Add/override default atts with passed atts 
-            // TASKT: Make internal after quick test
             Attributes = methodAttributes
         };
-        var paramExpressions = parameters.Select(p => new CodeParameterDeclarationExpression(p.Type, p.Name)).ToArray();
+        var paramExpressions = parameters
+            .Select(p => new CodeParameterDeclarationExpression(p.Type, p.Name))
+            .ToArray();
         method.Parameters.AddRange(paramExpressions);
         method.Statements.AddRange(statements);
 
