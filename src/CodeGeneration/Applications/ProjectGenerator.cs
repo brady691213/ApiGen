@@ -42,7 +42,7 @@ public class ProjectGenerator(ILogger logger)
         // Write code files before project file, so we don't create an invalid project file in case a code file write fails.
         foreach (var codeFile in model.CodeFileModels)
         {
-            var codePath = Path.Combine(projectPath, codeFile.FileName);
+            var codePath = Path.Combine(projectPath, $"{codeFile.FileName}.cs");
             if (!skipWrite)
             {
                 File.WriteAllText(codePath, codeFile.Content);

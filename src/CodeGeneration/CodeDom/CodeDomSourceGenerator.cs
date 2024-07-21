@@ -27,6 +27,7 @@ public class CodeDomSourceGenerator
         var compileNamespace = namespaceName ?? classType.Name;
         var codeNamespace = BuildNamespace(compileNamespace);
         codeNamespace.Types.Add(classType);
+        compileUnit.Namespaces.Add(codeNamespace);
         
         using var sourceWriter = new StringWriter();
         _provider.GenerateCodeFromCompileUnit(compileUnit, sourceWriter, _generatorOptions);

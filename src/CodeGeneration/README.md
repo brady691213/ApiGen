@@ -7,6 +7,7 @@ templates.
 
 ## Bugs
 
+- Program.cs has no source, only comment.
 - Solution file not written at all.
 - No extension on `Program`
 - No content in `Program`
