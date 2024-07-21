@@ -17,33 +17,35 @@ templates.
 
 ## Tasks - Now
 
-- TASKT: Use Rascal Errors as much as possible.
-- TASKT: Guard clauses all over, anywhere a param can go wrong.
-- TASKT: Detailed and careful logging to console.
-- TASKT: Use statics where OK
-- TASKT: Don't use namespaces as containers, rather use a shared namespace name and generate code for classes etc.
-- TASKT: Merge `CodeFileModel` and `ClassModel`
-- TASKT: Merge `TypeBuiler` and `ClassBuilder`
-- TASKT: Tests for builders and scaffolders
-- TASKT: Check all optional params - remove where uncertain.\
-- TASKT: Proofread MD and XML documentation. 
+- Replace `LoadProjectFileTemplate` with a general path based `Load` function. 
+- Use Rascal Errors as much as possible.
+- Guard clauses all over, anywhere a param can go wrong.
+- Detailed and careful logging to console.
+- Use statics where OK
+- Don't use namespaces as containers, rather use a shared namespace name and generate code for classes etc.
+- Merge `CodeFileModel` and `ClassModel`
+- Merge `TypeBuiler` and `ClassBuilder`
+- Tests for builders and generators
+- Check all optional params - remove where uncertain.
+- Proofread MD and XML documentation. 
 
-- TASKT: Move app specific CodeDom functions into `Application` namespace then make CodeDom functions more generic.
-- TASKT: StatementModel and BuildCodeStatement.
-- TASKT: Get `Type` without needing a reference and `typeof` etc.
-- TASKT: Store real file paths in project and solution models and use models as types for Result.
-- TASKT: Compiler suggestion at `CodeExpression[] parameters = ParameterBuilder.ModelsToExpressions(paramModels);`
-- TASKT: Use facade models more.
-- TASKT: Logging to other sinks like Windows Event Log and file.
-- TASKT: Look at more stateful classes for builders, cut down on noisy param lists.
-- TASKT: Make builder method params optional and use known defaults
-- TASKT: Make cli app a dotnet tool.
-- TASKT: Element builders for properties
-- TASKT: Element builders for parameters
-- TASKT: Element builders for statements
-- TASKT: Generalize `BuildHelloWorldApp` into `BuildConsoleApp`
-- TASKT: Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
-- TASKT: Benchmarks
+- Keep using nested Result functions and types as a goal.
+- Move app specific CodeDom functions into `Application` namespace then make CodeDom functions more generic.
+- StatementModel and BuildCodeStatement.
+- Get `Type` without needing a reference and `typeof` etc.
+- Store real file paths in project and solution models and use models as types for Result.
+- Compiler suggestion at `CodeExpression[] parameters = ParameterBuilder.ModelsToExpressions(paramModels);`
+- Use facade models more.
+- Logging to other sinks like Windows Event Log and file.
+- Look at more stateful classes for builders, cut down on noisy param lists.
+- Make builder method params optional and use known defaults
+- Make cli app a dotnet tool.
+- Element builders for properties
+- Element builders for parameters
+- Element builders for statements
+- Generalize `BuildHelloWorldApp` into `BuildConsoleApp`
+- Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
+- Benchmarks
 
 ### Benchmarks
 

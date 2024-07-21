@@ -22,4 +22,6 @@ public class ProjectModel(string projectName, List<CodeFileModel>? codeFileModel
     {
         return Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0";
     }
+    
+    public List<string> FilesCreated { get; set; } = [];
 }

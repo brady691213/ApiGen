@@ -1,4 +1,5 @@
 ﻿using CodeGenerators;
+using CodeGenerators.Applications;
 using Serilog;
 using Shouldly;
 using Xunit;
