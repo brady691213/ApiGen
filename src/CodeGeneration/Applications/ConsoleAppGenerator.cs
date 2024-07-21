@@ -14,7 +14,7 @@ public class ConsoleAppGenerator(ILogger logger)
     /// <summary>
     /// Build a console application that prints "Hello, World!" from the `Main` entry point in class `Program`.
     /// </summary>
-    public Result<SolutionModel> BuildHelloWorldApp(string outputDirectory, bool dryRun = true)
+    public Result<SolutionModel> BuildHelloWorldApp(string outputDirectory, bool dryRun = false)
     {
         var solutionName = "HelloWorld";
         var programModel = GenerateProgramClass(solutionName);

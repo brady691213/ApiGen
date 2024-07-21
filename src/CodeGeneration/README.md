@@ -7,29 +7,20 @@ templates.
 
 ## Bugs
 
-- Program.cs has no source, only comment.
-- Solution file not written at all.
-- No extension on `Program`
-- No content in `Program`
-- DryRun still failing on existing dir
 
 
 ## Targets
 
-- 14:00 - Refactor finished and HellowWorld finished enough for more effort on FE API:
+- 20:00 - Refactor finished and HellowWorld finished enough for more effort on FE API:
   - Finished enough is Result patterns tidied up and no chance of exceptions.
   - DryRun must provide full reporting on all outcomes via Serilog.
 
 ## Tasks - Now
 
-- TASKT: Get `Type` without needing a reference and `typeof` etc.
-- TASKT: StatementModel and BuildCodeStatement.
-- TASKT: Move app specific CodeDom functions into `Application` namespace then make CodeDom functions more generic.
-- TASKT: Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
 - TASKT: Use Rascal Errors as much as possible.
 - TASKT: Guard clauses all over, anywhere a param can go wrong.
 - TASKT: Detailed and careful logging to console.
-- TASKT: Use staticsx where OK
+- TASKT: Use statics where OK
 - TASKT: Don't use namespaces as containers, rather use a shared namespace name and generate code for classes etc.
 - TASKT: Merge `CodeFileModel` and `ClassModel`
 - TASKT: Merge `TypeBuiler` and `ClassBuilder`
@@ -37,6 +28,9 @@ templates.
 - TASKT: Check all optional params - remove where uncertain.\
 - TASKT: Proofread MD and XML documentation. 
 
+- TASKT: Move app specific CodeDom functions into `Application` namespace then make CodeDom functions more generic.
+- TASKT: StatementModel and BuildCodeStatement.
+- TASKT: Get `Type` without needing a reference and `typeof` etc.
 - TASKT: Store real file paths in project and solution models and use models as types for Result.
 - TASKT: Compiler suggestion at `CodeExpression[] parameters = ParameterBuilder.ModelsToExpressions(paramModels);`
 - TASKT: Use facade models more.
@@ -48,6 +42,7 @@ templates.
 - TASKT: Element builders for parameters
 - TASKT: Element builders for statements
 - TASKT: Generalize `BuildHelloWorldApp` into `BuildConsoleApp`
+- TASKT: Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
 - TASKT: Benchmarks
 
 ### Benchmarks
