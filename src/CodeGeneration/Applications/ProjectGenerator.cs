@@ -13,29 +13,23 @@ public class ProjectGenerator(ILogger logger)
     /// </summary>
     /// <param name="model">Model that defines the project to create.</param>
     /// <param name="outputLocation">Location to place the generated output. The parent directory for the created project directory.</param>
-    public Result<ProjectModel> GenerateProject(ProjectModel model, string outputLocation, bool skipWrite)
+    /// <param name="writeFiles">Must be True to actually write project files to disk. Otherwise, a dry run is performed.</param>
+    public Result<ProjectModel> GenerateProject(ProjectModel model, string outputLocation, bool writeFiles)
     {
         logger.Information("Generating project with name {ProjectName} in location {OutputLocation}", model.ProjectName,
             outputLocation);
 
-        var templateResult = RenderTemplate(model);
-        if (templateResult.IsError)
-        {
-            var msg = RascalErrors.ErrorMessage(templateResult);
-            return Err<ProjectModel>($"Failed to render project file template: {msg}");
-        }
-        var projectXml = templateResult.Unwrap();
-
-        var pathResult = EnsureProjectDirectory(model, outputLocation, skipWrite);
-        if (templateResult.IsError)
+        // Ensure we have a directory to write project files to.
+        var pathResult = EnsureProjectDirectory(model, outputLocation, writeFiles);
+        if (pathResult.IsError)
         {
             var msg = RascalErrors.ErrorMessage(pathResult);
             return Err<ProjectModel>($"Failed to render project file template: {msg}");
         }
         var projectPath = pathResult.Unwrap();
 
-        // Write code files before project file, so we don't create an invalid project file in case a code file write fails.
-        var filesResult = GenerateSourceFiles(model, projectPath, skipWrite);
+        // Write source files before project file, avoids an invalid project file in case a write fails for a source file.
+        var filesResult = GenerateSourceFiles(model, projectPath, writeFiles);
         if (filesResult.IsError)
         {
             var msg = RascalErrors.ErrorMessage(filesResult);
@@ -43,9 +37,18 @@ public class ProjectGenerator(ILogger logger)
         }
         logger.Debug("Source files generated in path: {ProjectPath}", projectPath);
 
+        // Get the template for the project file.
+        var templateResult = RenderTemplate(model);
+        if (templateResult.IsError)
+        {
+            var msg = RascalErrors.ErrorMessage(templateResult);
+            return Err<ProjectModel>($"Failed to render project file template: {msg}");
+        }
+        var projectXml = templateResult.Unwrap();
+        
         // Finally write the project file once all source files have been written.
         var filePath = Path.Combine(projectPath, $"{model.ProjectName}.csproj");
-        if (!skipWrite)
+        if (writeFiles)
         {
             File.WriteAllText(filePath, projectXml);
         }
