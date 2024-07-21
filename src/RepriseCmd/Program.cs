@@ -7,7 +7,7 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 
-return CommandExecutor.ExecuteCommand<BuildConsoleAppAppCommand>(args);
+return CommandExecutor.ExecuteCommand<BuildWebApiCommand>(args);
 
 
 

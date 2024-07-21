@@ -17,36 +17,18 @@ public class CSharpCodeGenerator
     }
     
     /// <summary>
-    /// Generates C# code for a collection of namespaces that contain classes and other types.
+    /// Generates C# code for a Type, based on a <see cref="CodeTypeDeclaration"/>.
     /// </summary>
-    public string GenerateCodeForNamespaces(CodeNamespace[] namespaces)
-    {
-        var compileUnit = new CodeCompileUnit();
-        compileUnit.Namespaces.AddRange(namespaces);
-        
-        using var sourceWriter = new StringWriter();
-        _provider.GenerateCodeFromCompileUnit(compileUnit, sourceWriter, _generatorOptions);
-        return sourceWriter.ToString();
-    }
-    
-    /// <summary>
-    /// Generates C# code for a class, based on a <see cref="ClassModel"/>.
-    /// </summary>
-    // TASKT: Pass a ClassModel here.
     public CodeFileModel GenerateCodeForType(CodeTypeDeclaration classType, string? classNamespace)
     {
         var compileUnit = new CodeCompileUnit();
         var compileNamespace = classNamespace ?? classType.Name;
         var ns = BuildNamespace(compileNamespace);
         ns.Types.Add(classType);
-        compileUnit.Namespaces.Add(ns);
         
         using var sourceWriter = new StringWriter();
         _provider.GenerateCodeFromCompileUnit(compileUnit, sourceWriter, _generatorOptions);
-
-        var model = new CodeFileModel($"{classType.Name}.cs", sourceWriter.ToString());
-
-        return model;
+        return new CodeFileModel(classType.Name, sourceWriter.ToString());
     }
     
     public CodeNamespace BuildNamespace(string name, List<string>? addImports = null)

@@ -51,10 +51,10 @@ public class ConsoleAppGenerator
 
         var ns = new CodeNamespace();
         ns.Types.Add(programClass);
-        var code = _generator.GenerateCodeForNamespaces([ns]);
-           
-        return new CodeFileModel($"{model.ClassName}.cs", code);
-        
+        var fileModel = _generator.GenerateCodeForType(programClass, RootNamespace);
+
+        return fileModel;
+
         // TASKT: Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
     }
     

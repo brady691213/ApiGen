@@ -57,9 +57,9 @@ public class FastEndpointAppGenerator
 
         var ns = new CodeNamespace();
         ns.Types.Add(programClass);
-        var code = _codeGenerator.GenerateCodeForNamespaces([ns]);
-           
-        return new CodeFileModel($"{model.ClassName}.cs", code);
+        var code = _codeGenerator.GenerateCodeForType(programClass, RootNamespace);
+
+        return code;
     }
     
     private CodeMemberMethod BuildMainMethod()

@@ -12,7 +12,7 @@ namespace CodeGenerators;
 /// </summary>
 public class TypeBuilder
 {
-    public string BuildDto(string dtoNamespace, Type entityType, DtoDirection? direction, string? operationName = "")
+    public CodeFileModel BuildDto(string dtoNamespace, Type entityType, DtoDirection? direction, string? operationName = "")
     {
         var classBuilder = new ClassGenerator();
         var codeNamespace = new CodeNamespace(dtoNamespace);
@@ -32,8 +32,8 @@ public class TypeBuilder
 
         codeNamespace.Types.Add(dtoClass);
         var generator = new CSharpCodeGenerator();
-        var dtoSource = generator.GenerateCodeForNamespaces([codeNamespace]);
-        return dtoSource;
+        var dtoFile = generator.GenerateCodeForType(dtoClass, dtoNamespace);
+        return dtoFile;
     }
 
     /// <summary>
