@@ -1,6 +1,6 @@
 ﻿using CodeGenerators.Next;
 
-namespace CodeGenerators;
+namespace CodeGenerators.Models;
 
 public class DtoModel
 {

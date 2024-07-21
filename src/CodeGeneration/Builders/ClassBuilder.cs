@@ -1,5 +1,7 @@
 ﻿using System.CodeDom;
 using System.Reflection;
+using CodeGenerators.CodeDom;
+using CodeGenerators.Models;
 
 namespace CodeGenerators.Builders;
 
@@ -9,7 +11,7 @@ namespace CodeGenerators.Builders;
 public class ClassBuilder
 {
     /// <summary>
-    /// Builds a declaration for a C# class.
+    /// Builds a <see cref="CodeTypeDeclaration"/> for a C# class.
     /// </summary>
     public CodeTypeDeclaration BuildTypeForClass(ClassModel model, TypeAttributes classAttributes = TypeAttributes.Public)
     {
@@ -25,9 +27,9 @@ public class ClassBuilder
     }
 
     /// <summary>
-    /// Builds a class method.
+    /// Builds a class method declaration.
     /// </summary>
-    public CodeMemberMethod BuildMethod(string methodName, ParameterModel[] parameters,
+    public CodeMemberMethod BuildMethodDec(string methodName, ParameterModel[] parameters,
         CodeStatementCollection statements, MemberAttributes methodAttributes)
     {
         var method = new CodeMemberMethod
@@ -42,5 +44,19 @@ public class ClassBuilder
         method.Statements.AddRange(statements);
 
         return method;
+    }
+    
+    /// <summary>
+    /// Builds a <see cref="CodeMethodInvokeExpression"/> for a static method call on a given Type. 
+    /// </summary>
+    public CodeMethodInvokeExpression BuildMethodCall(Type targetType, string methodName, List<ParameterModel> paramModels)
+    {
+        CodeExpression[] parameters = ParameterBuilder.ModelsToExpressions(paramModels);
+        CodeParameterDeclarationExpression[] pms = [new CodeParameterDeclarationExpression()];
+        var statement = CodeElements.BuildMethodCallExpression(
+            targetType, 
+            methodName,
+            parameters );
+        return statement;
     }
 }

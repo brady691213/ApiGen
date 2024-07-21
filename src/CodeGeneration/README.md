@@ -7,6 +7,7 @@ templates.
 
 ## Tasks - Now
 
+- TASKT: Get `Type` without needing a reference and `typeof` etc.
 - TASKT: StatementModel and BuildCodeStatement.
 - TASKT: Move app specific CodeDom functions into `Application` namespace then make CodeDom functions more generic.
 - TASKT: Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
@@ -21,6 +22,7 @@ templates.
 - TASKT: Check all optional params - remove where uncertain.\
 - TASKT: Proofread MD and XML documentation. 
 
+- TASKT: Compiler suggestion at `CodeExpression[] parameters = ParameterBuilder.ModelsToExpressions(paramModels);`
 - TASKT: Use facade models more.
 - TASKT: Logging to other sinks like Windows Event Log and file.
 - TASKT: Look at more stateful classes for builders, cut down on noisy param lists.

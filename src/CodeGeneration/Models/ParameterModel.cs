@@ -1,4 +1,4 @@
-﻿namespace CodeGenerators;
+﻿namespace CodeGenerators.Models;
 
 public class ParameterModel(Type type, string name)
 {

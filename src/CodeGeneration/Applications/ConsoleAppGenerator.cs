@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using CodeGenerators.Builders;
 using CodeGenerators.CodeDom;
+using CodeGenerators.Models;
 using ILogger = Serilog.ILogger;
 
 namespace CodeGenerators.Applications;
@@ -65,7 +66,7 @@ public class ConsoleAppGenerator
     private CodeMemberMethod BuildMainMethod(CodeStatementCollection statements)
     {
         ParameterModel[] parameters = [new ParameterModel(typeof(string[]), "args")];
-        var main = _classBuilder.BuildMethod("Main", parameters, statements, MemberAttributes.Static | MemberAttributes.Public);
+        var main = _classBuilder.BuildMethodDec("Main", parameters, statements, MemberAttributes.Static | MemberAttributes.Public);
         return main;
     }
     
@@ -77,6 +78,8 @@ public class ConsoleAppGenerator
     /// </summary>
     private CodeMethodInvokeExpression BuildHelloWorldStatement()
     {
+        var argsParam = new ParameterModel(typeof(string[]), "args");
+        var stmt = _classBuilder.BuildMethodCall(typeof(Console), "WriteLine", [argsParam]);
         var statement = CodeElements.BuildMethodCallExpression(
             typeof(Console), 
             "WriteLine",

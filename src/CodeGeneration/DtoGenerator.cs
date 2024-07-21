@@ -1,4 +1,5 @@
 ﻿using System.CodeDom.Compiler;
+using CodeGenerators.Models;
 using CodeGenerators.Templates;
 
 namespace CodeGenerators;

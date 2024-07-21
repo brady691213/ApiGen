@@ -3,6 +3,7 @@ using System.Xml.Xsl;
 using CodeGenerators.Builders;
 using CodeGenerators.CodeDom;
 using CodeGenerators.Errors;
+using CodeGenerators.Models;
 using CodeGenerators.Templates;
 
 namespace CodeGenerators.Applications;
@@ -16,10 +17,10 @@ public class FastEndpointAppGenerator
     private const string RootNamespace = ProjectName;
 
     private CodeDomSourceGenerator _generator = new();
-    private ClassBuilder _classGenerator = new();
+    private ClassBuilder _builder = new();
     
     /// <summary>
-    /// Generate the main application for a FastEndpoints web API.
+    /// Generate the main application project for a FastEndpoints web API.
     /// </summary>
     /// <param name="solutionName"></param>
     /// <returns></returns>
@@ -53,7 +54,7 @@ public class FastEndpointAppGenerator
         
         model.Members.Add(main);
         
-        var programClass = _classGenerator.BuildTypeForClass(model);
+        var programClass = _builder.BuildTypeForClass(model);
 
         var ns = new CodeNamespace();
         ns.Types.Add(programClass);
@@ -77,7 +78,7 @@ public class FastEndpointAppGenerator
         ParameterModel[] parameters = [new ParameterModel(typeof(string[]), "args")];
         var statements = new CodeStatementCollection { builderDec, addFastEndpoints, appDec, useFastEndpoints, run };
         
-        var main = _classGenerator.BuildMethod("Main", parameters, statements, MemberAttributes.Abstract | MemberAttributes.Public);
+        var main = _builder.BuildMethodDec("Main", parameters, statements, MemberAttributes.Abstract | MemberAttributes.Public);
 
         return main;
     }
