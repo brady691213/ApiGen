@@ -1,58 +1,74 @@
 ﻿using System.Diagnostics;
 using CodeGenerators.Applications;
+using CodeGenerators.Errors;
 using CodeGenerators.Templates;
 
 namespace CodeGenerators;
 
 public class SolutionGenerator(ILogger logger)
 {
+    private const string TemplateName = "SolutionFile.sln.txt";
+    
     /// <summary>
     /// Create a .NET solution file and directory.
     /// </summary>
-    /// <param name="solutionModel">Model tha defines the solution to create.</param>
+    /// <param name="model">Model tha defines the solution to create.</param>
     /// <param name="outputLocation">Location to place the generated output. If not specified, the current directory will be used.</param>
     /// <param name="projectModels">Collection of models defining the projects to include in the solution.</param>
-    public Result<SolutionModel> GenerateSolution(SolutionModel solutionModel, string outputLocation, bool skipWrite)
+    public Result<SolutionModel> GenerateSolution(SolutionModel model, string outputLocation, bool writeFiles)
     {
-        logger.Information("Generating solution {SolutionName} at location {OutputLocation}", solutionModel.Name,
+        logger.Information("Generating solution {SolutionName} at location {OutputLocation}", model.Name,
             outputLocation);
 
-        var slnContent = RenderTemplate(solutionModel);
-        if (slnContent is null)
+        // Ensure we have a solution directory.
+        var pathResult = EnsureSolutionDirectory(model, outputLocation, writeFiles);
+        if (pathResult.IsError)
         {
-            return Err<SolutionModel>("Failed to render solution file template");
+            var msg = RascalErrors.ErrorMessage(pathResult);
+            return Err<SolutionModel>($"Failed to create solution directory in {outputLocation}: {msg}");
         }
-
-        logger.Debug("Solution file template rendered as {SolutionFileContent}", slnContent);
-
-        var solutionDirectory = $"{outputLocation}/{solutionModel.Name}";
-        if (!skipWrite && Directory.Exists(solutionDirectory))
+        var solutionPath = pathResult.Unwrap();       
+        
+        // Now create project directories and files.
+        var projectsResult = GenerateProjects(model, solutionPath, writeFiles);
+        if (projectsResult.IsError)
         {
-            return Err<SolutionModel>(
-                $"Solution directory {solutionDirectory} already exists in output location {Path.GetFullPath(outputLocation)}");
+            var msg = RascalErrors.ErrorMessage(projectsResult);
+            return Err<SolutionModel>($"Failed to generate all projects in solution: {msg}");
+        }        
+        
+        // Finally, we can create a valid solution file once other files have been created.
+        var templateResult = RenderTemplate(model);
+        if (templateResult.IsError)
+        {
+            var msg = RascalErrors.ErrorMessage(templateResult);
+            return Err<SolutionModel>($"Failed to render solution file template: {msg}");
         }
-
-        Directory.CreateDirectory(solutionDirectory);
-        logger.Debug("Created solution directory {SolutionDirectory}", solutionDirectory);
-
-        var filePath = Path.Combine(solutionDirectory, $"{solutionModel.Name}.sln");
-        if (!skipWrite && File.Exists(filePath))
+        var slnContent = templateResult.Unwrap();
+        
+        var filePath = Path.Combine(solutionPath, $"{model.Name}.sln");
+        if (writeFiles && File.Exists(filePath))
         {
             return Err<SolutionModel>(
                 $"Solution file {filePath} already exists. This module may not overwrite existing files");
         }
-
-        if (!skipWrite)
+        if (writeFiles)
         {
             File.WriteAllText(filePath, slnContent);
         }
-        logger.Debug("Created solution file {SolutionFilePath}", solutionDirectory);
+        logger.Debug("Created solution file {SolutionFilePath}", solutionPath);
+        
+        logger.Information("Generated solution {SolutionName} in {Location}", model.Name, outputLocation);
+        return Ok(model);
+    }
 
-        var sourceLocation = $"{solutionDirectory}/src";
+    private Result<SolutionModel> GenerateProjects(SolutionModel model, string outputLocation, bool writeFiles)
+    {
+        var sourcePath = Path.Combine(outputLocation, "src");
         var projectGenerator = new ProjectGenerator(logger);
-        foreach (var project in solutionModel.ProjectModels)
+        foreach (var project in model.ProjectModels)
         {
-            var result = projectGenerator.GenerateProject(project, sourceLocation, skipWrite);
+            var result = projectGenerator.GenerateProject(project, sourcePath, writeFiles);
             if (result.IsError)
             {
                 var hasErr = result.TryGetError(out var error);
@@ -64,25 +80,44 @@ public class SolutionGenerator(ILogger logger)
             logger.Information($"Generated project {project.ProjectName}");
         }
 
-        logger.Information("Generated solution {SolutionName} in {Location}", solutionModel.Name, outputLocation);
-        return Ok(solutionModel);
+        return Ok(model);
+    }
+    
+    private Result<string> EnsureSolutionDirectory(SolutionModel model, string outputLocation, bool writeFiles)
+    {
+        var solutionPath = $"{outputLocation}/{model.Name}";
+        if (writeFiles && Directory.Exists(solutionPath))
+        {
+            return Err<string>(
+                $"Solution directory {solutionPath} already exists in output location {Path.GetFullPath(outputLocation)}");
+        }
+        Directory.CreateDirectory(solutionPath);
+        logger.Debug("Created solution directory at {SolutionPath}", solutionPath);
+        return solutionPath;
     }
 
-    private string? RenderTemplate(SolutionModel model)
+    /// <summary>
+    /// Load and render the Scriban template for a Solution file (.sln) based on a <seealso cref="SolutionModel"/>.
+    /// </summary>
+    private Result<string> RenderTemplate(SolutionModel model)
     {
-        var templateName = "SolutionFile";
-        var result = TemplateLoader.LoadSolutionTemplate("SolutionFile.sln");
+        var result = TemplateLoader.LoadSolutionTemplate(TemplateName);
         if (result.IsError)
         {
-            var hasErr = result.TryGetError(out var templateError);
-            logger.Error("Error rendering solution file template {TemplateName}: {Error}", templateName,
-                templateError);
-            return null;
+            var msg = RascalErrors.ErrorMessage(result);
+            return Err<string>(msg);
         }
 
-        var template = result.Unwrap();
-        var content = template.Render(new { model = model });
+        var text = result.Unwrap();
+        logger.Verbose("Solution template {TemplateName} rendered as {TemplateText}", text, TemplateName);
 
+        var content = Try(() =>
+        {
+            // ReSharper disable once ConvertToLambdaExpression
+            return text.Render(new { model = model });
+        });
+        
+        logger.Verbose("Solution template rendered {SolutionFileContent}", content);
         return content;
     }
 }

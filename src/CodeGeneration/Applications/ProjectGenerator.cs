@@ -55,17 +55,18 @@ public class ProjectGenerator(ILogger logger)
 
         logger.Debug("Created project file at {ProjectFilePath}", filePath);
         return Ok(model);
+        
     }
 
-    private Result<string> EnsureProjectDirectory(ProjectModel model, string outputLocation, bool skipWrite)
+    private Result<string> EnsureProjectDirectory(ProjectModel model, string outputLocation, bool writeFiles) 
     {
         var projectPath = Path.Combine(outputLocation, model.ProjectName);
-        if (!skipWrite)
+        if (writeFiles)
         {
             if (Directory.Exists(projectPath))
             {
                 return Err<string>(
-                    $"Project output location {projectPath} already exists. `{nameof(model.ProjectName)}` must specify a non-existent directory within {outputLocation}.");
+                    $"Project output location {projectPath} already exists. `{nameof(model.ProjectName)}`  must specify a non-existent directory within {outputLocation}.");
             }
             // TASKT: Wrap in Rascal Try.
             Directory.CreateDirectory(projectPath);
@@ -74,13 +75,13 @@ public class ProjectGenerator(ILogger logger)
         return projectPath;
     }
 
-    private Result<ProjectModel> GenerateSourceFiles(ProjectModel model, string projectPath, bool skipWrite)
+    private Result<ProjectModel> GenerateSourceFiles(ProjectModel model, string projectPath, bool writeFiles)
     {
         foreach (var codeFile in model.CodeFileModels)
         {
             // TASKT: Wrap actual file write in Rascal Try.
             var codePath = Path.Combine(projectPath, $"{codeFile.FileName}.cs");
-            if (!skipWrite)
+            if (writeFiles)
             {
                 File.WriteAllText(codePath, codeFile.Content);
             }
