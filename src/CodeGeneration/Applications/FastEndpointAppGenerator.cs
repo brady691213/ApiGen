@@ -28,13 +28,18 @@ public class FastEndpointAppGenerator
     {
         var slnBuilder = new SolutionGenerator(Log.Logger);
         
-        var genInfo = new GenerationTaskInfo(Diags.GetCurrentMethod(), outputLocation);
-        
         // For now, we just use the solution name as a project name and path.
         var projectName = solutionName;
         var apiNamespace = projectName;
         
-        var progModel = BuildProgramClass();
+        var progResult = BuildProgramClass();
+        if (progResult.IsError)
+        {
+            var msg = RascalErrors.ErrorMessage(progResult);
+            return Err<SolutionModel>($"Failed to build main method: {msg}");
+        }
+        var mainMethod = progResult.Unwrap();
+        var progModel = progResult.Unwrap();
         
         var dto = BuildRequestDto();
         var dtoModel = new CodeFileModel("Request.cs", dto);
@@ -47,7 +52,7 @@ public class FastEndpointAppGenerator
         return slnResult;
     }
 
-    private CodeFileModel BuildProgramClass()
+    private Result<CodeFileModel> BuildProgramClass()
     {
         var model = new ClassModel("Program");
         var main = BuildMainMethod();
@@ -78,7 +83,7 @@ public class FastEndpointAppGenerator
         ParameterModel[] parameters = [new ParameterModel(typeof(string[]), "args")];
         var statements = new CodeStatementCollection { builderDec, addFastEndpoints, appDec, useFastEndpoints, run };
         
-        var main = _builder.BuildMethodDec("Main", parameters, statements, MemberAttributes.Abstract | MemberAttributes.Public);
+        var main = _builder.BuildMethodDec("Main", parameters, statements, MemberAttributes.Static | MemberAttributes.Public);
 
         return main;
     }

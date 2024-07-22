@@ -22,6 +22,7 @@ templates.
 - TASKT: Check behavior for generic console app.
   - Without hello in Main
 - TASKT: Hands test FE app.
+- BuildMainMethod, BuildProgramClass into a builder class.
 
 - TASKT: Start on Class Library
 - Use Rascal Errors more.

@@ -19,8 +19,9 @@ public class BuildWebApiCommand: OaktonCommand<InputForBuildWebApi>
     {
         _logger.Information($"Building started for web API. Source files will be written to {input.OutputDirectory}.");
 
-        var builder = new ConsoleAppGenerator(Log.Logger);
-        var result = builder.BuildHelloWorldApp(input.OutputDirectory);
+        var builder = new FastEndpointAppGenerator();
+        // TASKT: Get a param for name.
+        var result = builder.GenerateApiSolution("FastEndpoints", input.OutputDirectory);
         
         _logger.Information($"Building completed for web API. Source written to {input.OutputDirectory}.");
 

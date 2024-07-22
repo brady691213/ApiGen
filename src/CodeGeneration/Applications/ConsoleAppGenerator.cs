@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using CodeGenerators.Builders;
 using CodeGenerators.CodeDom;
+using CodeGenerators.Errors;
 using CodeGenerators.Models;
 using ILogger = Serilog.ILogger;
 
@@ -14,10 +15,17 @@ public class ConsoleAppGenerator(ILogger logger)
     /// <summary>
     /// Build a console application that prints "Hello, World!" from the `Main` entry point in class `Program`.
     /// </summary>
-    public Result<SolutionModel> BuildHelloWorldApp(string outputDirectory, bool dryRun = false)
+    public Result<SolutionModel> GenerateHelloWorldSolution(string outputDirectory, bool dryRun = false)
     {
         var solutionName = "HelloWorld";
-        var programModel = GenerateProgramClass(solutionName);
+        var programResult = GenerateProgramClass(solutionName);
+        if (programResult.IsError)
+        {
+            var msg = RascalErrors.ErrorMessage(programResult);
+            return Err<SolutionModel>($"Failed to generate Program class: {msg}");
+        }
+        var programModel = programResult.Unwrap();
+        
         var projectModel = new ProjectModel($"{solutionName}.Console", [programModel]);
 
         var solutionGenerator = new SolutionGenerator(logger);
@@ -35,13 +43,20 @@ public class ConsoleAppGenerator(ILogger logger)
         return solutionModel;
     }
     
-    private CodeFileModel GenerateProgramClass(string mainNamespace)
+    private Result<CodeFileModel> GenerateProgramClass(string mainNamespace)
     {
         var classModel = new ClassModel("Program");
 
         var helloStatement = BuildHelloWorldStatement();
-        var main = BuildMainMethod([helloStatement]);
-        classModel.Members.Add(main);
+        var mainResult = BuildMainMethod([helloStatement]);
+        if (mainResult.IsError)
+        {
+            var msg = RascalErrors.ErrorMessage(mainResult);
+            return Err<CodeFileModel>($"Failed to build main method: {msg}");
+        }
+        var mainMethod = mainResult.Unwrap();
+        
+        classModel.Members.Add(mainMethod);
 
         var programDec = _classBuilder.BuildTypeForClass(classModel);
 
@@ -57,8 +72,9 @@ public class ConsoleAppGenerator(ILogger logger)
     /// <summary>
     /// Builds a <see cref="CodeMemberMethod"/> that defines a <c>Main</c> entry point method for an application.
     /// </summary>
-    private CodeMemberMethod BuildMainMethod(CodeStatementCollection statements)
+    private Result<CodeMemberMethod> BuildMainMethod(CodeStatementCollection statements)
     {
+        // TASKT: Call from app builder not from BuildProgramClass
         ParameterModel[] parameters = [new ParameterModel(typeof(string[]), "args")];
         var main = _classBuilder.BuildMethodDec("Main", parameters, statements, MemberAttributes.Static | MemberAttributes.Public);
         return main;
