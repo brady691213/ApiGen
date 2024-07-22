@@ -17,6 +17,13 @@ templates.
 
 ## Tasks - Now
 
+- TASKT: Evaluate all log output for generating Hello.
+- TASKT: Check behaviour for exceptions with files etc.
+- TASKT: Check behavior for generic console app.
+  - Without hello in Main
+- TASKT: Hands test FE app.
+
+- TASKT: Start on Class Library
 - Use Rascal Errors more.
 - Use statics where OK
 - Don't use namespaces as containers, rather use a shared namespace name and generate code for classes etc.
