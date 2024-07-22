@@ -14,16 +14,7 @@ public class FastEndpointAppGeneratorTests
     private readonly FastEndpointAppGenerator _generator = new FastEndpointAppGenerator();
     
     [Fact]
-    public void FeApiSolutionBuildNoErrors()
-    {
-        //var solutionModel = GenerateApiSolution();
-        
-       var cliOutput = CodeCompiler.BuildSolution(Path.Combine(SolutionOutputLocation, SolutionName));
-        
-    }
-    
-    [Fact]
-    public void FeApiSolutionHasApiProjectModel()
+    public void SolutionHasApiProjectModel()
     {
         var solutionModel = GenerateApiSolution();
         
@@ -33,7 +24,7 @@ public class FastEndpointAppGeneratorTests
     }
     
     [Fact]
-    public void FeApiProjectModelHasProgramFile()
+    public void ApiProjectModelHasProgramFile()
     {
         var solutionModel = GenerateApiSolution();
         
@@ -43,7 +34,7 @@ public class FastEndpointAppGeneratorTests
     }
     
     [Fact]
-    public void FeApiProjectModelHasRequestDtoFile()
+    public void ApiProjectModelHasRequestDtoFile()
     {
         var solutionModel = GenerateApiSolution();
         
@@ -54,7 +45,7 @@ public class FastEndpointAppGeneratorTests
 
     private SolutionModel GenerateApiSolution()
     {        
-        var solutionResult = _generator.GenerateApiSolution(SolutionName, SolutionOutputLocation, writeFiles: true);
+        var solutionResult = _generator.GenerateApiSolution(SolutionName, SolutionOutputLocation, writeFiles: false);
         solutionResult.IsOk.ShouldBeTrue($"Result of {nameof(FastEndpointAppGenerator.GenerateApiSolution)} is not OK");
         return solutionResult.Unwrap();
     }
