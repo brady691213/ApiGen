@@ -8,9 +8,9 @@ namespace CodeGenerators;
 /// </summary>
 /// <param name="Name">Name of a Nuget package</param>
 /// <param name="Version">Version of the Nuget package.</param>
-public record PackageReferenceModel(string Name, SemVersion Version)
+public record PackageReferenceModel(string Name, string Version)
 {
     public string Name { get; set; } = Name;
 
-    public SemVersion Version { get; set; } = Version;
+    public string Version { get; set; } = Version;
 }

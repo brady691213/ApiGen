@@ -7,16 +7,15 @@ templates.
 
 ## Bugs
 
-
+- TASKT: FE project file has no package refs.
 
 ## Targets
 
-- 20:00 - Refactor finished and HellowWorld finished enough for more effort on FE API:
-  - Finished enough is Result patterns tidied up and no chance of exceptions.
-  - DryRun must provide full reporting on all outcomes via Serilog.
+- 19:00 - FastEndpoints generating with request DTO and response DTO.
 
 ## Tasks - Now
 
+- TASKT: Establish shared namespace for FE generator. Don't want to default to class name because many classes.
 - TASKT: Evaluate all log output for generating Hello.
 - TASKT: Check behaviour for exceptions with files etc.
 - TASKT: Check behavior for generic console app.
@@ -24,6 +23,8 @@ templates.
 - TASKT: Hands test FE app.
 - BuildMainMethod, BuildProgramClass into a builder class.
 
+- TASKT: Decide whether to make `System` a required or a default import for generating code.
+- TASKT: Group expression builders by type, e.g. properties, local variables etc.
 - TASKT: Start on Class Library
 - Use Rascal Errors more.
 - Use statics where OK

@@ -1,28 +1,24 @@
 ﻿using System.CodeDom;
-using System.Xml.Xsl;
 using CodeGenerators.Builders;
 using CodeGenerators.CodeDom;
 using CodeGenerators.Errors;
 using CodeGenerators.Models;
-using CodeGenerators.Templates;
 
 namespace CodeGenerators.Applications;
 
 public class FastEndpointAppGenerator
 {
     private readonly ILogger _logger = Log.ForContext<FastEndpointAppGenerator>();
-    
-    private const string SolutionName = "HelloWorld";
-    private const string ProjectName = SolutionName;
-    private const string RootNamespace = ProjectName;
 
     private CodeDomSourceGenerator _generator = new();
     private ClassBuilder _builder = new();
-    
+
     /// <summary>
     /// Generate the main application project for a FastEndpoints web API.
     /// </summary>
     /// <param name="solutionName"></param>
+    /// <param name="outputLocation"></param>
+    /// <param name="skipWrite"></param>
     /// <returns></returns>
     public Result<SolutionModel> GenerateApiSolution(string solutionName, string outputLocation, bool skipWrite = true)
     {
@@ -30,7 +26,6 @@ public class FastEndpointAppGenerator
         
         // For now, we just use the solution name as a project name and path.
         var projectName = solutionName;
-        var apiNamespace = projectName;
         
         var progResult = BuildProgramClass();
         if (progResult.IsError)
@@ -38,14 +33,17 @@ public class FastEndpointAppGenerator
             var msg = RascalErrors.ErrorMessage(progResult);
             return Err<SolutionModel>($"Failed to build main method: {msg}");
         }
-        var mainMethod = progResult.Unwrap();
         var progModel = progResult.Unwrap();
         
-        var dto = BuildRequestDto();
-        var dtoModel = new CodeFileModel("Request.cs", dto);
+        var request = BuildRequestDto();
         
-        var projectModel = new ProjectModel(projectName, [progModel, dtoModel]);
-        var slnModel = new SolutionModel(SolutionName, [projectModel]);
+        var projectModel = new ProjectModel(projectName, [progModel, request]);
+        projectModel.PackageReferences.Add(new PackageReferenceModel("FastEndpoints", "5.27.0.12-beta"));
+        projectModel.PackageReferences.Add(new PackageReferenceModel("Microsoft.AspNetCore.OpenApi", "8.0.7"));
+        projectModel.PackageReferences.Add(new PackageReferenceModel("Swashbuckle.AspNetCore", "6.4.0"));
+
+        
+        var slnModel = new SolutionModel(solutionName, [projectModel]);
 
         var slnResult = slnBuilder.GenerateSolution(slnModel, outputLocation, skipWrite);
 
@@ -63,7 +61,7 @@ public class FastEndpointAppGenerator
 
         var ns = new CodeNamespace();
         ns.Types.Add(programClass);
-        var code = _generator.GenerateCodeForType(programClass, RootNamespace);
+        var code = _generator.GenerateCodeForType(programClass, usings: ["FastEndpoints"]);
 
         return code;
     }
@@ -73,10 +71,10 @@ public class FastEndpointAppGenerator
         var builderVarName = "builder";
         var appVarName = "app";
         
-        var argParam = new ParameterModel(typeof(string[]), "args");
         var builderDec = CodeElements.WebAppBuilderDec(builderVarName);
         var addFastEndpoints = CodeElements.InvokeServiceCollectionMethod(builderVarName,"AddFastEndpoints");
-        var appDec = CodeDom.CodeElements.WebAppBuilderDec(builderVarName);
+        
+        var appDec = CodeDom.CodeElements.WebAppDec(appVarName);
         var useFastEndpoints = CodeElements.GetMethodInvocation(appVarName, "UseFastEndpointssx");
         var run = CodeElements.GetMethodInvocation(appVarName, "Run");
 
@@ -88,7 +86,7 @@ public class FastEndpointAppGenerator
         return main;
     }
     
-    private string BuildRequestDto()
+    private CodeFileModel BuildRequestDto()
     {
         var code = """
                    public class MyRequest
@@ -98,6 +96,6 @@ public class FastEndpointAppGenerator
                        public int Age { get; set; }
                    }
                    """;
-        return code;
+        return new CodeFileModel("MyRequest", code);
     }
 }

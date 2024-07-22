@@ -61,7 +61,7 @@ public class CodeElements
     /// <summary>
     /// Builds a statement that declares the WebApplication instance used in startup code.
     /// </summary>
-    public CodeVariableDeclarationStatement WebAppDec(string appVarName)
+    public static CodeVariableDeclarationStatement WebAppDec(string appVarName)
     {
         var valueExp = BuildMethodCallExpression(typeof(WebApplication), "Build", []);
         var dec = new CodeVariableDeclarationStatement(typeof(WebApplication), appVarName, valueExp);
@@ -78,7 +78,6 @@ public class CodeElements
         var dec = new CodeVariableDeclarationStatement(typeof(WebApplication), appName, exp);
         return dec;
     }
-
     
     public static CodeMemberProperty BuildAutoProperty(PropertyInfo inputInfo)
     {

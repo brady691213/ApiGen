@@ -21,11 +21,11 @@ public class CodeDomSourceGenerator
     /// <summary>
     /// Generates C# code for a <see cref="CodeTypeDeclaration"/>.
     /// </summary>
-    public CodeFileModel GenerateCodeForType(CodeTypeDeclaration classType, string? namespaceName)
+    public CodeFileModel GenerateCodeForType(CodeTypeDeclaration classType, string? namespaceName = null, List<string>? usings =  null)
     {
         var compileUnit = new CodeCompileUnit();
         var compileNamespace = namespaceName ?? classType.Name;
-        var codeNamespace = BuildNamespace(compileNamespace);
+        var codeNamespace = BuildNamespace(compileNamespace, usings);
         codeNamespace.Types.Add(classType);
         compileUnit.Namespaces.Add(codeNamespace);
         
