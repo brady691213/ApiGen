@@ -41,7 +41,7 @@ public class ProjectBuilderTests
     }
 
     [Fact]
-    public void CreateProjectCreatesCsproj()
+    public void GenerateProjectCreatesCsproj()
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new ProjectModel(ProjectName);
@@ -51,6 +51,7 @@ public class ProjectBuilderTests
 
         var filePath = Path.Combine(GetProjectDirectory(ProjectName), $"{ProjectName}.csproj");
         var exists = File.Exists(filePath);
+        exists.ShouldBeTrue();
     }
     
     private string GetProjectDirectory(string projectName)

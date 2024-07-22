@@ -28,15 +28,15 @@ public class ProjectGenerator(ILogger logger)
         logger.Debug("Created project directory at {ProjectPath}", projectPath);
 
         // Write source files before project file, avoids an invalid project file in case a write fails for a source file.
-        var filesResult = GenerateSourceFiles(model, projectPath, writeFiles);
+        var filesResult = WriteSourceFiles(model, projectPath, writeFiles);
         if (filesResult.IsError)
         {
             var msg = RascalErrors.ErrorMessage(filesResult);
-            return Err<ProjectModel>($"Failed to render generate source files: {msg}");
+            return Err<ProjectModel>($"Failed to write source files: {msg}");
         }
-        logger.Debug("Source files generated in path: {ProjectPath}", projectPath);
+        logger.Debug("Source files written to path: {ProjectPath}", projectPath);
 
-        // Get the template for the project file.
+        // Finally write the project file once all source files have been written.
         var templateResult = RenderTemplate(model);
         if (templateResult.IsError)
         {
@@ -45,7 +45,6 @@ public class ProjectGenerator(ILogger logger)
         }
         var projectXml = templateResult.Unwrap();
         
-        // Finally write the project file once all source files have been written.
         var filePath = Path.Combine(projectPath, $"{model.ProjectName}.csproj");
         if (writeFiles)
         {
@@ -79,7 +78,7 @@ public class ProjectGenerator(ILogger logger)
         return projectPath;
     }
 
-    private Result<ProjectModel> GenerateSourceFiles(ProjectModel model, string projectPath, bool writeFiles)
+    private Result<ProjectModel> WriteSourceFiles(ProjectModel model, string projectPath, bool writeFiles)
     {
         if (writeFiles)
         {

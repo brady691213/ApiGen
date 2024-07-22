@@ -16,6 +16,7 @@ templates.
 
 ## Tasks - Now
 
+- TASKT: User `Write` for all file ops and check names.
 - TASKT: Establish shared namespace for FE generator. Don't want to default to class name because many classes.
 - TASKT: Evaluate all log output for generating Hello.
 - TASKT: Check behaviour for exceptions with files etc.

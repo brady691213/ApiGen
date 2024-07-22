@@ -8,7 +8,7 @@ namespace CodeGenerators;
 public record GenerationTaskInfo(string MethodName, string? OutputLocation, List<string>? FilesCreated = null)
 {
     /// <summary>
-    /// Name of the method called for a code generation operation. E.g. <see cref="ProjectGenerator.GenerateProject"/>
+    /// Name of the method called for a code generation operation. E.g. <see cref="ProjectGenerator.WriteProject"/>
     /// </summary>
     public string MethodName { get; set; } = MethodName;
     
