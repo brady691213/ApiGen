@@ -17,6 +17,7 @@ templates.
 
 ## Tasks - Now
 
+- TASKT: Currentyl logging as if files were created even for dry runs. Mark as different.
 - Replace `LoadProjectFileTemplate` with a general path based `Load` function. 
 - Use Rascal Errors as much as possible.
 - Guard clauses all over, anywhere a param can go wrong.

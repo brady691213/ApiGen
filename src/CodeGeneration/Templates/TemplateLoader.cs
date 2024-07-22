@@ -62,7 +62,7 @@ public class TemplateLoader
 
     private static void LogTemplateErrors(Template tempalte)
     {
-        // TASKT: Implment this properly.
+        // TASKT: Implment this later.
         // Keep for more specific tests.    
         // var actualMsgs = template.Messages
         //     .Where(m => m.Type == ParserMessageType.Error)

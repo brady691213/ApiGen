@@ -27,6 +27,7 @@ public class ProjectGenerator(ILogger logger)
             return Err<ProjectModel>($"Failed to render project file template: {msg}");
         }
         var projectPath = pathResult.Unwrap();
+        logger.Debug("Created project directory at {ProjectPath}", projectPath);
 
         // Write source files before project file, avoids an invalid project file in case a write fails for a source file.
         var filesResult = GenerateSourceFiles(model, projectPath, writeFiles);
@@ -68,27 +69,35 @@ public class ProjectGenerator(ILogger logger)
                 return Err<string>(
                     $"Project output location {projectPath} already exists. `{nameof(model.ProjectName)}`  must specify a non-existent directory within {outputLocation}.");
             }
-            // TASKT: Wrap in Rascal Try.
-            Directory.CreateDirectory(projectPath);
+            return Try(() =>
+            {
+                Directory.CreateDirectory(projectPath);
+                logger.Debug("Created project directory at {ProjectPath}", projectPath);
+                return projectPath;
+            });
         }
-        logger.Debug("Created project directory at {ProjectPath}", projectPath);
         return projectPath;
     }
 
     private Result<ProjectModel> GenerateSourceFiles(ProjectModel model, string projectPath, bool writeFiles)
     {
-        foreach (var codeFile in model.CodeFileModels)
+        if (writeFiles)
         {
-            // TASKT: Wrap actual file write in Rascal Try.
-            var codePath = Path.Combine(projectPath, $"{codeFile.FileName}.cs");
-            if (writeFiles)
+            Try(() =>
             {
-                File.WriteAllText(codePath, codeFile.Content);
-            }
-
-            logger.Debug("Created code file at {CodeFilePath}", codePath);
-            model.FilesCreated.Add(codePath);
+                foreach (var codeFile in model.CodeFileModels)
+                {
+                    var codePath = Path.Combine(projectPath, $"{codeFile.FileName}.cs");
+                    {
+                        File.WriteAllText(codePath, codeFile.Content);
+                    }
+                    logger.Debug("Created code file at {CodeFilePath}", codePath);
+                    model.FilesCreated.Add(codePath);
+                }
+                return model;
+            });
         }
+        // TASKT: Look at returning something better here.
         return model;
     }
 
