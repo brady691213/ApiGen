@@ -11,10 +11,10 @@
         <Version>{{model.reprise_version}}</Version>
     </PropertyGroup>
                         
-    <PropertyGroup Label="PackageReferences">
+    <ItemGroup Label="PackageReferences">
         {{- for pref in model.package_references }}
         <PackageReference Include="{{pref.name}}" Version="{{pref.version}}" />
         {{- end }}
-    </PropertyGroup>
+    </ItemGroup>
 
 </Project>

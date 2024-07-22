@@ -16,7 +16,7 @@ public class FastEndpointAppGeneratorTests
     [Fact]
     public void FeApiSolutionBuildNoErrors()
     {
-        var solutionModel = GenerateApiSolution();
+        //var solutionModel = GenerateApiSolution();
         
        var cliOutput = CodeCompiler.BuildSolution(Path.Combine(SolutionOutputLocation, SolutionName));
         
@@ -54,7 +54,7 @@ public class FastEndpointAppGeneratorTests
 
     private SolutionModel GenerateApiSolution()
     {        
-        var solutionResult = _generator.GenerateApiSolution(SolutionName, SolutionOutputLocation, writeFiles: false);
+        var solutionResult = _generator.GenerateApiSolution(SolutionName, SolutionOutputLocation, writeFiles: true);
         solutionResult.IsOk.ShouldBeTrue($"Result of {nameof(FastEndpointAppGenerator.GenerateApiSolution)} is not OK");
         return solutionResult.Unwrap();
     }

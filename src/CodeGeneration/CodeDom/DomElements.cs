@@ -61,9 +61,10 @@ public class CodeElements
     /// <summary>
     /// Builds a statement that declares the WebApplication instance used in startup code.
     /// </summary>
-    public static CodeVariableDeclarationStatement WebAppDec(string appVarName)
+    public static CodeVariableDeclarationStatement InitAppVar(string appVarName, string builderVarName)
     {
-        var valueExp = BuildMethodCallExpression(typeof(WebApplication), "Build", []);
+        var builderExp = new CodeVariableReferenceExpression(builderVarName);
+        var valueExp = BuildMethodCallExpression(builderExp, "Build", []);
         var dec = new CodeVariableDeclarationStatement(typeof(WebApplication), appVarName, valueExp);
         return dec;
     }
@@ -106,7 +107,7 @@ public class CodeElements
             [new CodePrimitiveExpression("Hello world")]);
     }
 
-    public CodeMethodInvokeExpression BuildMethodCallExpression(CodeExpression targetObject, string methodName, CodeExpression[] parameters)
+    public static CodeMethodInvokeExpression BuildMethodCallExpression(CodeExpression targetObject, string methodName, CodeExpression[] parameters)
     {
         var call = new CodeMethodInvokeExpression(
             targetObject, 

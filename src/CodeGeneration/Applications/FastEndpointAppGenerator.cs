@@ -62,7 +62,7 @@ public class FastEndpointAppGenerator
 
         var ns = new CodeNamespace();
         ns.Types.Add(programClass);
-        var code = _generator.GenerateCodeForType(programClass, usings: ["FastEndpoints"]);
+        var code = _generator.GenerateCodeForType(programClass, usings: ["Microsoft.AspNetCore.Builder", "FastEndpoints"]);
 
         return code;
     }
@@ -75,8 +75,8 @@ public class FastEndpointAppGenerator
         var builderDec = CodeElements.WebAppBuilderDec(builderVarName);
         var addFastEndpoints = CodeElements.InvokeServiceCollectionMethod(builderVarName,"AddFastEndpoints");
         
-        var appDec = CodeDom.CodeElements.WebAppDec(appVarName);
-        var useFastEndpoints = CodeElements.GetMethodInvocation(appVarName, "UseFastEndpointssx");
+        var appDec = CodeDom.CodeElements.InitAppVar(appVarName, builderVarName);
+        var useFastEndpoints = CodeElements.GetMethodInvocation(appVarName, "UseFastEndpoints");
         var run = CodeElements.GetMethodInvocation(appVarName, "Run");
 
         ParameterModel[] parameters = [new ParameterModel(typeof(string[]), "args")];
