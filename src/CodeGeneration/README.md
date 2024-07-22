@@ -7,7 +7,7 @@ templates.
 
 ## Bugs
 
-- TASKT: FE project file has no package refs.
+- TASKT: Package refs in FE project file have no values.
 
 ## Targets
 
@@ -24,6 +24,7 @@ templates.
 - BuildMainMethod, BuildProgramClass into a builder class.
 
 - TASKT: Decide whether to make `System` a required or a default import for generating code.
+- TASKT: Do I attempt dir and file creation for dry runs?
 - TASKT: Group expression builders by type, e.g. properties, local variables etc.
 - TASKT: Start on Class Library
 - Use Rascal Errors more.
