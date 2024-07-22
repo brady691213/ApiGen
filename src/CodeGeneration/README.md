@@ -17,11 +17,7 @@ templates.
 
 ## Tasks - Now
 
-- TASKT: Currentyl logging as if files were created even for dry runs. Mark as different.
-- Replace `LoadProjectFileTemplate` with a general path based `Load` function. 
-- Use Rascal Errors as much as possible.
-- Guard clauses all over, anywhere a param can go wrong.
-- Detailed and careful logging to console.
+- Use Rascal Errors more.
 - Use statics where OK
 - Don't use namespaces as containers, rather use a shared namespace name and generate code for classes etc.
 - Merge `CodeFileModel` and `ClassModel`
@@ -30,6 +26,9 @@ templates.
 - Check all optional params - remove where uncertain.
 - Proofread MD and XML documentation. 
 
+- TASKT: Currentyl logging as if files were created even for dry runs. Mark as different.
+- Detailed and careful logging to console.
+- Guard clauses all over - but these throw exceptions
 - Keep using nested Result functions and types as a goal.
 - Move app specific CodeDom functions into `Application` namespace then make CodeDom functions more generic.
 - StatementModel and BuildCodeStatement.

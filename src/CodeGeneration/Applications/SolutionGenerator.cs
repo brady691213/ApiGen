@@ -7,7 +7,7 @@ namespace CodeGenerators;
 
 public class SolutionGenerator(ILogger logger)
 {
-    private const string TemplateName = "SolutionFile.sln.txt";
+    private const string TemplateName = "SolutionFile.sln";
     
     /// <summary>
     /// Create a .NET solution file and directory.
