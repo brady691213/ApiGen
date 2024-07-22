@@ -6,14 +6,14 @@ using Xunit;
 
 namespace CodeScaffolderIntegrationTests;
 
-public class ProjectBuilderTests
+public class ProjectGeneratorTests
 {
     private const string SolutionName = "SolutionForTests";
     private const string ProjectName = "ProjectForTests";
     private ILogger _logger = Log.Logger;
     
     [Fact]
-    public void CreateProjectThrowsOnDirExists()
+    public void GenerateProjectThrowsOnDirExists()
     {
         var projDir = GetProjectDirectory(ProjectName);
         FileSystemTools.EnsureDirectoryExists(projDir);
@@ -27,7 +27,7 @@ public class ProjectBuilderTests
     }
 
     [Fact]
-    public void CreateProjectCreatesProjectDir()
+    public void GenerateProjectCreatesProjectDir()
     {
         FileSystemTools.EnsureEmptyOutputDir();
         var model = new ProjectModel(ProjectName);
