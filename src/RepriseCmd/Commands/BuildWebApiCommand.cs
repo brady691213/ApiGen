@@ -21,7 +21,7 @@ public class BuildWebApiCommand: OaktonCommand<InputForBuildWebApi>
 
         var builder = new FastEndpointAppGenerator();
         // TASKT: Get a param for name.
-        var result = builder.GenerateApiSolution("FastEndpoints", input.OutputDirectory);
+        var result = builder.GenerateApiSolution("FastEndpoints", input.OutputDirectory, input.WriteFiles);
         
         _logger.Information($"Building completed for web API. Source written to {input.OutputDirectory}.");
 
