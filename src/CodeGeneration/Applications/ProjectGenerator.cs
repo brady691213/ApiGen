@@ -6,8 +6,6 @@ namespace CodeGenerators.Applications;
 
 public class ProjectGenerator(ILogger logger)
 {
-    private const string TemplateName = "ProjectFile.csproj";
-
     /// <summary>
     /// Create a .NET project with a project (.csproj) file and C# source code (.cs) files.
     /// </summary>
@@ -52,13 +50,14 @@ public class ProjectGenerator(ILogger logger)
         if (writeFiles)
         {
             File.WriteAllText(filePath, projectXml);
+            // TASKT: Wrap in Try
         }
 
         logger.Debug("Created project file at {ProjectFilePath}", filePath);
         return Ok(model);
         
     }
-
+    
     private Result<string> EnsureProjectDirectory(ProjectModel model, string outputLocation, bool writeFiles) 
     {
         var projectPath = Path.Combine(outputLocation, model.ProjectName);
@@ -106,23 +105,21 @@ public class ProjectGenerator(ILogger logger)
     /// </summary>
     private Result<string> RenderTemplate(ProjectModel model)
     {
-        var result = TemplateLoader.LoadProjectFileTemplate(TemplateName);
+        var result = TemplateLoader.LoadProjectFileTemplate(model.TemplateName);
         if (result.IsError)
         {
             var msg = RascalErrors.ErrorMessage(result);
             return Err<string>(msg);
         }
-
         var text = result.Unwrap();
-        logger.Verbose("Project template {TemplateName} rendered as {TemplateText}", text, TemplateName);
-
+        
         var content = Try(() =>
         {
             // ReSharper disable once ConvertToLambdaExpression
-            return text.Render(new { model = model });
+            var prj =  text.Render(new { model = model });
+            logger.Verbose("Project template {TemplateName} rendered as {TemplateText}", model.TemplateName, prj);
+            return prj;
         });
-        
-        logger.Verbose("Project template rendered {ProjectFileContent}", content);
-        return content;
+        return Err<string>("Unknown error");
     }
 }

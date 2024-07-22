@@ -86,12 +86,15 @@ public class SolutionGenerator(ILogger logger)
     private Result<string> EnsureSolutionDirectory(SolutionModel model, string outputLocation, bool writeFiles)
     {
         var solutionPath = $"{outputLocation}/{model.Name}";
-        if (writeFiles && Directory.Exists(solutionPath))
+        if (writeFiles)
         {
-            return Err<string>(
-                $"Solution directory {solutionPath} already exists in output location {Path.GetFullPath(outputLocation)}");
+            if (Directory.Exists(solutionPath))
+            {
+                return Err<string>(
+                    $"Solution directory {solutionPath} already exists in output location {Path.GetFullPath(outputLocation)}");
+            }
+            Directory.CreateDirectory(solutionPath);
         }
-        Directory.CreateDirectory(solutionPath);
         logger.Debug("Created solution directory at {SolutionPath}", solutionPath);
         return solutionPath;
     }

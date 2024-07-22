@@ -2,8 +2,11 @@
 
 namespace CodeGenerators;
 
-public class ProjectModel(string projectName, List<CodeFileModel>? codeFileModels = null)
+public class ProjectModel(string projectName, string? templateName = null, List<CodeFileModel>? codeFileModels = null)
 {
+    // Temp until I sort out why packahe refs in standard template aren't rendering properly.
+    public string TemplateName { get; set; } = templateName ?? "ProjectFile";
+    
     public Guid ProjectId { get; } = Guid.NewGuid();
     
     public string ProjectName { get; set; } = projectName;

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>{{model.project_framework_moniker}}</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    
+    <PropertyGroup Label="RepriseInfo">
+        <Version>{{model.reprise_version}}</Version>
+    </PropertyGroup>
+                        
+    <PropertyGroup Label="PackageReferences">
+        <PackageReference Include="FastEndpoints" Version="5.27.0.12-beta" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+    </PropertyGroup>
+
+</Project>

@@ -8,6 +8,7 @@ templates.
 ## Bugs
 
 - TASKT: Package refs in FE project file have no values.
+- RenderRemplate was returning Content by default.
 
 ## Targets
 

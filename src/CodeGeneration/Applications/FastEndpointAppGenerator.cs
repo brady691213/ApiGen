@@ -8,6 +8,7 @@ namespace CodeGenerators.Applications;
 
 public class FastEndpointAppGenerator
 {
+    private string templateName = "FeProjectFile.csproj";
     private readonly ILogger _logger = Log.ForContext<FastEndpointAppGenerator>();
 
     private CodeDomSourceGenerator _generator = new();
@@ -20,7 +21,7 @@ public class FastEndpointAppGenerator
     /// <param name="outputLocation"></param>
     /// <param name="skipWrite"></param>
     /// <returns></returns>
-    public Result<SolutionModel> GenerateApiSolution(string solutionName, string outputLocation, bool skipWrite = true)
+    public Result<SolutionModel> GenerateApiSolution(string solutionName, string outputLocation, bool writeFiles = false)
     {
         var slnBuilder = new SolutionGenerator(Log.Logger);
         
@@ -37,7 +38,7 @@ public class FastEndpointAppGenerator
         
         var request = BuildRequestDto();
         
-        var projectModel = new ProjectModel(projectName, [progModel, request]);
+        var projectModel = new ProjectModel(projectName, templateName, [progModel, request]);
         projectModel.PackageReferences.Add(new PackageReferenceModel("FastEndpoints", "5.27.0.12-beta"));
         projectModel.PackageReferences.Add(new PackageReferenceModel("Microsoft.AspNetCore.OpenApi", "8.0.7"));
         projectModel.PackageReferences.Add(new PackageReferenceModel("Swashbuckle.AspNetCore", "6.4.0"));
@@ -45,7 +46,7 @@ public class FastEndpointAppGenerator
         
         var slnModel = new SolutionModel(solutionName, [projectModel]);
 
-        var slnResult = slnBuilder.GenerateSolution(slnModel, outputLocation, skipWrite);
+        var slnResult = slnBuilder.GenerateSolution(slnModel, outputLocation, writeFiles);
 
         return slnResult;
     }

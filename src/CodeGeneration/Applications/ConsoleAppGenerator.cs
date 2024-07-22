@@ -26,7 +26,7 @@ public class ConsoleAppGenerator(ILogger logger)
         }
         var programModel = programResult.Unwrap();
         
-        var projectModel = new ProjectModel($"{solutionName}.Console", [programModel]);
+        var projectModel = new ProjectModel($"{solutionName}.Console", codeFileModels:[programModel]);
 
         var solutionGenerator = new SolutionGenerator(logger);
         var solutionModel = new SolutionModel(solutionName, [projectModel]);
