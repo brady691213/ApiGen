@@ -15,8 +15,7 @@ public class FastEndpointAppGeneratorTests
         var solutionResult = generator.GenerateApiSolution(solutionName, solutionOutputLocation, writeFiles: false);
 
         var solutionModel = solutionResult.Unwrap();
-        var projText =
-            File.ReadAllText(
-                $"{solutionModel.Name}/src/{solutionModel.ProjectModels[0].ProjectName}/{solutionModel.ProjectModels[0].ProjectName}.csproj");
+        var projText = solutionModel.ProjectModels[0].CodeFileModels[2].Content;
+
     }
 }

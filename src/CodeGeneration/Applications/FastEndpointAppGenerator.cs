@@ -8,7 +8,7 @@ namespace CodeGenerators.Applications;
 
 public class FastEndpointAppGenerator
 {
-    private string templateName = "FeProjectFile.csproj";
+    private string templateName = "ProjectFile.csproj";
     private readonly ILogger _logger = Log.ForContext<FastEndpointAppGenerator>();
 
     private CodeDomSourceGenerator _generator = new();

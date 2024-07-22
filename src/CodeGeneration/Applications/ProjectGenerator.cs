@@ -52,6 +52,7 @@ public class ProjectGenerator(ILogger logger)
             File.WriteAllText(filePath, projectXml);
             // TASKT: Wrap in Try
         }
+        model.CodeFileModels.Add(new CodeFileModel("Project", projectXml));
 
         logger.Debug("Created project file at {ProjectFilePath}", filePath);
         return Ok(model);
@@ -112,14 +113,13 @@ public class ProjectGenerator(ILogger logger)
             return Err<string>(msg);
         }
         var text = result.Unwrap();
-        
-        var content = Try(() =>
+
+        return Try(() =>
         {
             // ReSharper disable once ConvertToLambdaExpression
             var prj =  text.Render(new { model = model });
             logger.Verbose("Project template {TemplateName} rendered as {TemplateText}", model.TemplateName, prj);
             return prj;
         });
-        return Err<string>("Unknown error");
     }
 }

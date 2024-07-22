@@ -13,7 +13,7 @@
                         
     <PropertyGroup Label="PackageReferences">
         {{- for pref in model.package_references }}
-        <PackageReference Include="{{pref.Name}}" Version="{{pref.Version}}" />
+        <PackageReference Include="{{pref.name}}" Version="{{pref.version}}" />
         {{- end }}
     </PropertyGroup>
 
