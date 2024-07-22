@@ -26,7 +26,7 @@ public class FastEndpointAppGenerator
         var slnBuilder = new SolutionGenerator(Log.Logger);
         
         // For now, we just use the solution name as a project name and path.
-        var projectName = solutionName;
+        var projectName = $"{solutionName}.Api";
         
         var progResult = BuildProgramClass();
         if (progResult.IsError)

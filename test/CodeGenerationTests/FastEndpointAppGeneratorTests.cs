@@ -1,4 +1,6 @@
+using CodeGenerators;
 using CodeGenerators.Applications;
+using Rascal;
 using Shouldly;
 using Xunit;
 
@@ -9,27 +11,40 @@ public class FastEndpointAppGeneratorTests
     private string solutionName = "FastEndpoints";
     private string solutionOutputLocation = @"C:\Users\brady\projects\ApiGen\test-output";
     
+    private FastEndpointAppGenerator generator = new FastEndpointAppGenerator();
+
+    
     [Fact]
-    public void FeApiSolutionHasCorrectProjectModel()
+    public void FeApiSolutionHasApiProjectModel()
     {
-        var generator = new FastEndpointAppGenerator();
-
-        var solutionResult = generator.GenerateApiSolution(solutionName, solutionOutputLocation, writeFiles: false);
-
-        var solutionModel = solutionResult.Unwrap();
-        var projModel = solutionModel.ProjectModels.FirstOrDefault(p => p.ProjectName == solutionName);
+        var solutionModel = GenerateApiSolution();
+        
+        var projModel = solutionModel.ProjectModels.FirstOrDefault(p => p.ProjectName == $"{solutionName}.Api");
+        
         projModel.ShouldNotBeNull();
     }
     
     [Fact]
-    public void FeApiProjectModelHasCorrectPackageRefs()
+    public void FeApiProjectModelHasProgramFile()
     {
-        var generator = new FastEndpointAppGenerator();
+        var solutionModel = GenerateApiSolution();
+        
+        var projModel = GetApiProjectModel(solutionModel);
+        var progFile = projModel.CodeFileModels.FirstOrDefault(c => c.FileName == "Program");
+        progFile.ShouldNotBeNull();
+    }
 
+    private SolutionModel GenerateApiSolution()
+    {        
         var solutionResult = generator.GenerateApiSolution(solutionName, solutionOutputLocation, writeFiles: false);
+        solutionResult.IsOk.ShouldBeTrue($"Result of {nameof(FastEndpointAppGenerator.GenerateApiSolution)} is not OK");
+        return solutionResult.Unwrap();
+    }
 
-        var solutionModel = solutionResult.Unwrap();
-        var projText = solutionModel.ProjectModels[0].CodeFileModels[2].Content;
-
+    private ProjectModel GetApiProjectModel(SolutionModel solutionModel)
+    {
+        var projModel = solutionModel.ProjectModels.FirstOrDefault(p => p.ProjectName == $"{solutionName}.Api");
+        projModel.ShouldNotBeNull();
+        return projModel;
     }
 }
