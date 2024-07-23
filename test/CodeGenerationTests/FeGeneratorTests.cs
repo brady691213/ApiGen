@@ -20,6 +20,7 @@ public class FeGeneratorTests: IClassFixture<GeneratedSolutionFixture>
     // ReSharper disable once ConvertToPrimaryConstructor
     public FeGeneratorTests(GeneratedSolutionFixture solutionFixture)
     {
+        solutionFixture.RemoveGeneratedSolution = false;
         _solutionModel = solutionFixture.SolutionModel;
     }
 
@@ -33,7 +34,10 @@ public class FeGeneratorTests: IClassFixture<GeneratedSolutionFixture>
     [Fact]
     public void ApiProjectHasProgram()
     {
+        var project = GetApiProjectModel();
+        var program = project.CodeFileModels.FirstOrDefault(m => m.FileName == "Program");
         
+        program.ShouldNotBeNull();
     }
     
     [Fact]

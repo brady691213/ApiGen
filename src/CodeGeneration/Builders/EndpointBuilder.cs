@@ -51,8 +51,7 @@ public class EndpointBuilder
         epDec.IsClass = true;
         epDec.Members.Add(cfg);
         epDec.Members.Add(handle);
-
-
+        
         return epDec;
     }
 
@@ -81,6 +80,4 @@ public class EndpointBuilder
 
         return configure;
     }
-
-
 }
