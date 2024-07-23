@@ -7,15 +7,18 @@ namespace CodeGenerators.CodeDom;
 
 public class CodeElements
 {
-    public static CodeMemberProperty PropertyDec(Type type, string name)
+    public static CodeTypeMember[] PropertyDec(Type type, string name)
     {
+        var fieldName = $"_{name}";
+        CodeMemberField backing = new CodeMemberField(type.FullName, fieldName);
+
         CodeMemberProperty property1 = new CodeMemberProperty();
         property1.Name = name;
         property1.Type = new CodeTypeReference(type);
         property1.Attributes = MemberAttributes.Public;
-        property1.GetStatements.Add( new CodeMethodReturnStatement());
-        property1.SetStatements.Add( new CodeAssignStatement());
-        return property1;
+        property1.GetStatements.Add( new CodeMethodReturnStatement( new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), fieldName) ) );
+        property1.SetStatements.Add( new CodeAssignStatement( new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), fieldName), new CodePropertySetValueReferenceExpression()));
+        return [backing, property1];
     }
     
     /// <summary>

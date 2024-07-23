@@ -5,9 +5,9 @@ Builders for C# code rely on the Code Document Object Model, or [CodeDom](https:
 mechanism, and other builders, such as for projects, solutions, and other non-code artifacts, use [Scriban](https://github.com/scriban/scriban) 
 templates. 
 
-## Bugs
+## Goals
 
-
+- 15:00 - FE example endpoint running 
 
 ## API Code Elements
 
@@ -15,18 +15,16 @@ templates.
 
 ## Tasks - Now
 
+- TASKT: All codedom expression building done by my builders for testing
+- TASKT: Unit tests for all codedom expression/statement builders
 - TASKT: Replace hardcoding with parameters
-- TASKT: Do Endpoint
-- TASKT: Do MyResponse class
-- TASKT: User `Write` for all file ops and check names.
 - TASKT: Establish shared namespace for FE generator. Don't want to default to class name because many classes.
-- TASKT: Evaluate all log output for generating Hello.
-- TASKT: Check behaviour for exceptions with files etc.
-- TASKT: Check behavior for generic console app.
-  - Without hello in Main
-- TASKT: Hands test FE app.
 - BuildMainMethod, BuildProgramClass into a builder class.
 
+- Use list of ep/dto/entity etc.
+- TASKT: Introduce data service into api generation = no mapping/validation
+- TASKT: Check behaviour for exceptions with files etc.
+- TASKT: Evaluate all log output for generating Hello.
 - TASKT: Decide whether to make `System` a required or a default import for generating code.
 - TASKT: Do I attempt dir and file creation for dry runs?
 - TASKT: Group expression builders by type, e.g. properties, local variables etc.
@@ -39,6 +37,8 @@ templates.
 - Tests for builders and generators
 - Check all optional params - remove where uncertain.
 - Proofread MD and XML documentation. 
+- - TASKT: Check behavior for generic console app.  Without hello in Main
+
 
 - TASKT: Use entity types for ep and dto names and types.
 - TASKT: Currently logging as if files were created even for dry runs. Mark as different.

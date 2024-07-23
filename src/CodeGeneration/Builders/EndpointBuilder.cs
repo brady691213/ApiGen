@@ -35,7 +35,7 @@ public class EndpointBuilder
         return handle;
     }
     
-    public static CodeTypeDeclaration BuildEndpoint(string endpointName, string requestType, string responseType)
+    public static CodeTypeDeclaration BuildEndpointClass(string endpointName, string requestType, string responseType)
     {
         var baseType = new CodeTypeDeclaration("Endpoint");
         baseType.TypeParameters.Add(new CodeTypeParameter(requestType));

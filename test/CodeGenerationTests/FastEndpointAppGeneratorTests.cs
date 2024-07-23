@@ -42,6 +42,16 @@ public class FastEndpointAppGeneratorTests
         var progFile = projModel.CodeFileModels.FirstOrDefault(c => c.FileName == "MyRequest");
         progFile.ShouldNotBeNull();
     }
+    
+    [Fact]
+    public void ApiProjectModelHasResponseDtoFile()
+    {
+        var solutionModel = GenerateApiSolution();
+        
+        var projModel = GetApiProjectModel(solutionModel);
+        var progFile = projModel.CodeFileModels.FirstOrDefault(c => c.FileName == "MyResponse");
+        progFile.ShouldNotBeNull();
+    }
 
     private SolutionModel GenerateApiSolution()
     {        

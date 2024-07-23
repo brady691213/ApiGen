@@ -8,9 +8,9 @@ namespace CodeGenerators.Applications;
 
 public class FastEndpointAppGenerator
 {
-    private string templateName = "ProjectFile.csproj";
     private readonly ILogger _logger = Log.ForContext<FastEndpointAppGenerator>();
-
+    
+    private string templateName = "ProjectFile.csproj";
     private CodeDomSourceGenerator _generator = new();
     private ClassBuilder _builder = new();
 
@@ -28,7 +28,7 @@ public class FastEndpointAppGenerator
         // For now, we just use the solution name as a project name and path.
         var projectName = $"{solutionName}.Api";
         
-        var progResult = BuildProgramClass();
+        var progResult = GenerateProgramClass();
         if (progResult.IsError)
         {
             var msg = RascalErrors.ErrorMessage(progResult);
@@ -53,11 +53,12 @@ public class FastEndpointAppGenerator
         return slnResult;
     }
 
-    private Result<CodeFileModel> BuildProgramClass()
+    private Result<CodeFileModel> GenerateProgramClass()
     {
+        _logger.Verbose("Starting {GenerateOperation}", nameof(GenerateProgramClass));
+        
         var model = new ClassModel("Program");
         var main = BuildMainMethod();
-        
         model.Members.Add(main);
         
         var programClass = _builder.BuildTypeForClass(model);
@@ -66,11 +67,14 @@ public class FastEndpointAppGenerator
         ns.Types.Add(programClass);
         var code = _generator.GenerateCodeForType(programClass, usings: ["Microsoft.AspNetCore.Builder", "FastEndpoints"]);
 
+        _logger.Debug("Finished {GenerateOperation} with code {GeneratedCode}", nameof(GenerateProgramClass), code);
+        
         return code;
     }
     
     private CodeMemberMethod BuildMainMethod()
     {
+        _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildMainMethod));
         var builderVarName = "builder";
         var appVarName = "app";
         
@@ -85,35 +89,51 @@ public class FastEndpointAppGenerator
         var statements = new CodeStatementCollection { builderDec, addFastEndpoints, appDec, useFastEndpoints, run };
         
         var main = _builder.BuildMethodDec("Main", parameters, statements, MemberAttributes.Static | MemberAttributes.Public);
+        
+        _logger.Debug("Finished BuildOperation {BuildOperation} with code {GeneratedCode}", nameof(BuildMainMethod), main);
 
         return main;
     }
 
     private CodeFileModel BuildEndpoint()
     {
-        var endpoint = EndpointBuilder.BuildEndpoint("MyEndpoint", "MyRequest", "MyResponse");
+        _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildEndpoint));
+
+        var endpoint = EndpointBuilder.BuildEndpointClass("MyEndpoint", "MyRequest", "MyResponse");
         var code = _generator.GenerateCodeForType(endpoint);
+        
+        _logger.Debug("Finished BuildOperation {BuildOperation} with code {GeneratedCode}", nameof(BuildEndpoint), code);
+
         return code;
     }
 
     private CodeFileModel BuildResponseDto()
     {
+        _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildResponseDto));
+
         var model = new ClassModel("MyResponse");
-        model.Members.Add(CodeElements.PropertyDec(typeof(string), "FullName"));
-        model.Members.Add(CodeElements.PropertyDec(typeof(bool), "IsOver18"));
+        model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "FullName"));
+        model.Members.AddRange(CodeElements.PropertyDec(typeof(bool), "IsOver18"));
         var dto = _builder.BuildTypeForClass(model);
-        return _generator.GenerateCodeForType(dto);
+        var code = _generator.GenerateCodeForType(dto);
+        
+        _logger.Debug("Finished BuildOperation {BuildOperation} with code {GeneratedCode}", nameof(BuildResponseDto), code);
+
+        return code;
     }
     
     private CodeFileModel BuildRequestDto()
     {
+        _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildRequestDto));
+
         var model = new ClassModel("MyRequest");
-        model.Members.Add(CodeElements.PropertyDec(typeof(string), "FirstName"));
-        model.Members.Add(CodeElements.PropertyDec(typeof(string), "LastName"));
-        model.Members.Add(CodeElements.PropertyDec(typeof(int), "Age"));
+        model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "FirstName"));
+        model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "LastName"));
+        model.Members.AddRange(CodeElements.PropertyDec(typeof(int), "Age"));
         var dto = _builder.BuildTypeForClass(model);
-        return _generator.GenerateCodeForType(dto);
+        var code = _generator.GenerateCodeForType(dto);
+        
+        _logger.Debug("Finished BuildOperation {BuildOperation} with code {GeneratedCode}", nameof(BuildRequestDto), code);
+        return code;
     }
-
-
 }
