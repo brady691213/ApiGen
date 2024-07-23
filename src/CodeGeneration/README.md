@@ -7,7 +7,11 @@ templates.
 
 ## Bugs
 
+- No method name for HandleAsync
+- Initialise `resp` variable in HandleAsyn
 - Each test calls generate solution
+- Missing imports for FE ep and dtos
+- Bad namespaces: classname is used as ns name for dtos and endpoints
 
 ## Goals
 

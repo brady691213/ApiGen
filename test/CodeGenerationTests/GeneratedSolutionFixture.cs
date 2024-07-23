@@ -10,6 +10,9 @@ public class GeneratedSolutionFixture: IDisposable
     
     internal string SolutionName = "FastEndpoints";
     internal string SolutionOutputLocation = @"C:\Users\brady\projects\ApiGen\test-output";
+    
+    internal bool RemoveGeneratedSolution { get; set; }
+    
     internal SolutionModel SolutionModel { get; private set; }
 
     public GeneratedSolutionFixture()
@@ -25,6 +28,7 @@ public class GeneratedSolutionFixture: IDisposable
 
     private void DeleteSolutionDirectory()
     {
+        if (!RemoveGeneratedSolution) return;
         if (Directory.Exists(Path.Combine(SolutionOutputLocation, SolutionName)))
             Directory.Delete(Path.Combine(SolutionOutputLocation, SolutionName), recursive:true);
     }
