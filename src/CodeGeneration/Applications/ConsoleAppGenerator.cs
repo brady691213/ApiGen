@@ -43,16 +43,16 @@ public class ConsoleAppGenerator(ILogger logger)
         return solutionModel;
     }
     
-    private Result<CodeFileModel> GenerateProgramClass(string mainNamespace)
+    private Result<CodeArtifactModel> GenerateProgramClass(string mainNamespace)
     {
-        var classModel = new ClassModel("Program");
+        var classModel = new CodeArtifactModel("Program", "Program.cs");
 
         var helloStatement = BuildHelloWorldStatement();
         var mainResult = BuildMainMethod([helloStatement]);
         if (mainResult.IsError)
         {
             var msg = RascalErrors.ErrorMessage(mainResult);
-            return Err<CodeFileModel>($"Failed to build main method: {msg}");
+            return Err<CodeArtifactModel>($"Failed to build main method: {msg}");
         }
         var mainMethod = mainResult.Unwrap();
         

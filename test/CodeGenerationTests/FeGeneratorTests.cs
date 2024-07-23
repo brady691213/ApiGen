@@ -30,13 +30,20 @@ public class FeGeneratorTests: IClassFixture<GeneratedSolutionFixture>
         var projModel = _solutionModel.ProjectModels.FirstOrDefault(p => p.ProjectName == $"{SolutionName}.Api");
         projModel.ShouldNotBeNull();
     }
+    
+    [Fact]
+    public void ApiProjectModelHasProgramFile()
+    {
+        var projModel = GetApiProjectModel();
+        var progFile = projModel.CodeModels.FirstOrDefault(c => c.FileName == "Program.cs");
+        progFile.ShouldNotBeNull();
+    }
 
     [Fact]
-    public void ApiProjectHasProgram()
+    public void ApiProjectHasProgramFile()
     {
         var project = GetApiProjectModel();
-        var program = project.CodeFileModels.FirstOrDefault(m => m.FileName == "Program");
-        
+        var program = project.CodeModels.FirstOrDefault(m => m.FileName == "Program.cs");
         program.ShouldNotBeNull();
     }
     
@@ -44,25 +51,19 @@ public class FeGeneratorTests: IClassFixture<GeneratedSolutionFixture>
     public void ProgramNamespaceCorrect()
     {
         var project = GetApiProjectModel();
-        var program = project.CodeFileModels.FirstOrDefault(m => m.FileName == "Program");
+        var program = project.CodeModels.FirstOrDefault(m => m.FileName == "Program.cs");
         
         program.ShouldNotBeNull();
         program.Namespace.ShouldBe(apiNamespace);
     }
     
-    [Fact]
-    public void ApiProjectModelHasProgramFile()
-    {
-        var projModel = GetApiProjectModel();
-        var progFile = projModel.CodeFileModels.FirstOrDefault(c => c.FileName == "Program");
-        progFile.ShouldNotBeNull();
-    }
+
     
     [Fact]
     public void ApiProjectModelHasEndpoint()
     {
         var projModel = GetApiProjectModel();
-        var epFile = projModel.CodeFileModels.FirstOrDefault(c => c.FileName == "MyEndpoint");
+        var epFile = projModel.CodeModels.FirstOrDefault(c => c.FileName == "MyEndpoint.cs");
         epFile.ShouldNotBeNull();
     }
     
@@ -70,7 +71,7 @@ public class FeGeneratorTests: IClassFixture<GeneratedSolutionFixture>
     public void EndpointNamespaceCorrect()
     {
         var projModel = GetApiProjectModel();
-        var epFile = projModel.CodeFileModels.FirstOrDefault(c => c.FileName == "MyEndpoint");
+        var epFile = projModel.CodeModels.FirstOrDefault(c => c.FileName == "MyEndpoint.cs");
         epFile.ShouldNotBeNull();
         epFile.Namespace.ShouldBe(apiNamespace);
     }
@@ -79,7 +80,7 @@ public class FeGeneratorTests: IClassFixture<GeneratedSolutionFixture>
     public void ApiProjectModelHasRequestDtoFile()
     {
         var projModel = GetApiProjectModel();
-        var dtoFile = projModel.CodeFileModels.FirstOrDefault(c => c.FileName == "MyRequest");
+        var dtoFile = projModel.CodeModels.FirstOrDefault(c => c.FileName == "MyRequest.cs");
         dtoFile.ShouldNotBeNull();
     }
     
@@ -87,7 +88,7 @@ public class FeGeneratorTests: IClassFixture<GeneratedSolutionFixture>
     public void RequestDtoNamespaceCorrect()
     {
         var projModel = GetApiProjectModel();
-        var dtoFile = projModel.CodeFileModels.FirstOrDefault(c => c.FileName == "MyRequest");
+        var dtoFile = projModel.CodeModels.FirstOrDefault(c => c.FileName == "MyRequest.cs");
         dtoFile.ShouldNotBeNull();
         dtoFile.Namespace.ShouldBe(apiNamespace);
     }
@@ -96,7 +97,7 @@ public class FeGeneratorTests: IClassFixture<GeneratedSolutionFixture>
     public void ApiProjectModelHasResponseDtoFile()
     {
         var projModel = GetApiProjectModel();
-        var progFile = projModel.CodeFileModels.FirstOrDefault(c => c.FileName == "MyResponse");
+        var progFile = projModel.CodeModels.FirstOrDefault(c => c.FileName == "MyResponse.cs");
         progFile.ShouldNotBeNull();
     }
     
@@ -104,7 +105,7 @@ public class FeGeneratorTests: IClassFixture<GeneratedSolutionFixture>
     public void ResponseDtoNamespaceCorrect()
     {
         var projModel = GetApiProjectModel();
-        var dtoFile = projModel.CodeFileModels.FirstOrDefault(c => c.FileName == "MyResponse");
+        var dtoFile = projModel.CodeModels.FirstOrDefault(c => c.FileName == "MyResponse.cs");
         dtoFile.ShouldNotBeNull();
         dtoFile.Namespace.ShouldBe(apiNamespace);
     }

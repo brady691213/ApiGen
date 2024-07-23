@@ -1,12 +1,15 @@
 ﻿using System.CodeDom;
 using System.Reflection;
+using CodeGenerators.Models;
 
-namespace CodeGenerators.Models;
+namespace CodeGenerators;
 
 /// <summary>
-/// A facade that simplifies defining classes for building code with the <see cref="System.CodeDom"/> namespace.  
+/// Represents a source code file to be created as part of a project.
 /// </summary>
-public class CodeArtifactModel(string className)
+/// <param name="fileName">Name of the code file.</param>
+/// <param name="content">Source code content of the file.</param>
+public class CodeArtifactModel(string className, string fileName, string? codeNamespace = null)
 {
     /// <summary>
     /// Name for a class.
@@ -16,8 +19,8 @@ public class CodeArtifactModel(string className)
     /// <summary>
     /// Namespace that a class belongs to.
     /// </summary>
-    public string? ClassNamespace { get; set; } = null;
-
+    public string? Namespace { get; set; } = codeNamespace;
+    
     /// <summary>
     /// Namespaces required by a class. 
     /// </summary>
@@ -27,9 +30,13 @@ public class CodeArtifactModel(string className)
     /// because implicit usings depend on how this code is compiled.
     /// </remarks>
     public List<string> Imports { get; set; } = ["System"];
-
+    
     public CodeTypeMemberCollection Members { get; set; } = [];
     
     
     private TypeAttributes classAttributes = TypeAttributes.Public;
+    
+    public string FileName { get; set; } = fileName;
+
+    public string? Content { get; set; } 
 }

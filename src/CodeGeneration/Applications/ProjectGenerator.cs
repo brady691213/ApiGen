@@ -24,6 +24,7 @@ public class ProjectGenerator(ILogger logger)
             var msg = RascalErrors.ErrorMessage(pathResult);
             return Err<ProjectModel>($"Failed to render project file template: {msg}");
         }
+
         var projectPath = pathResult.Unwrap();
         logger.Debug("Created project directory at {ProjectPath}", projectPath);
 
@@ -34,6 +35,7 @@ public class ProjectGenerator(ILogger logger)
             var msg = RascalErrors.ErrorMessage(filesResult);
             return Err<ProjectModel>($"Failed to write source files: {msg}");
         }
+
         logger.Debug("Source files written to path: {ProjectPath}", projectPath);
 
         // Finally write the project file once all source files have been written.
@@ -43,22 +45,23 @@ public class ProjectGenerator(ILogger logger)
             var msg = RascalErrors.ErrorMessage(templateResult);
             return Err<ProjectModel>($"Failed to render project file template: {msg}");
         }
+
         var projectXml = templateResult.Unwrap();
-        
+
         var filePath = Path.Combine(projectPath, $"{model.ProjectName}.csproj");
         if (writeFiles)
         {
             File.WriteAllText(filePath, projectXml);
             // TASKT: Wrap in Try
         }
-        model.CodeFileModels.Add(new CodeFileModel("Project", projectXml, null));
+
+        model.CodeModels.Add(new CodeArtifactModel("Project", $"{model.ProjectName}.csproj"));
 
         logger.Debug("Created project file at {ProjectFilePath}", filePath);
         return Ok(model);
-        
     }
-    
-    private Result<string> EnsureProjectDirectory(ProjectModel model, string outputLocation, bool writeFiles) 
+
+    private Result<string> EnsureProjectDirectory(ProjectModel model, string outputLocation, bool writeFiles)
     {
         var projectPath = Path.Combine(outputLocation, model.ProjectName);
         if (writeFiles)
@@ -68,6 +71,7 @@ public class ProjectGenerator(ILogger logger)
                 return Err<string>(
                     $"Project output location {projectPath} already exists. `{nameof(model.ProjectName)}`  must specify a non-existent directory within {outputLocation}.");
             }
+
             return Try(() =>
             {
                 Directory.CreateDirectory(projectPath);
@@ -75,27 +79,28 @@ public class ProjectGenerator(ILogger logger)
                 return projectPath;
             });
         }
+
         return projectPath;
     }
 
     private Result<ProjectModel> WriteSourceFiles(ProjectModel model, string projectPath, bool writeFiles)
     {
-        if (writeFiles)
+        Try(() =>
         {
-            Try(() =>
+            foreach (var codeFile in model.CodeModels)
             {
-                foreach (var codeFile in model.CodeFileModels)
+                var codePath = Path.Combine(projectPath, $"{codeFile.FileName}.cs");
                 {
-                    var codePath = Path.Combine(projectPath, $"{codeFile.FileName}.cs");
+                    if (writeFiles)
                     {
                         File.WriteAllText(codePath, codeFile.Content);
                     }
-                    logger.Debug("Created code file at {CodeFilePath}", codePath);
-                    model.FilesCreated.Add(codePath);
                 }
-                return model;
-            });
-        }
+                logger.Debug("Code file create invoked for {CodeFilePath} with {FileContent}", codePath, codeFile.Content);
+                model.FilesCreated.Add(codePath);
+            }
+            return model;
+        });
         // TASKT: Look at returning something better here.
         return model;
     }
@@ -111,12 +116,13 @@ public class ProjectGenerator(ILogger logger)
             var msg = RascalErrors.ErrorMessage(result);
             return Err<string>(msg);
         }
+
         var text = result.Unwrap();
 
         return Try(() =>
         {
             // ReSharper disable once ConvertToLambdaExpression
-            var prj =  text.Render(new { model = model });
+            var prj = text.Render(new { model = model });
             logger.Verbose("Project template {TemplateName} rendered as {TemplateText}", model.TemplateName, prj);
             return prj;
         });

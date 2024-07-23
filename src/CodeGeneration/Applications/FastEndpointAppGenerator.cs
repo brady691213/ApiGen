@@ -53,11 +53,11 @@ public class FastEndpointAppGenerator
         return slnResult;
     }
 
-    private Result<CodeFileModel> GenerateProgramClass(string apiNamespace)
+    private Result<CodeArtifactModel> GenerateProgramClass(string apiNamespace)
     {
         _logger.Verbose("Starting {GenerateOperation}", nameof(GenerateProgramClass));
         
-        var model = new ClassModel("Program");
+        var model = new CodeArtifactModel("Program", "Program.cs", apiNamespace);
         var main = BuildMainMethod();
         model.Members.Add(main);
         
@@ -95,7 +95,7 @@ public class FastEndpointAppGenerator
         return main;
     }
 
-    private CodeFileModel BuildEndpoint(string epNamespace)
+    private CodeArtifactModel BuildEndpoint(string epNamespace)
     {
         _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildEndpoint));
 
@@ -107,11 +107,11 @@ public class FastEndpointAppGenerator
         return code;
     }
 
-    private CodeFileModel BuildResponseDto(string dtoNamespace)
+    private CodeArtifactModel BuildResponseDto(string dtoNamespace)
     {
         _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildResponseDto));
 
-        var model = new ClassModel("MyResponse");
+        var model = new CodeArtifactModel("MyResponse", "MyResponse.cs");
         model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "FullName"));
         model.Members.AddRange(CodeElements.PropertyDec(typeof(bool), "IsOver18"));
         var dto = _builder.BuildTypeForClass(model);
@@ -122,11 +122,11 @@ public class FastEndpointAppGenerator
         return code;
     }
     
-    private CodeFileModel BuildRequestDto(string dtoNamespace)
+    private CodeArtifactModel BuildRequestDto(string dtoNamespace)
     {
         _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildRequestDto));
 
-        var model = new ClassModel("MyRequest");
+        var model = new CodeArtifactModel("MyRequest", "MyRequest.cs");
         model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "FirstName"));
         model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "LastName"));
         model.Members.AddRange(CodeElements.PropertyDec(typeof(int), "Age"));

@@ -21,7 +21,7 @@ public class CodeDomSourceGenerator
     /// <summary>
     /// Generates C# code for a <see cref="CodeTypeDeclaration"/>.
     /// </summary>
-    public CodeFileModel GenerateCodeForType(CodeTypeDeclaration classType, string? namespaceName = null, List<string>? usings =  null)
+    public CodeArtifactModel GenerateCodeForType(CodeTypeDeclaration classType, string? namespaceName = null, List<string>? usings =  null)
     {
         var compileUnit = new CodeCompileUnit();
         var compileNamespace = namespaceName ?? classType.Name;
@@ -31,7 +31,9 @@ public class CodeDomSourceGenerator
         
         using var sourceWriter = new StringWriter();
         _provider.GenerateCodeFromCompileUnit(compileUnit, sourceWriter, _generatorOptions);
-        return new CodeFileModel(classType.Name, sourceWriter.ToString(), compileNamespace);
+        var code = new CodeArtifactModel(classType.Name, $"{classType.Name}.cs", compileNamespace);
+        code.Content = sourceWriter.ToString();
+        return code;
     }
 
     /// <summary>

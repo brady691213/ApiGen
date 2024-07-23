@@ -13,7 +13,7 @@ public class ClassBuilder
     /// <summary>
     /// Builds a <see cref="CodeTypeDeclaration"/> for a C# class.
     /// </summary>
-    public CodeTypeDeclaration BuildTypeForClass(ClassModel model, TypeAttributes classAttributes = TypeAttributes.Public)
+    public CodeTypeDeclaration BuildTypeForClass(CodeArtifactModel model, TypeAttributes classAttributes = TypeAttributes.Public)
     {
         var outClass = new CodeTypeDeclaration(model.ClassName)
         {

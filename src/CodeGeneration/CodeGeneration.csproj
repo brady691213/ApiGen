@@ -27,4 +27,10 @@
       </Reference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Models\ClassModel.cs" />
+      <Compile Remove="Builders\DtoBuilder.cs" />
+      <Compile Remove="TypeBuilder.cs" />
+    </ItemGroup>
+
 </Project>
