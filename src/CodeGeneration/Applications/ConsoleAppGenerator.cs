@@ -17,7 +17,7 @@ public class ConsoleAppGenerator()
     /// <summary>
     /// Build a console application that prints "Hello, World!" from the `Main` entry point in class `Program`.
     /// </summary>
-    public Result<SolutionModel> GenerateHelloWorldSolution(string solutionName, string outputDirectory, bool dryRun = false)
+    public Result<SolutionModel> GenerateHelloWorldSolution(string solutionName, string outputDirectory, bool writeFiles = false)
     {
         var projectName = $"{solutionName}.Api";
         var programResult = GenerateProgramClass(projectName);
@@ -32,7 +32,7 @@ public class ConsoleAppGenerator()
 
         var solutionGenerator = new SolutionGenerator(_logger);
         var solutionModel = new SolutionModel(solutionName, [projectModel]);
-        var result = solutionGenerator.GenerateSolution(solutionModel, outputDirectory, dryRun);
+        var result = solutionGenerator.GenerateSolution(solutionModel, outputDirectory, writeFiles);
 
         if (result.IsError)
         {

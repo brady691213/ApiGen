@@ -7,13 +7,14 @@ namespace CodeGenerators.Applications;
 public class SolutionGenerator(ILogger logger)
 {
     private const string TemplateName = "SolutionFile.sln";
-    
+
     /// <summary>
     /// Create a .NET solution file and directory.
     /// </summary>
     /// <param name="model">Model tha defines the solution to create.</param>
     /// <param name="outputLocation">Location to place the generated output. If not specified, the current directory will be used.</param>
     /// <param name="projectModels">Collection of models defining the projects to include in the solution.</param>
+    /// <param name="writeFiles"></param>
     public Result<SolutionModel> GenerateSolution(SolutionModel model, string outputLocation, bool writeFiles)
     {
         logger.Information("Generating solution {SolutionName} at location {OutputLocation}", model.Name,

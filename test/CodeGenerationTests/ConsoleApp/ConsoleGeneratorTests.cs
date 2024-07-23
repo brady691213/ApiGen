@@ -53,8 +53,8 @@ public class ConsoleGeneratorTests : IClassFixture<ConsoleSolutionFixture>
     {
         var generator = new ConsoleAppGenerator();
         
-        // Fixture has already created at outpyt location so this call must return error.
-        var genResult = generator.GenerateHelloWorldSolution(SolutionName, FixtureSolutionOutput);
+        // Fixture has already created at output location so this call must return error.
+        var genResult = generator.GenerateHelloWorldSolution(SolutionName, FixtureSolutionOutput, writeFiles:true);
         
         genResult.IsError.ShouldBeTrue();
     }
