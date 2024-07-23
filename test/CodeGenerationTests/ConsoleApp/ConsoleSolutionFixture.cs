@@ -24,13 +24,12 @@ public class ConsoleSolutionFixture: IDisposable
         var solutionResult = _generator.GenerateHelloWorldSolution(SolutionName, SolutionOutputLocation, dryRun: !WriteFiles);
         if (!solutionResult.IsOk)
             throw new TestClassException("Solution not generated");
-        //solutionResult.IsOk.ShouldBeTrue($"Result of {nameof(FastEndpointAppGenerator.GenerateApiSolution)} is not OK");
         return solutionResult.Unwrap();
     }
     
     public void Dispose()
     {
-        // TODO release managed resources here
+        DeleteSolutionDirectory();
     }
     
     private void DeleteSolutionDirectory()

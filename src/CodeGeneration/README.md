@@ -7,7 +7,7 @@ templates.
 
 ## Bugs
 
-- TASKB: Console main project model has no code models.
+- TASKB: Console solution crosses dry-run with writeFiles so won't write files when dry-run is false.
 
 ## Goals
 

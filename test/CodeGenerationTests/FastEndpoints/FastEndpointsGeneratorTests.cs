@@ -27,14 +27,6 @@ public class FastEndpointsGeneratorTests: IClassFixture<FastEndpointsSolutionFix
         var projModel = _solutionModel.ProjectModels.FirstOrDefault(p => p.ProjectName == $"{SolutionName}.Api");
         projModel.ShouldNotBeNull();
     }
-    
-    [Fact]
-    public void ApiProjectModelHasProgramFile()
-    {
-        var projModel = GetApiProjectModel();
-        var progFile = projModel.CodeModels.FirstOrDefault(c => c.FileName == "Program.cs");
-        progFile.ShouldNotBeNull();
-    }
 
     [Fact]
     public void ApiProjectHasProgramFile()
