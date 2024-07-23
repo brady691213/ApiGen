@@ -45,7 +45,7 @@ public class ConsoleAppGenerator(ILogger logger)
     
     private Result<CodeArtifactModel> GenerateProgramClass(string mainNamespace)
     {
-        var classModel = new CodeArtifactModel("Program", "Program.cs");
+        var classModel = new CodeArtifactModel("Program", mainNamespace);
 
         var helloStatement = BuildHelloWorldStatement();
         var mainResult = BuildMainMethod([helloStatement]);

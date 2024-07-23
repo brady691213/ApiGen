@@ -31,7 +31,7 @@ public class CodeDomSourceGenerator
         
         using var sourceWriter = new StringWriter();
         _provider.GenerateCodeFromCompileUnit(compileUnit, sourceWriter, _generatorOptions);
-        var code = new CodeArtifactModel(classType.Name, $"{classType.Name}.cs", compileNamespace);
+        var code = new CodeArtifactModel(classType.Name, compileNamespace);
         code.Content = sourceWriter.ToString();
         return code;
     }

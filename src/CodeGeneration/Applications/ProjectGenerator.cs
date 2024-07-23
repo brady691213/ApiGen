@@ -55,7 +55,7 @@ public class ProjectGenerator(ILogger logger)
             // TASKT: Wrap in Try
         }
 
-        model.CodeModels.Add(new CodeArtifactModel("Project", $"{model.ProjectName}.csproj"));
+        model.CodeModels.Add(new CodeArtifactModel("Project", fileName: $"{model.ProjectName}.csproj"));
 
         logger.Debug("Created project file at {ProjectFilePath}", filePath);
         return Ok(model);

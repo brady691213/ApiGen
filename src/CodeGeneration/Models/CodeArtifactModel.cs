@@ -9,7 +9,7 @@ namespace CodeGenerators;
 /// </summary>
 /// <param name="fileName">Name of the code file.</param>
 /// <param name="content">Source code content of the file.</param>
-public class CodeArtifactModel(string className, string fileName, string? codeNamespace = null)
+public class CodeArtifactModel(string className, string? codeNamespace = null, string? fileName = null)
 {
     /// <summary>
     /// Name for a class.
@@ -35,8 +35,8 @@ public class CodeArtifactModel(string className, string fileName, string? codeNa
     
     
     private TypeAttributes classAttributes = TypeAttributes.Public;
-    
-    public string FileName { get; set; } = fileName;
+
+    public string FileName { get; set; } = fileName ?? $"{className}.cs";
 
     public string? Content { get; set; } 
 }

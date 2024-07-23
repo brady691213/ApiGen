@@ -30,21 +30,17 @@ templates.
 - TASKT: Separate Build and Generate on solutions and projects. Better testing.
 - TASKT: Some comments in generated code.
 - TASKT: Some blank lines in generated code. 
-- TASKT: Merge `CodeFileModel` and `ClassModel` + other type models
 - TASKT: Establish features, namespace per feature
-- Use list of ep/dto/entity etc.
+- TASKT: Use list of ep/dto/entity etc.
 - TASKT: Introduce data service into api generation = no mapping/validation
 - TASKT: Check behaviour for exceptions with files etc.
-- TASKT: Evaluate all log output for generating Hello.
+- TASKT: Evaluate all log output for generating Hello + Fe
 - TASKT: Decide whether to make `System` a required or a default import for generating code.
 - TASKT: Do I attempt dir and file creation for dry runs?
 - TASKT: Group expression builders by type, e.g. properties, local variables etc.
 - TASKT: Start on Class Library
 - Use Rascal Errors more.
 - Use statics where OK
-- Don't use namespaces as containers, rather use a shared namespace name and generate code for classes etc.
-- Merge `CodeFileModel` and `ClassModel`
-- Merge `TypeBuiler` and `ClassBuilder`
 - Tests for builders and generators
 - Check all optional params - remove where uncertain.
 - Proofread MD and XML documentation. 

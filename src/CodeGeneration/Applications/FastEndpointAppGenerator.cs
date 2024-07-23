@@ -57,7 +57,7 @@ public class FastEndpointAppGenerator
     {
         _logger.Verbose("Starting {GenerateOperation}", nameof(GenerateProgramClass));
         
-        var model = new CodeArtifactModel("Program", "Program.cs", apiNamespace);
+        var model = new CodeArtifactModel("Program", apiNamespace);
         var main = BuildMainMethod();
         model.Members.Add(main);
         
@@ -111,7 +111,7 @@ public class FastEndpointAppGenerator
     {
         _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildResponseDto));
 
-        var model = new CodeArtifactModel("MyResponse", "MyResponse.cs");
+        var model = new CodeArtifactModel("MyResponse", dtoNamespace);
         model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "FullName"));
         model.Members.AddRange(CodeElements.PropertyDec(typeof(bool), "IsOver18"));
         var dto = _builder.BuildTypeForClass(model);
@@ -126,7 +126,7 @@ public class FastEndpointAppGenerator
     {
         _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildRequestDto));
 
-        var model = new CodeArtifactModel("MyRequest", "MyRequest.cs");
+        var model = new CodeArtifactModel("MyRequest", dtoNamespace);
         model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "FirstName"));
         model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "LastName"));
         model.Members.AddRange(CodeElements.PropertyDec(typeof(int), "Age"));
