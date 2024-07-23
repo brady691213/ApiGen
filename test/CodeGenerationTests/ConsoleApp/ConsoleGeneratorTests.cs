@@ -10,7 +10,6 @@ public class ConsoleGeneratorTests: IClassFixture<ConsoleSolutionFixture>
     private const string SolutionName = "HelloWorld";
     private string MainProjectName = $"{SolutionName}.Console";
     private const string SolutionOutputLocation = @"C:\Users\brady\projects\ApiGen\test-output";
-    private const string ApiNamespace = SolutionName;
     
     private readonly SolutionModel _solutionModel;
 
@@ -33,6 +32,17 @@ public class ConsoleGeneratorTests: IClassFixture<ConsoleSolutionFixture>
         var projModel = GetMainProjectModel();
         var progFile = projModel.CodeModels.FirstOrDefault(c => c.FileName == "Program.cs");
         progFile.ShouldNotBeNull();
+    }
+    
+    [Fact]
+    public void ProgramNamespaceCorrect()
+    {
+        var project = GetMainProjectModel();
+        var program = project.CodeModels.FirstOrDefault(m => m.FileName == "Program.cs");
+        
+        program.ShouldNotBeNull();
+        // Here the namespace is simply the same as the main project.
+        program.Namespace.ShouldBe(MainProjectName);
     }
     
     private ProjectModel GetMainProjectModel()

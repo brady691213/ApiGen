@@ -54,8 +54,6 @@ public class FastEndpointsGeneratorTests: IClassFixture<FastEndpointsSolutionFix
         program.Namespace.ShouldBe(apiNamespace);
     }
     
-
-    
     [Fact]
     public void ApiProjectModelHasEndpoint()
     {

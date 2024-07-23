@@ -19,7 +19,8 @@ public class ConsoleAppGenerator()
     /// </summary>
     public Result<SolutionModel> GenerateHelloWorldSolution(string solutionName, string outputDirectory, bool dryRun = false)
     {
-        var programResult = GenerateProgramClass(solutionName);
+        var projectName = $"{solutionName}.Api";
+        var programResult = GenerateProgramClass(projectName);
         if (programResult.IsError)
         {
             var msg = RascalErrors.ErrorMessage(programResult);

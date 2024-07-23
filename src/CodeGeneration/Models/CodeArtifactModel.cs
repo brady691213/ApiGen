@@ -1,8 +1,7 @@
 ﻿using System.CodeDom;
 using System.Reflection;
-using CodeGenerators.Models;
 
-namespace CodeGenerators;
+namespace CodeGenerators.Models;
 
 /// <summary>
 /// Represents a source code file to be created as part of a project.
