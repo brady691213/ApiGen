@@ -6,9 +6,9 @@ namespace CodeGenerators.Builders;
 
 public class EndpointBuilder
 {
-    private ClassBuilder _builder = new();
+    private static ClassBuilder _builder = new();
 
-    private CodeMemberMethod BuildHandleAsyncMethod(string requestType, string responseType)
+    private static CodeMemberMethod BuildHandleAsyncMethod(string requestType, string responseType)
     {
         var req = new CodeParameterDeclarationExpression(requestType, "req");
         var ct = new CodeParameterDeclarationExpression(typeof(CancellationToken), "ct");
@@ -26,6 +26,8 @@ public class EndpointBuilder
             Attributes = MemberAttributes.Override | MemberAttributes.Public,
             ReturnType = new CodeTypeReference($"async {typeof(Task)}")
         };
+        handle.Parameters.Add(req);
+        handle.Parameters.Add(ct);
         handle.Statements.Add(respDec);
         handle.Statements.Add(respAss);
         handle.Statements.Add(send);
@@ -33,43 +35,27 @@ public class EndpointBuilder
         return handle;
     }
     
-    private CodeFileModel BuildEndpoint(string endpointName, string requestType, string responseType)
+    public static CodeTypeDeclaration BuildEndpoint(string endpointName, string requestType, string responseType)
     {
         var baseType = new CodeTypeDeclaration("Endpoint");
         baseType.TypeParameters.Add(new CodeTypeParameter(requestType));
         baseType.TypeParameters.Add(new CodeTypeParameter(responseType));
 
         var cfg = BuildConfigureMethod("/api/user/create");
+        var handle = BuildHandleAsyncMethod(requestType, responseType);
+
+        var epDec = new CodeTypeDeclaration(endpointName);
+        var bt = new CodeTypeReference("Endpoint<MyRequest, MyResponse>");
+        epDec.BaseTypes.Add(bt);
+        epDec.IsClass = true;
+        epDec.Members.Add(cfg);
+        epDec.Members.Add(handle);
 
 
-
-
-
- 
-
-        var code = """
-                   public class MyEndpoint : Endpoint<MyRequest, MyResponse>
-                   {
-                       public override void Configure()
-                       {
-                           Post("/api/user/create");
-                           AllowAnonymous();
-                       }
-                   
-                       public override async Task HandleAsync(MyRequest req, CancellationToken ct)
-                       {
-                           await SendAsync(new()
-                           {
-                               FullName = req.FirstName + " " + req.LastName,
-                               IsOver18 = req.Age > 18
-                           });
-                       }
-                   }
-                   """;
-        return new CodeFileModel("MyEndpoint", code);
+        return epDec;
     }
 
-    private CodeMethodInvokeExpression FullNameFromReq(CodeArgumentReferenceExpression reqArg)
+    private static CodeMethodInvokeExpression FullNameFromReq(CodeArgumentReferenceExpression reqArg)
     {
         var full = CodeElements.BuildMethodCallExpression(
             typeof(string),
@@ -83,7 +69,7 @@ public class EndpointBuilder
         return full;
     }
     
-    private CodeMemberMethod BuildConfigureMethod(string routePattern)
+    private static CodeMemberMethod BuildConfigureMethod(string routePattern)
     {
         var route = new CodePrimitiveExpression(routePattern);
         var post = CodeElements.BuildMethodCallExpression("Post", [route]);

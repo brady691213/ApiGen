@@ -38,9 +38,9 @@ public class FastEndpointAppGenerator
         
         var request = BuildRequestDto();
         var response = BuildResponseDto();
-        //var endpoint = BuildEndpoint();
+        var endpoint = BuildEndpoint();
         
-        var projectModel = new ProjectModel(projectName, templateName, [progModel, request, response]);
+        var projectModel = new ProjectModel(projectName, templateName, [progModel, endpoint]);//, request, response]);
         projectModel.PackageReferences.Add(new PackageReferenceModel("FastEndpoints", "5.27.0.12-beta"));
         projectModel.PackageReferences.Add(new PackageReferenceModel("Microsoft.AspNetCore.OpenApi", "8.0.7"));
         projectModel.PackageReferences.Add(new PackageReferenceModel("Swashbuckle.AspNetCore", "6.4.0"));
@@ -87,6 +87,13 @@ public class FastEndpointAppGenerator
         var main = _builder.BuildMethodDec("Main", parameters, statements, MemberAttributes.Static | MemberAttributes.Public);
 
         return main;
+    }
+
+    private CodeFileModel BuildEndpoint()
+    {
+        var endpoint = EndpointBuilder.BuildEndpoint("MyEndpoint", "MyRequest", "MyResponse");
+        var code = _generator.GenerateCodeForType(endpoint);
+        return code;
     }
 
     private CodeFileModel BuildResponseDto()
