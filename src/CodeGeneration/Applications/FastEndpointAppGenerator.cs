@@ -37,8 +37,10 @@ public class FastEndpointAppGenerator
         var progModel = progResult.Unwrap();
         
         var request = BuildRequestDto();
+        var response = BuildResponseDto();
+        //var endpoint = BuildEndpoint();
         
-        var projectModel = new ProjectModel(projectName, templateName, [progModel, request]);
+        var projectModel = new ProjectModel(projectName, templateName, [progModel, request, response]);
         projectModel.PackageReferences.Add(new PackageReferenceModel("FastEndpoints", "5.27.0.12-beta"));
         projectModel.PackageReferences.Add(new PackageReferenceModel("Microsoft.AspNetCore.OpenApi", "8.0.7"));
         projectModel.PackageReferences.Add(new PackageReferenceModel("Swashbuckle.AspNetCore", "6.4.0"));
@@ -76,8 +78,8 @@ public class FastEndpointAppGenerator
         var addFastEndpoints = CodeElements.InvokeServiceCollectionMethod(builderVarName,"AddFastEndpoints");
         
         var appDec = CodeDom.CodeElements.InitAppVar(appVarName, builderVarName);
-        var useFastEndpoints = CodeElements.GetMethodInvocation(appVarName, "UseFastEndpoints");
-        var run = CodeElements.GetMethodInvocation(appVarName, "Run");
+        var useFastEndpoints = CodeElements.GetMethodInvocation(appVarName, "UseFastEndpoints", []);
+        var run = CodeElements.GetMethodInvocation(appVarName, "Run", []);
 
         ParameterModel[] parameters = [new ParameterModel(typeof(string[]), "args")];
         var statements = new CodeStatementCollection { builderDec, addFastEndpoints, appDec, useFastEndpoints, run };
@@ -86,17 +88,25 @@ public class FastEndpointAppGenerator
 
         return main;
     }
+
+    private CodeFileModel BuildResponseDto()
+    {
+        var model = new ClassModel("MyResponse");
+        model.Members.Add(CodeElements.PropertyDec(typeof(string), "FullName"));
+        model.Members.Add(CodeElements.PropertyDec(typeof(bool), "IsOver18"));
+        var dto = _builder.BuildTypeForClass(model);
+        return _generator.GenerateCodeForType(dto);
+    }
     
     private CodeFileModel BuildRequestDto()
     {
-        var code = """
-                   public class MyRequest
-                   {
-                       public string FirstName { get; set; }
-                       public string LastName { get; set; }
-                       public int Age { get; set; }
-                   }
-                   """;
-        return new CodeFileModel("MyRequest", code);
+        var model = new ClassModel("MyRequest");
+        model.Members.Add(CodeElements.PropertyDec(typeof(string), "FirstName"));
+        model.Members.Add(CodeElements.PropertyDec(typeof(string), "LastName"));
+        model.Members.Add(CodeElements.PropertyDec(typeof(int), "Age"));
+        var dto = _builder.BuildTypeForClass(model);
+        return _generator.GenerateCodeForType(dto);
     }
+
+
 }

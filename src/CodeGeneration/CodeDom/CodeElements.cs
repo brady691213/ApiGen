@@ -1,11 +1,23 @@
 ﻿using System.CodeDom;
 using System.Reflection;
+using CodeGenerators.Models;
 using Microsoft.AspNetCore.Builder;
 
 namespace CodeGenerators.CodeDom;
 
 public class CodeElements
 {
+    public static CodeMemberProperty PropertyDec(Type type, string name)
+    {
+        CodeMemberProperty property1 = new CodeMemberProperty();
+        property1.Name = name;
+        property1.Type = new CodeTypeReference(type);
+        property1.Attributes = MemberAttributes.Public;
+        property1.GetStatements.Add( new CodeMethodReturnStatement());
+        property1.SetStatements.Add( new CodeAssignStatement());
+        return property1;
+    }
+    
     /// <summary>
     /// Builds a declaration statement for a WebApplicationBuilder.
     /// </summary>
@@ -51,7 +63,7 @@ public class CodeElements
     /// <param name="targetVariable">Name of a variable that holds a reference to the object on which to call method <paramref name="methodName"/> </param>
     /// <param name="methodName">Name of a method to call on an object referenced by variable <paramref name="targetVariable"/> </param>.
     /// .
-    public static CodeMethodInvokeExpression GetMethodInvocation(string targetVariable, string methodName)
+    public static CodeMethodInvokeExpression GetMethodInvocation(string targetVariable, string methodName, List<ParameterModel> parameters)
     {
         var variableExprression = GetWebApplicationExpression(targetVariable);
         var mxs = new CodeMethodInvokeExpression(variableExprression, methodName);
@@ -111,6 +123,15 @@ public class CodeElements
     {
         var call = new CodeMethodInvokeExpression(
             targetObject, 
+            methodName,
+            parameters);
+        return call;
+    }
+
+    public static CodeMethodInvokeExpression BuildMethodCallExpression(string methodName, CodeExpression[] parameters)
+    {
+        var call = new CodeMethodInvokeExpression(
+            new CodeThisReferenceExpression(), 
             methodName,
             parameters);
         return call;

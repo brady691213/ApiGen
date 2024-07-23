@@ -7,15 +7,16 @@ templates.
 
 ## Bugs
 
-- TASKT: Package refs in FE project file have no values.
-- RenderRemplate was returning Content by default.
 
-## Targets
 
-- 19:00 - FastEndpoints generating with request DTO and response DTO.
+## API Code Elements
+
+- Delegate response value to some sort of service and mapper.
 
 ## Tasks - Now
 
+- TASKT: Do Endpoint
+- TASKT: Do MyResponse class
 - TASKT: User `Write` for all file ops and check names.
 - TASKT: Establish shared namespace for FE generator. Don't want to default to class name because many classes.
 - TASKT: Evaluate all log output for generating Hello.

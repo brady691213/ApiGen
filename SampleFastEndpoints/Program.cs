@@ -1,4 +1,5 @@
 using FastEndpoints;
+using Microsoft.AspNetCore.Builder;
 
 var bld = WebApplication.CreateBuilder();
 bld.Services.AddFastEndpoints();

@@ -37,10 +37,7 @@ public class ClassBuilder
             Name = methodName,
             Attributes = methodAttributes
         };
-        var paramExpressions = parameters
-            .Select(p => new CodeParameterDeclarationExpression(p.Type, p.Name))
-            .ToArray();
-        method.Parameters.AddRange(paramExpressions);
+
         method.Statements.AddRange(statements);
 
         return method;
