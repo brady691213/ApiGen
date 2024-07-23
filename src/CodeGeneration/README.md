@@ -19,14 +19,18 @@ templates.
 
 ## Tasks - Now
 
+- TASKT: Property decs are always virtual
+- TASKT: All codedom expression building done by my builders for testing
+- TASKT: Tests for errors - like bad output location etc.
 - TASKT: Avoid passing class name and filename to models.
 - TASKT: Use  CodeArtifactModel as input for code generators.
 - TASKT: Use CodeArtifactModel for Result returns for feedback on generate tasks
-- TASKT: All codedom expression building done by my builders for testing
 - TASKT: Unit tests for all codedom expression/statement builders
 - TASKT: Replace hardcoding with parameters
 - 
 
+- TASKT: Use `CodeSnippetTypeMember` for auto-props.
+- TASKT: Look at visibility, mayeb too many publics
 - TASKT: Separate Build and Generate on solutions and projects. Better testing.
 - TASKT: Some comments in generated code.
 - TASKT: Some blank lines in generated code. 

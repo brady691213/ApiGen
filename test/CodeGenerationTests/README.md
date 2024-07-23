@@ -1,6 +1,7 @@
 ﻿# Integration Tests for Code Generation
 
 
-## Tasks
+## Tasks - Unit Tests
 
+- TASKT: PropertyDecs default to non-virtual (I assume `Final`) without `IsVirtual` parameter.
 - TASKT: Use config value to determine whether to write solution files, and whether to delete files in cleanup.

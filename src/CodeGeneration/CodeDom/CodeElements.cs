@@ -7,22 +7,35 @@ namespace CodeGenerators.CodeDom;
 
 public class CodeElements
 {
-    public static CodeTypeMember[] PropertyDec(Type type, string name)
+    /// <summary>
+    /// Builds a long form property declaration.
+    /// </summary>
+    /// <returns>
+    /// A <see cref="CodeMemberField"/> for the property's backing field
+    /// and a <see cref="CodeMemberProperty"/> with explicit <c>get</c> and <c>set</c> accessors.
+    /// </returns>
+    public static CodeTypeMember[] PropertyDec(Type type, string name, bool isVirtual = false)
     {
         var fieldName = $"_{name}";
-        CodeMemberField backing = new CodeMemberField(type.FullName, fieldName);
+        var backing = new CodeMemberField(type.FullName, fieldName);
 
-        CodeMemberProperty property1 = new CodeMemberProperty();
-        property1.Name = name;
-        property1.Type = new CodeTypeReference(type);
-        property1.Attributes = MemberAttributes.Public;
-        property1.GetStatements.Add( new CodeMethodReturnStatement( new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), fieldName) ) );
-        property1.SetStatements.Add( new CodeAssignStatement( new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), fieldName), new CodePropertySetValueReferenceExpression()));
-        return [backing, property1];
+        var prop = new CodeMemberProperty();
+        prop.Name = name;
+        prop.Type = new CodeTypeReference(type);
+        
+        // Default to final and only make virtual if needed.
+        prop.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+        if (isVirtual)
+        {
+            prop.Attributes &= ~MemberAttributes.Final;
+        }
+        prop.GetStatements.Add( new CodeMethodReturnStatement( new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), fieldName) ) );
+        prop.SetStatements.Add( new CodeAssignStatement( new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), fieldName), new CodePropertySetValueReferenceExpression()));
+        return [backing, prop];
     }
     
     /// <summary>
-    /// Builds a declaration statement for a WebApplicationBuilder.
+    /// Builds a <c>WebApplicationBuilder</c> typed variable declaration named <c><paramref name="builderName"/></c>
     /// </summary>
     public static CodeVariableDeclarationStatement WebAppBuilderDec(string builderName)
     {
@@ -42,7 +55,7 @@ public class CodeElements
     }
     
     /// <summary>
-    /// Builds an invocation expression for a given method on the <c>Services</c> property of a <c>WebApplicationBuilder</c>.
+    /// Builds an expression for calling method <paramref name="methodName"/> on variable <paramref name="builderVar"/>.
     /// </summary>
     public static CodeMethodInvokeExpression InvokeServiceCollectionMethod(string builderVar, string methodName)
     {
@@ -68,8 +81,8 @@ public class CodeElements
     /// .
     public static CodeMethodInvokeExpression GetMethodInvocation(string targetVariable, string methodName, List<ParameterModel> parameters)
     {
-        var variableExprression = GetWebApplicationExpression(targetVariable);
-        var mxs = new CodeMethodInvokeExpression(variableExprression, methodName);
+        var variableExpression = GetWebApplicationExpression(targetVariable);
+        var mxs = new CodeMethodInvokeExpression(variableExpression, methodName);
         return mxs;
     }
     
