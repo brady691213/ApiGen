@@ -55,6 +55,7 @@ public class EndpointBuilder
         return epDec;
     }
 
+    // TASKT: Factor out to type builder
     private static CodeMethodInvokeExpression FullNameFromReq(CodeArgumentReferenceExpression reqArg)
     {
         var full = CodeElements.BuildMethodCallExpression(

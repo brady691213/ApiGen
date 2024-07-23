@@ -12,10 +12,8 @@ public class MyEndpoint : Endpoint<MyRequest, MyResponse>
 
     public override async Task HandleAsync(MyRequest req, CancellationToken ct)
     {
-        MyResponse resp = new()
-        {
-            FullName = req.FirstName + " " + req.LastName
-        };
+        MyResponse resp = new();
+        resp.FullName = req.FirstName + " " + req.LastName;
         await SendAsync(resp);
     }
 }

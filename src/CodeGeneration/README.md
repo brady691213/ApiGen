@@ -15,6 +15,7 @@ templates.
 
 ## Tasks - Now
 
+- TASKT: Replace hardcoding with parameters
 - TASKT: Do Endpoint
 - TASKT: Do MyResponse class
 - TASKT: User `Write` for all file ops and check names.
@@ -39,7 +40,8 @@ templates.
 - Check all optional params - remove where uncertain.
 - Proofread MD and XML documentation. 
 
-- TASKT: Currentyl logging as if files were created even for dry runs. Mark as different.
+- TASKT: Use entity types for ep and dto names and types.
+- TASKT: Currently logging as if files were created even for dry runs. Mark as different.
 - Detailed and careful logging to console.
 - Guard clauses all over - but these throw exceptions
 - Keep using nested Result functions and types as a goal.
