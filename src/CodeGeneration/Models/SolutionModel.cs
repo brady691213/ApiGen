@@ -1,4 +1,6 @@
-﻿namespace CodeGenerators;
+﻿using CodeGenerators.Models;
+
+namespace CodeGenerators;
 
 public class SolutionModel(string solutionName, List<ProjectModel>? projectModels = null)
 {

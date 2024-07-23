@@ -1,3 +1,8 @@
+- TASKT: More logging!
+- TASKT: More tests!
+- TASKT: Make sut's provide constants for expected values.
+- TASKT: Add metadata to csproj files describing purpose. Helps testing.
+- TASKT: Fix `dryRun` option in helloworld. Currently using negated value from `writeFiles`
 - TASKT: All codedom expression building done by my builders for testing
 - TASKT: Currently logging as if files were created even for dry runs. Mark as different.
 - TASKT: Review README, stay sane and just fix incorrect names, remove unfinished stuff to wip files.

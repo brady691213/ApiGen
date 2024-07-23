@@ -1,24 +1,21 @@
 using CodeGenerators;
-using CodeGenerators.Applications;
-using Rascal;
+using CodeGenerators.Models;
 using Shouldly;
 using Xunit;
 
-namespace CodeGeneratorTests;
+namespace CodeGeneratorTests.FastEndpoints;
 
-public class FeGeneratorTests: IClassFixture<GeneratedSolutionFixture>
+public class FastEndpointsGeneratorTests: IClassFixture<FastEndpointsSolutionFixture>
 {
     private const string SolutionName = "FastEndpoints";
     private const string SolutionOutputLocation = @"C:\Users\brady\projects\ApiGen\test-output";
     
-    // TASKT: These values must be provided by the gen project
-    string projectName = $"{SolutionName}.Api";
     string apiNamespace = $"{SolutionName}.Api";
 
     private readonly SolutionModel _solutionModel;
     
     // ReSharper disable once ConvertToPrimaryConstructor
-    public FeGeneratorTests(GeneratedSolutionFixture solutionFixture)
+    public FastEndpointsGeneratorTests(FastEndpointsSolutionFixture solutionFixture)
     {
         solutionFixture.RemoveGeneratedSolution = false;
         _solutionModel = solutionFixture.SolutionModel;

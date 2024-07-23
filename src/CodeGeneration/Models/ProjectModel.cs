@@ -1,11 +1,11 @@
 ﻿using System.Reflection;
 
-namespace CodeGenerators;
+namespace CodeGenerators.Models;
 
 public class ProjectModel(string projectName, string? templateName = null, List<CodeArtifactModel>? codeFileModels = null)
 {
     // Temp until I sort out why packahe refs in standard template aren't rendering properly.
-    public string TemplateName { get; set; } = templateName ?? "ProjectFile";
+    public string TemplateName { get; set; } = templateName ?? "ProjectFile.csproj";
     
     public Guid ProjectId { get; } = Guid.NewGuid();
     

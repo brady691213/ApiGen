@@ -7,16 +7,17 @@ using ILogger = Serilog.ILogger;
 
 namespace CodeGenerators.Applications;
 
-public class ConsoleAppGenerator(ILogger logger)
+public class ConsoleAppGenerator()
 {
+    private readonly ILogger _logger = Log.ForContext<FastEndpointAppGenerator>();
+
     private readonly ClassBuilder _classBuilder = new();
 
     /// <summary>
     /// Build a console application that prints "Hello, World!" from the `Main` entry point in class `Program`.
     /// </summary>
-    public Result<SolutionModel> GenerateHelloWorldSolution(string outputDirectory, bool dryRun = false)
+    public Result<SolutionModel> GenerateHelloWorldSolution(string solutionName, string outputDirectory, bool dryRun = false)
     {
-        var solutionName = "HelloWorld";
         var programResult = GenerateProgramClass(solutionName);
         if (programResult.IsError)
         {
@@ -27,7 +28,7 @@ public class ConsoleAppGenerator(ILogger logger)
         
         var projectModel = new ProjectModel($"{solutionName}.Console");
 
-        var solutionGenerator = new SolutionGenerator(logger);
+        var solutionGenerator = new SolutionGenerator(_logger);
         var solutionModel = new SolutionModel(solutionName, [projectModel]);
         var result = solutionGenerator.GenerateSolution(solutionModel, outputDirectory, dryRun);
 
@@ -35,7 +36,7 @@ public class ConsoleAppGenerator(ILogger logger)
         {
             var hasErr = result.TryGetError(out var error);
             Debug.Assert(error != null, nameof(error) + " != null");
-            logger.Error("Failed to generate Hello World app: {ErrorMessage}", error.Message);
+            _logger.Error("Failed to generate Hello World app: {ErrorMessage}", error.Message);
             return error;
         }
 

@@ -1,4 +1,5 @@
 ﻿using CodeGenerators.Errors;
+using CodeGenerators.Models;
 using CodeGenerators.Templates;
 
 namespace CodeGenerators.Applications;
