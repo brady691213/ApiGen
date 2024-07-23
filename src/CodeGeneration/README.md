@@ -5,6 +5,10 @@ Builders for C# code rely on the Code Document Object Model, or [CodeDom](https:
 mechanism, and other builders, such as for projects, solutions, and other non-code artifacts, use [Scriban](https://github.com/scriban/scriban) 
 templates. 
 
+## Bugs
+
+- Each test calls generate solution
+
 ## Goals
 
 - 15:00 - FE example endpoint running 

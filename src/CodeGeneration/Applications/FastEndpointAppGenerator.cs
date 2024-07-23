@@ -40,7 +40,7 @@ public class FastEndpointAppGenerator
         var response = BuildResponseDto();
         var endpoint = BuildEndpoint();
         
-        var projectModel = new ProjectModel(projectName, templateName, [progModel, endpoint]);//, request, response]);
+        var projectModel = new ProjectModel(projectName, templateName, [progModel, endpoint, request, response]);//, request, response]);
         projectModel.PackageReferences.Add(new PackageReferenceModel("FastEndpoints", "5.27.0.12-beta"));
         projectModel.PackageReferences.Add(new PackageReferenceModel("Microsoft.AspNetCore.OpenApi", "8.0.7"));
         projectModel.PackageReferences.Add(new PackageReferenceModel("Swashbuckle.AspNetCore", "6.4.0"));
