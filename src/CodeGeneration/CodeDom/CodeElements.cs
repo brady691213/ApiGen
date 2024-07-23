@@ -14,17 +14,25 @@ public class CodeElements
     /// A <see cref="CodeMemberField"/> for the property's backing field
     /// and a <see cref="CodeMemberProperty"/> with explicit <c>get</c> and <c>set</c> accessors.
     /// </returns>
-    public static CodeTypeMember[] PropertyDec(Type type, string name, bool isVirtual = false)
+    public static CodeTypeMember[] BuildPropertyDec(PropertyModel model)
     {
+        return BuildPropertyDec(model.PropertyType, model.Name, model.IsVirtual);
+    }
+    
+    private static CodeTypeMember[] BuildPropertyDec(Type type, string name, bool isVirtual = false)
+    {
+        // TASKT: Make first alpha lower case.
         var fieldName = $"_{name}";
         var backing = new CodeMemberField(type.FullName, fieldName);
 
-        var prop = new CodeMemberProperty();
-        prop.Name = name;
-        prop.Type = new CodeTypeReference(type);
-        
-        // Default to final and only make virtual if needed.
-        prop.Attributes = MemberAttributes.Public | MemberAttributes.Final;
+        var prop = new CodeMemberProperty
+        {
+            Name = name,
+            Type = new CodeTypeReference(type),
+            // Default to final and only make virtual if needed.
+            Attributes = MemberAttributes.Public | MemberAttributes.Final
+        };
+
         if (isVirtual)
         {
             prop.Attributes &= ~MemberAttributes.Final;
@@ -34,15 +42,7 @@ public class CodeElements
         return [backing, prop];
     }
     
-    /// <summary>
-    /// Builds a <c>WebApplicationBuilder</c> typed variable declaration named <c><paramref name="builderName"/></c>
-    /// </summary>
-    public static CodeVariableDeclarationStatement WebAppBuilderDec(string builderName)
-    {
-        var valueExp = BuildMethodCallExpression(typeof(WebApplication), "CreateBuilder", []);
-        var dec = new CodeVariableDeclarationStatement(typeof(WebApplicationBuilder), builderName, valueExp);
-        return dec;
-    }
+
     
     /// <summary>
     /// Builds an expression to access the <c>Services</c> property of the variable referenced by <paramref name="builderVariable"/>
@@ -86,16 +86,7 @@ public class CodeElements
         return mxs;
     }
     
-    /// <summary>
-    /// Builds a statement that declares the WebApplication instance used in startup code.
-    /// </summary>
-    public static CodeVariableDeclarationStatement InitAppVar(string appVarName, string builderVarName)
-    {
-        var builderExp = new CodeVariableReferenceExpression(builderVarName);
-        var valueExp = BuildMethodCallExpression(builderExp, "Build", []);
-        var dec = new CodeVariableDeclarationStatement(typeof(WebApplication), appVarName, valueExp);
-        return dec;
-    }
+
     
     /// <summary>
     /// Builds a statement that declares the WebApplication instance used in startup code.

@@ -1,8 +1,12 @@
 ﻿namespace CodeGenerators.Models;
 
-public record PropertyModel(string TypeAlias, string Name)
+public record PropertyModel(Type PropertyType, string Name, bool IsReadonly = false, bool IsVirtual = false)
 {
-    public string TypeAlias { get; set; } = TypeAlias;
+    public Type PropertyType { get; set; } = PropertyType;
 
     public string Name { get; set; } = Name;
+
+    public bool IsReadonly { get; set; } = IsReadonly;
+
+    public bool IsVirtual { get; set; } = IsVirtual;
 }

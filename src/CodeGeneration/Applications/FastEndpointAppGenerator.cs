@@ -3,6 +3,7 @@ using CodeGenerators.Builders;
 using CodeGenerators.CodeDom;
 using CodeGenerators.Errors;
 using CodeGenerators.Models;
+using Microsoft.AspNetCore.Builder;
 
 namespace CodeGenerators.Applications;
 
@@ -78,10 +79,10 @@ public class FastEndpointAppGenerator
         var builderVarName = "builder";
         var appVarName = "app";
         
-        var builderDec = CodeElements.WebAppBuilderDec(builderVarName);
+        var builderDec = BuildWebAppBuilderDec(builderVarName);
         var addFastEndpoints = CodeElements.InvokeServiceCollectionMethod(builderVarName,"AddFastEndpoints");
         
-        var appDec = CodeDom.CodeElements.InitAppVar(appVarName, builderVarName);
+        var appDec = BuildAppVarDec(appVarName, builderVarName);
         var useFastEndpoints = CodeElements.GetMethodInvocation(appVarName, "UseFastEndpoints", []);
         var run = CodeElements.GetMethodInvocation(appVarName, "Run", []);
 
@@ -112,8 +113,8 @@ public class FastEndpointAppGenerator
         _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildResponseDto));
 
         var model = new CodeArtifactModel("MyResponse", dtoNamespace);
-        model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "FullName"));
-        model.Members.AddRange(CodeElements.PropertyDec(typeof(bool), "IsOver18"));
+        model.Members.AddRange(CodeElements.BuildPropertyDec(new PropertyModel(typeof(string), "FullName")));
+        model.Members.AddRange(CodeElements.BuildPropertyDec(new PropertyModel(typeof(bool), "IsOver18")));
         var dto = _builder.BuildTypeForClass(model);
         var code = _generator.GenerateCodeForType(dto, dtoNamespace);
         
@@ -127,13 +128,34 @@ public class FastEndpointAppGenerator
         _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildRequestDto));
 
         var model = new CodeArtifactModel("MyRequest", dtoNamespace);
-        model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "FirstName"));
-        model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "LastName"));
-        model.Members.AddRange(CodeElements.PropertyDec(typeof(int), "Age"));
+        model.Members.AddRange(CodeElements.BuildPropertyDec( new PropertyModel(typeof(string), "FirstName")));
+        model.Members.AddRange(CodeElements.BuildPropertyDec(new PropertyModel(typeof(string), "LastName")));
+        model.Members.AddRange(CodeElements.BuildPropertyDec(new PropertyModel(typeof(int), "Age")));
         var dto = _builder.BuildTypeForClass(model);
         var code = _generator.GenerateCodeForType(dto, dtoNamespace);
         
         _logger.Debug("Finished BuildOperation {BuildOperation} with code {GeneratedCode}", nameof(BuildRequestDto), code);
         return code;
+    }
+    
+    /// <summary>
+    /// Builds a statement for <c>WebApplicationBuilder builder;;</c>, but with variable names from parameters.
+    /// </summary>
+    private static CodeVariableDeclarationStatement BuildWebAppBuilderDec(string builderName)
+    {
+        var valueExp = CodeElements.BuildMethodCallExpression(typeof(WebApplication), "CreateBuilder", []);
+        var dec = new CodeVariableDeclarationStatement(typeof(WebApplicationBuilder), builderName, valueExp);
+        return dec;
+    }
+    
+    /// <summary>
+    /// Builds a statement for <c>WebApplication app = builder.Build();</c>, but with variable names from parameters.
+    /// </summary>
+    private static CodeVariableDeclarationStatement BuildAppVarDec(string appVarName, string builderVarName)
+    {
+        var builderExp = new CodeVariableReferenceExpression(builderVarName);
+        var valueExp = CodeElements.BuildMethodCallExpression(builderExp, "Build", []);
+        var dec = new CodeVariableDeclarationStatement(typeof(WebApplication), appVarName, valueExp);
+        return dec;
     }
 }

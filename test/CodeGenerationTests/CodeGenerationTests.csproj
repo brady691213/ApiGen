@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\CodeGeneration\CodeGeneration.csproj" />
+      <ProjectReference Include="..\..\src\Reflection\Reflection.csproj" />
     </ItemGroup>
 
     <ItemGroup>
