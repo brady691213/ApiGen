@@ -1,0 +1,21 @@
+- TASKT: All codedom expression building done by my builders for testing
+- TASKT: Currently logging as if files were created even for dry runs. Mark as different.
+- TASKT: Review README, stay sane and just fix incorrect names, remove unfinished stuff to wip files.
+- TASKT: Generalize `BuildHelloWorldApp` into `BuildConsoleApp`
+- TASKT: Element builders for properties
+- TASKT: Element builders for parameters
+- TASKT: Element builders for statements
+- TASKT: Store real file paths in project and solution models and use models as types for Result.
+- TASKT: Get `Type` without needing a reference and `typeof` etc.
+- TASKT: XML documentation
+- TASKT: Evaluate all log output for generating Hello + Fe
+- TASKT: Check behaviour for exceptions with files etc.
+- TASKT: Some comments in generated code.
+- TASKT: Look at visibility, mayeb too many publics
+- TASKT: Tests for options on PropertyModels
+- TASKT: Backing field names start with lowerCase.
+- TASKT: Replace hardcoding with parameters
+- TASKT: Use  CodeArtifactModel as input for code generators.
+- TASKT: Use CodeArtifactModel for Result returns for feedback on generate tasks
+- TASKT: Tests for errors - like bad output location etc.
+

@@ -19,60 +19,38 @@ templates.
 
 ## Tasks - Now
 
-- TASKT: All codedom expression building done by my builders for testing
-- TASKT: Tests for errors - like bad output location etc.
-- TASKT: Use  CodeArtifactModel as input for code generators.
-- TASKT: Use CodeArtifactModel for Result returns for feedback on generate tasks
+
 - TASKT: Unit tests for all codedom expression/statement builders
-- TASKT: Replace hardcoding with parameters
 
 - TASKT: Work on primitive obsession. Too many plain strings and lists of strings, too easy to swap. 
-- TASKT: Tests for options on PropertyModels
-- TASKT: Backing field names start with lowerCase.
 - TASKT: Use an entity type to build ep and dtos.
 - TASKT: How to get types without referencing assemblies.
-- TASKT: Use `CodeSnippetTypeMember` for auto-props.
-- TASKT: Look at visibility, mayeb too many publics
 - TASKT: Separate Build and Generate on solutions and projects. Better testing.
-- TASKT: Some comments in generated code.
 - TASKT: Some blank lines in generated code. 
 - TASKT: Establish features, namespace per feature
 - TASKT: Use list of ep/dto/entity etc.
 - TASKT: Introduce data service into api generation = no mapping/validation
-- TASKT: Check behaviour for exceptions with files etc.
-- TASKT: Evaluate all log output for generating Hello + Fe
 - TASKT: Decide whether to make `System` a required or a default import for generating code.
 - TASKT: Do I attempt dir and file creation for dry runs?
 - TASKT: Group expression builders by type, e.g. properties, local variables etc.
-- TASKT: Start on Class Library
 - Use Rascal Errors more.
 - Use statics where OK
 - Tests for builders and generators
 - Check all optional params - remove where uncertain.
-- Proofread MD and XML documentation. 
-- - TASKT: Check behavior for generic console app.  Without hello in Main
 
 
-- BuildMainMethod, BuildProgramClass into a builder class.
+- TASKT: Use `CodeSnippetTypeMember` for auto-props.
+- TASKT: Start on Class Library
+- TASKT: Check behavior for generic console app.  Without hello in Main
 - TASKT: Use entity types for ep and dto names and types.
-- TASKT: Currently logging as if files were created even for dry runs. Mark as different.
 - Detailed and careful logging to console.
 - Guard clauses all over - but these throw exceptions
 - Keep using nested Result functions and types as a goal.
-- Move app specific CodeDom functions into `Application` namespace then make CodeDom functions more generic.
-- StatementModel and BuildCodeStatement.
-- Get `Type` without needing a reference and `typeof` etc.
-- Store real file paths in project and solution models and use models as types for Result.
 - Compiler suggestion at `CodeExpression[] parameters = ParameterBuilder.ModelsToExpressions(paramModels);`
 - Use facade models more.
 - Logging to other sinks like Windows Event Log and file.
 - Look at more stateful classes for builders, cut down on noisy param lists.
-- Make builder method params optional and use known defaults
 - Make cli app a dotnet tool.
-- Element builders for properties
-- Element builders for parameters
-- Element builders for statements
-- Generalize `BuildHelloWorldApp` into `BuildConsoleApp`
 - Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
 - Benchmarks
 
