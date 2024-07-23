@@ -53,6 +53,8 @@ templates.
 - Make cli app a dotnet tool.
 - Remove 'by a tool' comments using regex: `\/\/.*[\s\S]*?\/\/.*`
 - Benchmarks
+- - TASKT: Add metadata to csproj files describing purpose. Helps testing.
+
 
 ### Benchmarks
 

@@ -21,7 +21,7 @@ public class ConsoleSolutionFixture: IDisposable
     
     private SolutionModel GenerateApiSolution()
     {        
-        var solutionResult = _generator.GenerateHelloWorldSolution(SolutionName, SolutionOutputLocation, writeFiles: WriteFiles);
+        var solutionResult = _generator.GenerateConsoleAppSolution(SolutionName, SolutionOutputLocation, writeFiles: WriteFiles);
         if (!solutionResult.IsOk)
             throw new TestClassException("Solution not generated");
         return solutionResult.Unwrap();

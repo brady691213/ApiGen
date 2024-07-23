@@ -13,6 +13,7 @@ public class FastEndpointsMethods
     public static CodeMemberMethod BuildMainMethod()
     {
         Logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildMainMethod));
+        
         var builderVarName = "builder";
         var appVarName = "app";
         
