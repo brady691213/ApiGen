@@ -19,8 +19,8 @@ public class BuildConsoleAppCommand: OaktonCommand<InputForBuildConsoleApp>
     {
         Log.Logger.Information($"Building started for console application. Source files will be written to {input.OutputDirectory}.");
 
-        var generator = new ConsoleAppGenerator(Log.Logger);
-        var result = generator.GenerateHelloWorldSolution(input.OutputDirectory);
+        var generator = new ConsoleAppGenerator();
+        var result = generator.GenerateConsoleAppSolution(input.SolutionName, input.OutputDirectory, !input.DryRun);
         
         Log.Logger.Information($"Building completed for console application. Source written to {input.OutputDirectory}.");
         

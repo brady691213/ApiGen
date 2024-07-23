@@ -64,7 +64,7 @@ public class FastEndpointAppGenerator
 
         // var ns = new CodeNamespace(apiNamespace);
         // ns.Types.Add(programClass);
-        var code = _generator.GenerateCodeForType(programClass, apiNamespace, usings: ["Microsoft.AspNetCore.Builder", "FastEndpoints"]);
+        var code = _generator.GenerateCodeForClass(programClass, apiNamespace, usings: ["Microsoft.AspNetCore.Builder", "FastEndpoints"]);
 
         _logger.Debug("Finished {GenerateOperation} with code {GeneratedCode}", nameof(GenerateProgramClass), code);
         
@@ -78,7 +78,7 @@ public class FastEndpointAppGenerator
         _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildEndpoint));
 
         var endpoint = EndpointBuilder.BuildEndpointClass("MyEndpoint", "MyRequest", "MyResponse");
-        var code = _generator.GenerateCodeForType(endpoint, epNamespace);
+        var code = _generator.GenerateCodeForClass(endpoint, epNamespace);
         
         _logger.Debug("Finished BuildOperation {BuildOperation} with code {GeneratedCode}", nameof(BuildEndpoint), code);
 
@@ -93,7 +93,7 @@ public class FastEndpointAppGenerator
         model.Members.AddRange(CodeElements.BuildPropertyDec(new PropertyModel(typeof(string), "FullName")));
         model.Members.AddRange(CodeElements.BuildPropertyDec(new PropertyModel(typeof(bool), "IsOver18")));
         var dto = _builder.BuildTypeForClass(model);
-        var code = _generator.GenerateCodeForType(dto, dtoNamespace);
+        var code = _generator.GenerateCodeForClass(dto, dtoNamespace);
         
         _logger.Debug("Finished BuildOperation {BuildOperation} with code {GeneratedCode}", nameof(BuildResponseDto), code);
 
@@ -109,7 +109,7 @@ public class FastEndpointAppGenerator
         model.Members.AddRange(CodeElements.BuildPropertyDec(new PropertyModel(typeof(string), "LastName")));
         model.Members.AddRange(CodeElements.BuildPropertyDec(new PropertyModel(typeof(int), "Age")));
         var dto = _builder.BuildTypeForClass(model);
-        var code = _generator.GenerateCodeForType(dto, dtoNamespace);
+        var code = _generator.GenerateCodeForClass(dto, dtoNamespace);
         
         _logger.Debug("Finished BuildOperation {BuildOperation} with code {GeneratedCode}", nameof(BuildRequestDto), code);
         return code;

@@ -19,7 +19,7 @@ public class CodeArtifactModel(string className, string? codeNamespace = null, s
     /// Namespace that a class belongs to.
     /// </summary>
     public string? Namespace { get; set; } = codeNamespace;
-    
+
     /// <summary>
     /// Namespaces required by a class. 
     /// </summary>
@@ -29,13 +29,14 @@ public class CodeArtifactModel(string className, string? codeNamespace = null, s
     /// because implicit usings depend on how this code is compiled.
     /// </remarks>
     public List<string> Imports { get; set; } = ["System"];
-    
+
     public CodeTypeMemberCollection Members { get; set; } = [];
-    
-    
+
     private TypeAttributes classAttributes = TypeAttributes.Public;
 
+    public CodeTypeDeclaration ClassDeclaration { get; set; }
+    
     public string FileName { get; set; } = fileName ?? $"{className}.cs";
 
-    public string? Content { get; set; } 
+    public string? Content { get; set; }
 }

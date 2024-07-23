@@ -1,6 +1,3 @@
-- TASKT: More logging!
-- TASKT: More tests!
-- TASKT: Make sut's provide constants for expected values.
 - TASKT: All codedom expression building done by my builders for testing
 - TASKT: Currently logging as if files were created even for dry runs. Mark as different.
 - TASKT: Review README, stay sane and just fix incorrect names, remove unfinished stuff to wip files.

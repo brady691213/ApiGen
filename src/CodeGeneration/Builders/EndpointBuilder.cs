@@ -36,7 +36,7 @@ public class EndpointBuilder
         return handleAsync;
     }
     
-    public static CodeTypeDeclaration BuildEndpointClass(string endpointName, string requestType, string responseType)
+    public static CodeArtifactModel BuildEndpointClass(string endpointName, string requestType, string responseType)
     {
         var baseType = new CodeTypeDeclaration("Endpoint");
         baseType.TypeParameters.Add(new CodeTypeParameter(requestType));
@@ -51,8 +51,11 @@ public class EndpointBuilder
         epDec.IsClass = true;
         epDec.Members.Add(cfg);
         epDec.Members.Add(handle);
+
+        var model = new CodeArtifactModel(endpointName);
+        model.ClassDeclaration = epDec;
         
-        return epDec;
+        return model;
     }
 
     // TASKT: Factor out to type builder

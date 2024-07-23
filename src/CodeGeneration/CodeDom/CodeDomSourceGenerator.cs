@@ -20,19 +20,19 @@ public class CodeDomSourceGenerator
     };
 
     /// <summary>
-    /// Generates C# code for a <see cref="CodeTypeDeclaration"/>.
+    /// Generates C# code for a class model.
     /// </summary>
-    public CodeArtifactModel GenerateCodeForType(CodeTypeDeclaration classType, string? namespaceName = null, List<string>? usings =  null)
+    public CodeArtifactModel GenerateCodeForClass(CodeArtifactModel classModel, string? namespaceName = null, List<string>? usings =  null)
     {
         var compileUnit = new CodeCompileUnit();
-        var compileNamespace = namespaceName ?? classType.Name;
+        var compileNamespace = namespaceName ?? classModel.ClassName;
         var codeNamespace = BuildNamespace(compileNamespace, usings);
-        codeNamespace.Types.Add(classType);
+        codeNamespace.Types.Add(classModel.ClassDeclaration);
         compileUnit.Namespaces.Add(codeNamespace);
         
         using var sourceWriter = new StringWriter();
         _provider.GenerateCodeFromCompileUnit(compileUnit, sourceWriter, _generatorOptions);
-        var code = new CodeArtifactModel(classType.Name, compileNamespace);
+        var code = new CodeArtifactModel(classModel.ClassName, compileNamespace);
         code.Content = sourceWriter.ToString();
         return code;
     }

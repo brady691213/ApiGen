@@ -60,11 +60,11 @@ public class ConsoleAppGenerator()
         classModel.Members.Add(mainMethod);
 
         var programDec = _classBuilder.BuildTypeForClass(classModel);
-        var codeNamespace = Namespaces.BuildCodeNamespace(mainNamespace);
-        codeNamespace.Types.Add(programDec);
+        //var codeNamespace = Namespaces.BuildCodeNamespace(mainNamespace);
+        //codeNamespace.Types.Add(programDec);
 
         var generator = new CodeDomSourceGenerator();
-        var fileModel = generator.GenerateCodeForType(programDec, mainNamespace);
+        var fileModel = generator.GenerateCodeForClass(programDec, mainNamespace);
 
         Logger.Debug("Finished {GenerateOperation} with code {GeneratedCode}", nameof(GenerateProgramClass), fileModel.Content);
         
