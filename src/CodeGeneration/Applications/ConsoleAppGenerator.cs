@@ -11,6 +11,7 @@ public class ConsoleAppGenerator()
 {
     private readonly ILogger _logger = Log.ForContext<FastEndpointAppGenerator>();
 
+    private readonly string _templateName = "ProjectFile.csproj";
     private readonly ClassBuilder _classBuilder = new();
 
     /// <summary>
@@ -26,7 +27,7 @@ public class ConsoleAppGenerator()
         }
         var programModel = programResult.Unwrap();
         
-        var projectModel = new ProjectModel($"{solutionName}.Console");
+        var projectModel = new ProjectModel($"{solutionName}.Console", _templateName, [programModel]);
 
         var solutionGenerator = new SolutionGenerator(_logger);
         var solutionModel = new SolutionModel(solutionName, [projectModel]);
@@ -67,6 +68,4 @@ public class ConsoleAppGenerator()
 
         return fileModel;
     }
-    
-
 }

@@ -1,4 +1,5 @@
 ﻿using CodeGenerators;
+using CodeGenerators.Models;
 using Shouldly;
 using Xunit;
 
@@ -7,6 +8,7 @@ namespace CodeGeneratorTests.ConsoleApp;
 public class ConsoleGeneratorTests: IClassFixture<ConsoleSolutionFixture>
 {
     private const string SolutionName = "HelloWorld";
+    private string MainProjectName = $"{SolutionName}.Console";
     private const string SolutionOutputLocation = @"C:\Users\brady\projects\ApiGen\test-output";
     private const string ApiNamespace = SolutionName;
     
@@ -19,10 +21,24 @@ public class ConsoleGeneratorTests: IClassFixture<ConsoleSolutionFixture>
     }
 
     [Fact]
-    public void SolutionHasProjectModel()
+    public void SolutionHasMainProjectModel()
     {
-        var projectName = $"{SolutionName}.Console";
-        var projModel = _solutionModel.ProjectModels.FirstOrDefault(p => p.ProjectName == projectName);
+        var projModel = _solutionModel.ProjectModels.FirstOrDefault(p => p.ProjectName == MainProjectName);
         projModel.ShouldNotBeNull();
+    }
+    
+    [Fact]
+    public void MainProjectHasProgramFile()
+    {
+        var projModel = GetMainProjectModel();
+        var progFile = projModel.CodeModels.FirstOrDefault(c => c.FileName == "Program.cs");
+        progFile.ShouldNotBeNull();
+    }
+    
+    private ProjectModel GetMainProjectModel()
+    {
+        var projModel = _solutionModel.ProjectModels.FirstOrDefault(p => p.ProjectName == MainProjectName);
+        projModel.ShouldNotBeNull();
+        return projModel;
     }
 }

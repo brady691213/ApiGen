@@ -7,7 +7,7 @@ templates.
 
 ## Bugs
 
-- Missing imports for FE ep.
+- TASKB: Console main project model has no code models.
 
 ## Goals
 
