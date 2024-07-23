@@ -67,8 +67,7 @@ public class EntityReflector
             throw new FileNotFoundException($"Assembly not found at path: {assemblyPath}");
         }
 
-        var loader = new AssemblyLoader();
-        var assembly = loader.LoadAssembly(assemblyPath);
+        var assembly = AssemblyLoader.LoadAssembly(assemblyPath);
         
         // TASKQ: Why isn't this working with `&& typeof(DbContext).IsAssignableFrom(t)`?
         //var dbContextType = assembly.GetTypes().FirstOrDefault(t => t.Name == dbContextName && typeof(DbContext).IsAssignableFrom(t));

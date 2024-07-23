@@ -1,5 +1,4 @@
-﻿using System.CodeDom;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using CodeGenerators.Builders;
 using CodeGenerators.CodeDom;
 using CodeGenerators.Errors;
@@ -47,8 +46,7 @@ public class ConsoleAppGenerator(ILogger logger)
     {
         var classModel = new CodeArtifactModel("Program", mainNamespace);
 
-        var helloStatement = BuildHelloWorldStatement();
-        var mainResult = BuildMainMethod([helloStatement]);
+        var mainResult = ConsoleAppMethods.BuildMainMethod();
         if (mainResult.IsError)
         {
             var msg = RascalErrors.ErrorMessage(mainResult);
@@ -60,7 +58,7 @@ public class ConsoleAppGenerator(ILogger logger)
 
         var programDec = _classBuilder.BuildTypeForClass(classModel);
 
-        var codeNamespace = new CodeNamespace();
+        var codeNamespace = Namespaces.BuildCodeNamespace(mainNamespace);
         codeNamespace.Types.Add(programDec);
 
         var generator = new CodeDomSourceGenerator();
@@ -68,32 +66,6 @@ public class ConsoleAppGenerator(ILogger logger)
 
         return fileModel;
     }
-
-    /// <summary>
-    /// Builds a <see cref="CodeMemberMethod"/> that defines a <c>Main</c> entry point method for an application.
-    /// </summary>
-    private Result<CodeMemberMethod> BuildMainMethod(CodeStatementCollection statements)
-    {
-        // TASKT: Call from app builder not from BuildProgramClass
-        ParameterModel[] parameters = [new ParameterModel(typeof(string[]), "args")];
-        var main = _classBuilder.BuildMethodDec("Main", parameters, statements, MemberAttributes.Static | MemberAttributes.Public);
-        return main;
-    }
     
-    /// <summary>
-    /// Builds a <see cref="CodeMethodInvokeExpression"/> that defines the following code:
-    /// <code>
-    /// System.Console.WriteLine("Hello, world!");
-    /// </code>
-    /// </summary>
-    private CodeMethodInvokeExpression BuildHelloWorldStatement()
-    {
-        var argsParam = new ParameterModel(typeof(string[]), "args");
-        var stmt = _classBuilder.BuildMethodCall(typeof(Console), "WriteLine", [argsParam]);
-        var statement = CodeElements.BuildMethodCallExpression(
-            typeof(Console), 
-            "WriteLine",
-            [new CodePrimitiveExpression("Hello, world")]);
-        return statement;
-    }
+
 }

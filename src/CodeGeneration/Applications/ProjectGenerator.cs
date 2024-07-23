@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using CodeGenerators.Errors;
+﻿using CodeGenerators.Errors;
 using CodeGenerators.Templates;
 
 namespace CodeGenerators.Applications;

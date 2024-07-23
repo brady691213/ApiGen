@@ -21,13 +21,13 @@ templates.
 
 - TASKT: All codedom expression building done by my builders for testing
 - TASKT: Tests for errors - like bad output location etc.
-- TASKT: Avoid passing class name and filename to models.
 - TASKT: Use  CodeArtifactModel as input for code generators.
 - TASKT: Use CodeArtifactModel for Result returns for feedback on generate tasks
 - TASKT: Unit tests for all codedom expression/statement builders
 - TASKT: Replace hardcoding with parameters
 
-- TASKT: Tests for options on PropertModels
+- TASKT: Work on primitive obsession. Too many plain strings and lists of strings, too easy to swap. 
+- TASKT: Tests for options on PropertyModels
 - TASKT: Backing field names start with lowerCase.
 - TASKT: Use an entity type to build ep and dtos.
 - TASKT: How to get types without referencing assemblies.

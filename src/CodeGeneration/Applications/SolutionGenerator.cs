@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics;
-using CodeGenerators.Applications;
 using CodeGenerators.Errors;
 using CodeGenerators.Templates;
 
-namespace CodeGenerators;
+namespace CodeGenerators.Applications;
 
 public class SolutionGenerator(ILogger logger)
 {

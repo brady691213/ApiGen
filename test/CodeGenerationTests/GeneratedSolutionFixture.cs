@@ -12,6 +12,7 @@ public class GeneratedSolutionFixture: IDisposable
     internal string SolutionName = "FastEndpoints";
     internal string SolutionOutputLocation = @"C:\Users\brady\projects\ApiGen\test-output";
 
+    internal bool WriteFiles { get; set; } = true;
     internal bool RemoveGeneratedSolution { get; set; } = true;
     
     internal SolutionModel SolutionModel { get; private set; }
@@ -36,7 +37,7 @@ public class GeneratedSolutionFixture: IDisposable
     
     private SolutionModel GenerateApiSolution()
     {        
-        var solutionResult = _generator.GenerateApiSolution(SolutionName, SolutionOutputLocation, writeFiles: true);
+        var solutionResult = _generator.GenerateApiSolution(SolutionName, SolutionOutputLocation, writeFiles: WriteFiles);
         if (!solutionResult.IsOk)
             throw new TestClassException("Solution not generated");
         //solutionResult.IsOk.ShouldBeTrue($"Result of {nameof(FastEndpointAppGenerator.GenerateApiSolution)} is not OK");

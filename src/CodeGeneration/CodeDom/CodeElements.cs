@@ -42,7 +42,6 @@ public class CodeElements
         return [backing, prop];
     }
     
-
     
     /// <summary>
     /// Builds an expression to access the <c>Services</c> property of the variable referenced by <paramref name="builderVariable"/>

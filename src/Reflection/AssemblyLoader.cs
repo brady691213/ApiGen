@@ -17,7 +17,7 @@ public class AssemblyLoader
     /// without actually referencing the assembly and thus loading it into the runtime.
     /// <see cref="https://learn.microsoft.com/en-us/dotnet/standard/assembly/inspect-contents-using-metadataloadcontext">Inspect assembly contents using MetadataLoadContext</see>
     /// </remarks>
-    public Assembly LoadAssembly(string assemblyPath)
+    public static Assembly LoadAssembly(string assemblyPath)
     {
         string[] runtimeAssemblies = Directory.GetFiles(RuntimeEnvironment.GetRuntimeDirectory(), "*.dll");
         var paths = new List<string>(runtimeAssemblies);

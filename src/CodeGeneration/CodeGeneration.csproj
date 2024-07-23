@@ -33,4 +33,8 @@
       <Compile Remove="TypeBuilder.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Reflection\Reflection.csproj" />
+    </ItemGroup>
+
 </Project>
