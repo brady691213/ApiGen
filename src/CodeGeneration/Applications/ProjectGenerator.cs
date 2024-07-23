@@ -51,7 +51,7 @@ public class ProjectGenerator(ILogger logger)
             File.WriteAllText(filePath, projectXml);
             // TASKT: Wrap in Try
         }
-        model.CodeFileModels.Add(new CodeFileModel("Project", projectXml));
+        model.CodeFileModels.Add(new CodeFileModel("Project", projectXml, null));
 
         logger.Debug("Created project file at {ProjectFilePath}", filePath);
         return Ok(model);

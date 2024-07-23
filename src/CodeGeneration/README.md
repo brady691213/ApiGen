@@ -8,8 +8,7 @@ templates.
 ## Bugs
 
 - No method name for HandleAsync
-- Initialise `resp` variable in HandleAsyn
-- Each test calls generate solution
+- Initialise `resp` variable in HandleAsync
 - Missing imports for FE ep and dtos
 - Bad namespaces: classname is used as ns name for dtos and endpoints
 
@@ -23,12 +22,16 @@ templates.
 
 ## Tasks - Now
 
+- Shared root namespace value between gen and tests
+- Pass ep name to build
 - TASKT: All codedom expression building done by my builders for testing
 - TASKT: Unit tests for all codedom expression/statement builders
 - TASKT: Replace hardcoding with parameters
 - TASKT: Establish shared namespace for FE generator. Don't want to default to class name because many classes.
 - BuildMainMethod, BuildProgramClass into a builder class.
 
+- TASKT: Merge `CodeFileModel` and `ClassModel` + other type models
+- TASKT: Establish features, namespace per feature
 - Use list of ep/dto/entity etc.
 - TASKT: Introduce data service into api generation = no mapping/validation
 - TASKT: Check behaviour for exceptions with files etc.

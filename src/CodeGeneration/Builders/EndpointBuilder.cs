@@ -13,7 +13,7 @@ public class EndpointBuilder
         var req = new CodeParameterDeclarationExpression(requestType, "req");
         var ct = new CodeParameterDeclarationExpression(typeof(CancellationToken), "ct");
 
-        var respDec = new CodeVariableDeclarationStatement(responseType, "resp");
+        var respDec = new CodeVariableDeclarationStatement(responseType, "resp", new CodeObjectCreateExpression(responseType));
         
         var respRef = new CodeVariableReferenceExpression("resp");
         var respAss = new CodeAssignStatement(
@@ -21,18 +21,19 @@ public class EndpointBuilder
             FullNameFromReq(new CodeArgumentReferenceExpression("req")));
         var send = new CodeSnippetStatement("await SendAsync(resp);");
 
-        var handle = new CodeMemberMethod
+        var handleAsync = new CodeMemberMethod
         {
+            Name = "HandleAsync",
             Attributes = MemberAttributes.Override | MemberAttributes.Public,
             ReturnType = new CodeTypeReference($"async {typeof(Task)}")
         };
-        handle.Parameters.Add(req);
-        handle.Parameters.Add(ct);
-        handle.Statements.Add(respDec);
-        handle.Statements.Add(respAss);
-        handle.Statements.Add(send);
+        handleAsync.Parameters.Add(req);
+        handleAsync.Parameters.Add(ct);
+        handleAsync.Statements.Add(respDec);
+        handleAsync.Statements.Add(respAss);
+        handleAsync.Statements.Add(send);
         
-        return handle;
+        return handleAsync;
     }
     
     public static CodeTypeDeclaration BuildEndpointClass(string endpointName, string requestType, string responseType)

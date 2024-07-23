@@ -35,7 +35,7 @@ public class GeneratedSolutionFixture: IDisposable
     
     private SolutionModel GenerateApiSolution()
     {        
-        var solutionResult = _generator.GenerateApiSolution(SolutionName, SolutionOutputLocation, writeFiles: true);
+        var solutionResult = _generator.GenerateApiSolution(SolutionName, SolutionOutputLocation, writeFiles: false);
         solutionResult.IsOk.ShouldBeTrue($"Result of {nameof(FastEndpointAppGenerator.GenerateApiSolution)} is not OK");
         return solutionResult.Unwrap();
     }

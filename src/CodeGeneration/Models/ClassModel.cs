@@ -16,8 +16,8 @@ public class ClassModel(string className)
     /// <summary>
     /// Namespace that a class belongs to.
     /// </summary>
-    public string? NamespaceName { get; set; } = null;
-    
+    public string? ClassNamespace { get; set; } = null;
+
     /// <summary>
     /// Namespaces required by a class. 
     /// </summary>

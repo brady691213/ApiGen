@@ -27,8 +27,9 @@ public class FastEndpointAppGenerator
         
         // For now, we just use the solution name as a project name and path.
         var projectName = $"{solutionName}.Api";
+        var apiNamespace = projectName;
         
-        var progResult = GenerateProgramClass();
+        var progResult = GenerateProgramClass(projectName);
         if (progResult.IsError)
         {
             var msg = RascalErrors.ErrorMessage(progResult);
@@ -36,15 +37,14 @@ public class FastEndpointAppGenerator
         }
         var progModel = progResult.Unwrap();
         
-        var request = BuildRequestDto();
-        var response = BuildResponseDto();
-        var endpoint = BuildEndpoint();
+        var request = BuildRequestDto(apiNamespace);
+        var response = BuildResponseDto(apiNamespace);
+        var endpoint = BuildEndpoint(apiNamespace);
         
         var projectModel = new ProjectModel(projectName, templateName, [progModel, endpoint, request, response]);//, request, response]);
         projectModel.PackageReferences.Add(new PackageReferenceModel("FastEndpoints", "5.27.0.12-beta"));
         projectModel.PackageReferences.Add(new PackageReferenceModel("Microsoft.AspNetCore.OpenApi", "8.0.7"));
         projectModel.PackageReferences.Add(new PackageReferenceModel("Swashbuckle.AspNetCore", "6.4.0"));
-
         
         var slnModel = new SolutionModel(solutionName, [projectModel]);
 
@@ -53,7 +53,7 @@ public class FastEndpointAppGenerator
         return slnResult;
     }
 
-    private Result<CodeFileModel> GenerateProgramClass()
+    private Result<CodeFileModel> GenerateProgramClass(string apiNamespace)
     {
         _logger.Verbose("Starting {GenerateOperation}", nameof(GenerateProgramClass));
         
@@ -63,9 +63,9 @@ public class FastEndpointAppGenerator
         
         var programClass = _builder.BuildTypeForClass(model);
 
-        var ns = new CodeNamespace();
+        var ns = new CodeNamespace(apiNamespace);
         ns.Types.Add(programClass);
-        var code = _generator.GenerateCodeForType(programClass, usings: ["Microsoft.AspNetCore.Builder", "FastEndpoints"]);
+        var code = _generator.GenerateCodeForType(programClass, apiNamespace, usings: ["Microsoft.AspNetCore.Builder", "FastEndpoints"]);
 
         _logger.Debug("Finished {GenerateOperation} with code {GeneratedCode}", nameof(GenerateProgramClass), code);
         
@@ -95,19 +95,19 @@ public class FastEndpointAppGenerator
         return main;
     }
 
-    private CodeFileModel BuildEndpoint()
+    private CodeFileModel BuildEndpoint(string epNamespace)
     {
         _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildEndpoint));
 
         var endpoint = EndpointBuilder.BuildEndpointClass("MyEndpoint", "MyRequest", "MyResponse");
-        var code = _generator.GenerateCodeForType(endpoint);
+        var code = _generator.GenerateCodeForType(endpoint, epNamespace);
         
         _logger.Debug("Finished BuildOperation {BuildOperation} with code {GeneratedCode}", nameof(BuildEndpoint), code);
 
         return code;
     }
 
-    private CodeFileModel BuildResponseDto()
+    private CodeFileModel BuildResponseDto(string dtoNamespace)
     {
         _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildResponseDto));
 
@@ -115,14 +115,14 @@ public class FastEndpointAppGenerator
         model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "FullName"));
         model.Members.AddRange(CodeElements.PropertyDec(typeof(bool), "IsOver18"));
         var dto = _builder.BuildTypeForClass(model);
-        var code = _generator.GenerateCodeForType(dto);
+        var code = _generator.GenerateCodeForType(dto, dtoNamespace);
         
         _logger.Debug("Finished BuildOperation {BuildOperation} with code {GeneratedCode}", nameof(BuildResponseDto), code);
 
         return code;
     }
     
-    private CodeFileModel BuildRequestDto()
+    private CodeFileModel BuildRequestDto(string dtoNamespace)
     {
         _logger.Verbose("Starting BuildOperation {BuildOperation}", nameof(BuildRequestDto));
 
@@ -131,7 +131,7 @@ public class FastEndpointAppGenerator
         model.Members.AddRange(CodeElements.PropertyDec(typeof(string), "LastName"));
         model.Members.AddRange(CodeElements.PropertyDec(typeof(int), "Age"));
         var dto = _builder.BuildTypeForClass(model);
-        var code = _generator.GenerateCodeForType(dto);
+        var code = _generator.GenerateCodeForType(dto, dtoNamespace);
         
         _logger.Debug("Finished BuildOperation {BuildOperation} with code {GeneratedCode}", nameof(BuildRequestDto), code);
         return code;
